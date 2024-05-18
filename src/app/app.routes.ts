@@ -14,6 +14,6 @@ export const routes: Routes = [
       import('./layouts/main/main.routing.module').then(
         (m) => m.MainRoutingModule,
       ),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];
