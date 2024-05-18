@@ -1,0 +1,155 @@
+{
+  "Menu": {
+    "unit": "Unit",
+    "task": "Task",
+    "info": "Channel Information",
+    "name": "Names",
+    "email": "Email",
+    "Mobile": "Mobile",
+    "subscribe": "Subscribe Now",
+    "setting": "Setting",
+    "individual": "Individual",
+    "otherTasks": "Other Tasks",
+    "home": "Home"
+  },
+  "UnitItem": { "unfinished": "Unfinished" },
+  "PopUpAddEditUnit": {
+    "unitName": "Unit Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "manager": "Manager",
+    "member": "Members",
+    "description": "Description",
+    "noEmty": "No Emty",
+    "enterDescription": "Enter description"
+  },
+  "Button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "addTaskForUnit": "Add Task For Unit",
+    "addSubUnitForUnit": "Add SubUnit For Unit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "createQuickTask": "Quickly Create Task ",
+    "no": "No",
+    "yes": "Yes",
+    "addMember": "Add Member",
+    "close": "Close",
+    "register": "Register",
+    "confirm": "Confirm"
+  },
+  "PopUpAddEditTask": {
+    "taskName": "Task Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "manager": "Manager",
+    "member": "Members",
+    "description": "Description",
+    "noEmty": "No Emty",
+    "enterDescription": "Enter description",
+    "priorityLevel": "Priority level",
+    "priorityHigh": "High",
+    "priorityMedium": "Medium",
+    "priorityLow": "Low",
+    "deadline": "Deadline",
+    "TaskInfor": "Task Infor",
+    "enterTaskInfor": "Enter task infor",
+    "listSubTask": "List Sub Task"
+  },
+  "PopUpEditTaskHistory": {
+    "editTaskHistory": "Edit Task History"
+  },
+  "PopUpAddEditObject": {
+    "object": "Object",
+    "target": "Target",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "manager": "Manager",
+    "member": "Members",
+    "description": "Description",
+    "noEmty": "No Emty",
+    "enterDescription": "Enter description",
+    "priorityLevel": "Priority level",
+    "priorityHigh": "High",
+    "priorityMedium": "Medium",
+    "priorityLow": "Low",
+    "deadline": "Deadline"
+  },
+  "PopUpAddEditKeyResult": {
+    "keyResult": "Key Result",
+    "scale": "Scale",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "manager": "Manager",
+    "member": "Members",
+    "description": "Description",
+    "noEmty": "No Emty",
+    "enterDescription": "Enter description",
+    "priorityLevel": "Priority level",
+    "priorityHigh": "High",
+    "priorityMedium": "Medium",
+    "priorityLow": "Low",
+    "deadline": "Deadline"
+  },
+  "PopUpRegister": {
+    "register": "Register",
+    "username": "Username",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "password": "Password",
+    "rePass": "Re-enter password",
+    "noEmty": "No Emty",
+    "notMatch": "Password Is Not Match",
+    "wrongPhoneNumber": "Wrong Phone Number"
+  },
+  "PopUpForgotPassword": {
+    "forgotPassword": "Forgot Password",
+    "reciveOTP": "Receive OTP code via",
+    "phoneNumber": "Phone Number"
+  },
+  "PopUpInsertOTP": {
+    "insertOTP": "Insert OTP Code",
+    "Haventreceivedthecode": "Haven't received the code?",
+    "resend": " Resend"
+  },
+  "PopUpChangePassword": {
+    "newPassword": "New Password",
+    "rePass": "Re-enter password"
+  },
+  "PopUpChangeGroup": {
+    "editGroup": "Edit Group"
+  },
+  "Login": {
+    "username": "Username",
+    "password": "Password",
+    "forgotPass": "Forgot password?",
+    "login": "Login",
+    "loginWith": "Login With",
+    "registerAccount": "Register Account",
+    "noEmty": "No Emty",
+    "userNamePlaceholder": "User Name/Email/Phone Number"
+  },
+  "Toast": {
+    "createSuccess": "Create Success",
+    "updateSuccess": "Update Success",
+    "deleteSuccess": "Delete Success",
+    "DueDate": "DueDate must >= current date",
+    "AlerEmail": "You cannot verify your account via email if left blank",
+    "AlerPhoneNumber": "You cannot verify your account via phone number if left blank",
+    "notify": "Notification",
+    "confirmDelete": "Confirm Delete"
+  },
+
+  "item": {
+    "yourTask": "Your Task",
+    "no": "No"
+  },
+  "modal": {
+    "doYouWantCreateSubUnit": "Do you want to create subunit?"
+  }
+}

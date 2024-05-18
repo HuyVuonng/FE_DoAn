@@ -1,0 +1,43 @@
+@use "@angular/material" as mat;
+@use "palette";
+
+@include mat.core();
+
+$my-primary: mat.define-palette(palette.$my-palette, A800);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: -2,
+  )
+);
+
+@include mat.all-component-themes($my-theme);
+.mdc-notched-outline__notch {
+  border: 1px solid #01579b4d !important;
+  border-right: none !important;
+}
+.mdc-notched-outline__leading {
+  border: 1px solid #01579b4d !important;
+  border-right: none !important;
+}
+.mdc-notched-outline__trailing {
+  border: 1px solid #01579b4d !important;
+  border-left: none !important;
+}
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+.ng-select .ng-select-container.ng-appearance-outline {
+  padding: 0 !important;
+  min-height: 38px;
+}
+.mat-mdc-form-field-infix {
+  width: 100% !important;
+}
