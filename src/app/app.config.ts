@@ -31,14 +31,6 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
-const firebaseConfig = {
-  apiKey: 'AIzaSyCZet-Z0nObrxeOwDjgvWAMXpo3gQJ8zLI',
-  authDomain: 'webbandongho-91eee.firebaseapp.com',
-  projectId: 'webbandongho-91eee',
-  storageBucket: 'webbandongho-91eee.appspot.com',
-  messagingSenderId: '258186288702',
-  appId: '1:258186288702:web:f81e4828e995607066fb6f',
-};
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -55,7 +47,7 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
     { provide: NZ_I18N, useValue: vi_VN },
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideStorage(() => getStorage()),
     importProvidersFrom(
       TranslateModule.forRoot({
