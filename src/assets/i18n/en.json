@@ -86,6 +86,15 @@
     "city": "City",
     "district": "District",
     "priceRange": "Price range",
-    "acreage": "Acreage"
+    "acreage": "Acreage",
+    "all": "All",
+    "below1Milions": "Below 1 Milions",
+    "1MilionsTo2Milions": "1-2 Milions",
+    "2MilionsTo4Milions": "2-4 Milions",
+    "4MilionsTo6Milions": "4-6 Milions",
+    "6MilionsTo8Milions": "6-8 Milions",
+    "8MilionsTo10Milions": "8-10 Milions",
+    "over10Milions": "Over 10 Milions",
+    "deal": "Deal"
   }
 }

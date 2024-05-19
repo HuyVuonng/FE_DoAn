@@ -85,6 +85,15 @@
     "city": "Thành phố",
     "district": "Quận",
     "priceRange": "Khoảng giá",
-    "acreage": "Diện tích"
+    "acreage": "Diện tích",
+    "all": "Tất cả",
+    "below1Milions": "Dưới 1 triệu",
+    "1MilionsTo2Milions": "1-2 triệu",
+    "2MilionsTo4Milions": "2-4 triệu",
+    "4MilionsTo6Milions": "4-6 triệu",
+    "6MilionsTo8Milions": "6-8 triệu",
+    "8MilionsTo10Milions": "8-10 triệu",
+    "over10Milions": "Trên 10 triệu",
+    "deal": "Thỏa thuận"
   }
 }

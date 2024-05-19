@@ -62,8 +62,8 @@
             <mat-form-field class="custom-input col-span-1" appearance="outline">
               <mat-label>{{'labelInput.priceRange' | translate}}</mat-label>
               <mat-select formControlName="priceRange">
-                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
-                  {{ district.label }}
+                <mat-option *ngFor="let priceRange of listPriceRange" [value]="priceRange.value">
+                  {{ priceRange.label }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
