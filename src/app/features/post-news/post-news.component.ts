@@ -49,7 +49,7 @@ export class PostNewsComponent implements OnInit {
   public form: FormGroup = this.fb.group({
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
-    zalo: [null, phoneNumberValidator()],
+    zalo: [null, [phoneNumberValidator()]],
     city: [null, Validators.required],
     district: [null, Validators.required],
     ward: [null, Validators.required],

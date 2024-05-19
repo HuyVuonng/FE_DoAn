@@ -5,36 +5,30 @@
             <form [formGroup]="form" class="grid grid-cols-2 mt-3 gap-3">
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.owner' | translate}}</mat-label>
-                    <input formControlName="Owner" matInput />
+                    <input formControlName="owner" matInput />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.phoneNumber' | translate}}</mat-label>
-                    <input formControlName="phoneNumber" matInput />
+                    <input formControlName="phoneNumber" maxlength="10" matInput />
                     <mat-error
                         *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
                         class="text-red-600">
                         {{'postPage.required'| translate}}
                     </mat-error>
-                    <mat-error
-                        *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
-                        class="text-red-600">
+                    <mat-error *ngIf="form.get('phoneNumber')?.errors?.['phoneNumberCheck']" class="text-red-600">
                         {{'PopUpRegister.wrongPhoneNumber'|translate}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">Zalo</mat-label>
-                    <input formControlName="zalo" matInput />
-                    <mat-error
-                        *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
-                        class="text-red-600">
-                        {{'postPage.required'| translate}}
-                    </mat-error>
-                    <mat-error
-                        *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
+                    <input formControlName="zalo" matInput maxlength="10" />
+
+                    <mat-error *ngIf="form.get('zalo')?.value>0 &&form.get('zalo')?.errors?.['phoneNumberCheck']"
                         class="text-red-600">
                         {{'PopUpRegister.wrongPhoneNumber'|translate}}
                     </mat-error>
+
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
