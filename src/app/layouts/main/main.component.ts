@@ -10,7 +10,13 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
@@ -37,6 +43,7 @@ import {
   taskIcon,
 } from '../../shared/components/iconAntd/iconAddOnAntd.component';
 import { AuthService } from '../../core/api/auth.service';
+import { AddressService } from '../../core/services/address.service';
 
 @Component({
   selector: 'app-main',
@@ -60,6 +67,7 @@ import { AuthService } from '../../core/api/auth.service';
     FormsModule,
     TabComponent,
     TranslateModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -92,11 +100,18 @@ export class MainComponent implements OnInit {
   lengthTab: number = 5;
   deviceType: string;
 
+  public form: FormGroup = this.fb.group({
+    city: [null],
+    district: [null],
+  });
+
   constructor(
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
     private iconService: NzIconService,
     private authService: AuthService,
+    private addressService: AddressService,
+    private fb: FormBuilder,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -146,7 +161,25 @@ export class MainComponent implements OnInit {
     this.userName = JSON.parse(
       localStorage.getItem('id_token_claims_obj') || '{}',
     )?.name;
+
+    this.getListProvince();
     MainComponent.getData();
+  }
+
+  listCity: any;
+  listDistrict: any;
+  getListProvince() {
+    this.addressService.getCities().subscribe((data) => {
+      this.listCity = data;
+    });
+    const provinceControl = this.form.get('city') as FormControl;
+    provinceControl.valueChanges.subscribe((value) => {
+      this.addressService.getDistricts(value).subscribe((data) => {
+        this.listDistrict = data;
+      });
+      this.form.get('district')?.reset();
+      this.form.get('district')?.setValue(null);
+    });
   }
   changeTab(index: number) {
     this.tabActive = index;

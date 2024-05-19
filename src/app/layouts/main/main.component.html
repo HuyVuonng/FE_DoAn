@@ -1,23 +1,36 @@
-<nz-layout class="min-h-full">
+<nz-layout class="min-h-full ">
   <nz-layout class="bg-white">
-    <nz-header class="bg-white h-10 my-2 pl-2">
+    <nz-header class="bg-white  my-2">
       <ng-container>
-        <div class="w-full flex items-center justify-between h-full gap-x-2">
-          <button (click)="isCollapsed = !isCollapsed" nzType="link" nzSize="large" nz-button>
-            <span class="text-primary" nz-icon nzType="menu" nzTheme="outline"></span>
-          </button>
+        <div class=" w-[1200px] m-auto flex items-center justify-between h-full gap-x-2">
+          <div class="flex gap-3 items-center"> <img class="size-16" src="../../../assets/img/logoWeb.png" alt="logo"
+              srcset="">
+            <span class="h-fit text-[24px] text-primary font-bold">{{'Menu.titleWeb'| translate}}</span>
+          </div>
           <div class="flex gap-3">
-            <div class="flex items-center">
-              <i class="fa-regular fa-bell icon mr-[15px]"></i>
+            <div class="flex items-center gap-4">
+              <!-- <i class="fa-regular fa-bell icon mr-[15px]"></i>
 
               <div class="flex items-center space-x-2 justify-center rounded-full w-10 h-10 relative">
                 <img src="assets/img/avatar.png" class="rounded-full w-10 h-10" alt="" />
                 <div class="rounded-full w-2 h-2 bg-green-600 absolute bottom-0 right-0  translate-y-[-50%]">
                 </div>
               </div>
+
               <div class="flex items-center space-x-2 ml-2 justify-center">
                 <span class="font-[500] text-[16px]">Nguyễn Đặng Hùng</span>
+              </div> -->
+              <div class="flex gap-3">
+                <button class="hover:text-primary">{{'Button.login' | translate}}</button>
+                <button class="hover:text-primary">{{'Button.register' | translate}}</button>
+                <button class="hover:text-primary">{{'Button.post' | translate}}</button>
               </div>
+              <div
+                class=" rounded-[50%] size-[25px] text-[12px] cursor-pointer !border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
+                <span *ngIf="language==='vi'" (click)="changeLanguage('en')" class="select-none">VN</span>
+                <span *ngIf="language==='en'" (click)="changeLanguage('vi')" class="select-none">EN</span>
+              </div>
+
             </div>
           </div>
         </div>
@@ -26,7 +39,46 @@
     <nz-content>
       <div class=" border-t border-solid border-primary h-full">
 
-        <router-outlet></router-outlet>
+        <div class=" w-[1200px] m-auto">
+          <form [formGroup]="form" class="grid grid-cols-4 mt-3 gap-3">
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+              <mat-label>{{'labelInput.city'| translate}}</mat-label>
+              <mat-select formControlName="city">
+                <mat-option *ngFor="let city of listCity" [value]="city.value">
+                  {{ city.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+              <mat-label>{{'labelInput.district' | translate}}</mat-label>
+              <mat-select formControlName="district">
+                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                  {{ district.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+              <mat-label>{{'labelInput.priceRange' | translate}}</mat-label>
+              <mat-select formControlName="priceRange">
+                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                  {{ district.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+              <mat-label>{{'labelInput.acreage' | translate}}</mat-label>
+              <mat-select formControlName="acreage">
+                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                  {{ district.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </nz-content>
     <!-- <nz-footer clas></nz-footer> -->

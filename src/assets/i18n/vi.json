@@ -1,6 +1,6 @@
 {
   "Menu": {
-    "unit": "Đơn vị",
+    "titleWeb": "Ngân hàng nhà trọ",
     "task": "Công việc",
     "info": "Channel Information",
     "name": "Names",
@@ -12,18 +12,7 @@
     "otherTasks": "Công việc khác",
     "home": "Trang chủ"
   },
-  "UnitItem": { "unfinished": "Chưa hoàn thành" },
-  "PopUpAddEditUnit": {
-    "unitName": "Tên dự án",
-    "startDate": "Ngày bắt đầu",
-    "endDate": "Ngày kết thúc",
-    "status": "Trạng thái",
-    "manager": "Quản lý",
-    "member": "Thành viên",
-    "description": "Mô tả",
-    "noEmty": "Không bỏ trống trường này",
-    "enterDescription": "Nhập mô tả"
-  },
+
   "Button": {
     "save": "Lưu",
     "cancel": "Huỷ bỏ",
@@ -38,64 +27,11 @@
     "addMember": "Thêm thành viên",
     "close": "Đóng",
     "register": "Đăng ký",
+    "login": "Đăng nhập",
+    "post": "Đăng tin",
     "confirm": "Xác nhận"
   },
-  "PopUpAddEditTask": {
-    "taskName": "Tên công việc",
-    "startDate": "Ngày bắt đầu",
-    "endDate": "Ngày kết thúc",
-    "status": "Trạng thái",
-    "manager": "Quản lý",
-    "member": "Thành viên",
-    "description": "Mô tả",
-    "noEmty": "Không bỏ trống trường này",
-    "enterDescription": "Nhập mô tả",
-    "priorityLevel": "Mức độ ưu tiên",
-    "priorityHigh": "Cao",
-    "priorityMedium": "Vừa",
-    "priorityLow": "Thấp",
-    "deadline": "Hạn chót",
-    "TaskInfor": "Thông tin công việc",
-    "enterTaskInfor": "Nhập thông tin công việc",
-    "listSubTask": "Danh sách task phụ"
-  },
-  "PopUpEditTaskHistory": {
-    "editTaskHistory": "Lịch sử chỉnh sửa"
-  },
-  "PopUpAddEditObject": {
-    "object": "Đối tượng",
-    "target": "Mục tiêu",
-    "startDate": "Ngày bắt đầu",
-    "endDate": "Ngày kết thúc",
-    "status": "Trạng thái",
-    "manager": "Quản lý",
-    "member": "Thành viên",
-    "description": "Mô tả",
-    "noEmty": "Không bỏ trống trường này",
-    "enterDescription": "Nhập mô tả",
-    "priorityLevel": "Mức độ ưu tiên",
-    "priorityHigh": "Cao",
-    "priorityMedium": "Vừa",
-    "priorityLow": "Thấp",
-    "deadline": "Hạn chót"
-  },
-  "PopUpAddEditKeyResult": {
-    "keyResult": "Kết quả then chốt",
-    "scale": "Thang đo",
-    "startDate": "Ngày bắt đầu",
-    "endDate": "Ngày kết thúc",
-    "status": "Trạng thái",
-    "manager": "Quản lý",
-    "member": "Thành viên",
-    "description": "Mô tả",
-    "noEmty": "Không bỏ trống trường này",
-    "enterDescription": "Nhập mô tả",
-    "priorityLevel": "Mức độ ưu tiên",
-    "priorityHigh": "Cao",
-    "priorityMedium": "Vừa",
-    "priorityLow": "Thấp",
-    "deadline": "Hạn chót"
-  },
+
   "PopUpRegister": {
     "register": "Đăng ký",
     "username": "Tên đăng nhập",
@@ -112,18 +48,12 @@
     "reciveOTP": "Nhận mã OTP qua",
     "phoneNumber": "Số điện thoại"
   },
-  "PopUpInsertOTP": {
-    "insertOTP": "Nhập mã OTP",
-    "Haventreceivedthecode": "Chưa nhận được mã?",
-    "resend": "Gửi lại"
-  },
+
   "PopUpChangePassword": {
     "newPassword": "Mật khẩu mới",
     "rePass": "Nhập lại mật khẩu"
   },
-  "PopUpChangeGroup": {
-    "editGroup": "Chỉnh sửa nhóm"
-  },
+
   "Login": {
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
@@ -150,5 +80,11 @@
   },
   "modal": {
     "doYouWantCreateSubUnit": "Bạn có muốn tạo subunit không?"
+  },
+  "labelInput": {
+    "city": "Thành phố",
+    "district": "Quận",
+    "priceRange": "Khoảng giá",
+    "acreage": "Diện tích"
   }
 }

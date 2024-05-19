@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
   @apply text-textColor;
 }
 @layer utilities {
@@ -26,5 +26,13 @@ body {
     svg {
       fill: none;
     }
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
   }
 }

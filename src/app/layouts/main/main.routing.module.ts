@@ -11,14 +11,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: '',
         pathMatch: 'full',
       },
       {
-        path: 'home',
+        path: '',
         loadChildren: () =>
           import('../../features/home/home.routing.module').then(
             (m) => m.HomeRoutingModule,
+          ),
+        // title: 'Unit',
+      },
+      {
+        path: 'postNews',
+        loadComponent: () =>
+          import('../../features/post-news/post-news.component').then(
+            (m) => m.PostNewsComponent,
           ),
         // title: 'Unit',
       },

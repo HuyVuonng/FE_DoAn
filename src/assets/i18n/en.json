@@ -1,6 +1,6 @@
 {
   "Menu": {
-    "unit": "Unit",
+    "titleWeb": "Hostel bank",
     "task": "Task",
     "info": "Channel Information",
     "name": "Names",
@@ -12,18 +12,7 @@
     "otherTasks": "Other Tasks",
     "home": "Home"
   },
-  "UnitItem": { "unfinished": "Unfinished" },
-  "PopUpAddEditUnit": {
-    "unitName": "Unit Name",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "status": "Status",
-    "manager": "Manager",
-    "member": "Members",
-    "description": "Description",
-    "noEmty": "No Emty",
-    "enterDescription": "Enter description"
-  },
+
   "Button": {
     "save": "Save",
     "cancel": "Cancel",
@@ -38,64 +27,11 @@
     "addMember": "Add Member",
     "close": "Close",
     "register": "Register",
+    "login": "Login",
+    "post": "Post",
     "confirm": "Confirm"
   },
-  "PopUpAddEditTask": {
-    "taskName": "Task Name",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "status": "Status",
-    "manager": "Manager",
-    "member": "Members",
-    "description": "Description",
-    "noEmty": "No Emty",
-    "enterDescription": "Enter description",
-    "priorityLevel": "Priority level",
-    "priorityHigh": "High",
-    "priorityMedium": "Medium",
-    "priorityLow": "Low",
-    "deadline": "Deadline",
-    "TaskInfor": "Task Infor",
-    "enterTaskInfor": "Enter task infor",
-    "listSubTask": "List Sub Task"
-  },
-  "PopUpEditTaskHistory": {
-    "editTaskHistory": "Edit Task History"
-  },
-  "PopUpAddEditObject": {
-    "object": "Object",
-    "target": "Target",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "status": "Status",
-    "manager": "Manager",
-    "member": "Members",
-    "description": "Description",
-    "noEmty": "No Emty",
-    "enterDescription": "Enter description",
-    "priorityLevel": "Priority level",
-    "priorityHigh": "High",
-    "priorityMedium": "Medium",
-    "priorityLow": "Low",
-    "deadline": "Deadline"
-  },
-  "PopUpAddEditKeyResult": {
-    "keyResult": "Key Result",
-    "scale": "Scale",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "status": "Status",
-    "manager": "Manager",
-    "member": "Members",
-    "description": "Description",
-    "noEmty": "No Emty",
-    "enterDescription": "Enter description",
-    "priorityLevel": "Priority level",
-    "priorityHigh": "High",
-    "priorityMedium": "Medium",
-    "priorityLow": "Low",
-    "deadline": "Deadline"
-  },
+
   "PopUpRegister": {
     "register": "Register",
     "username": "Username",
@@ -112,18 +48,12 @@
     "reciveOTP": "Receive OTP code via",
     "phoneNumber": "Phone Number"
   },
-  "PopUpInsertOTP": {
-    "insertOTP": "Insert OTP Code",
-    "Haventreceivedthecode": "Haven't received the code?",
-    "resend": " Resend"
-  },
+
   "PopUpChangePassword": {
     "newPassword": "New Password",
     "rePass": "Re-enter password"
   },
-  "PopUpChangeGroup": {
-    "editGroup": "Edit Group"
-  },
+
   "Login": {
     "username": "Username",
     "password": "Password",
@@ -151,5 +81,11 @@
   },
   "modal": {
     "doYouWantCreateSubUnit": "Do you want to create subunit?"
+  },
+  "labelInput": {
+    "city": "City",
+    "district": "District",
+    "priceRange": "Price range",
+    "acreage": "Acreage"
   }
 }

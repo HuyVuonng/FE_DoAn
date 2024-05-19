@@ -1,6 +1,4 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 // :host ::ng-deep {
 //   .ant-menu-item-selected {
 //     background-color: #0EAF8F !important;
@@ -11,6 +9,7 @@
 //     }
 //   }
 // }
+
 .menu-item {
   font-size: 14px;
 }
