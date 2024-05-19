@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="grid grid-cols-4 mt-3 gap-3">
     <mat-form-field class="custom-input col-span-1" appearance="outline">
-        <mat-label>{{'labelInput.city'| translate}}</mat-label>
+        <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
         <mat-select formControlName="city">
             <mat-option *ngFor="let city of listCity" [value]="city.value">
                 {{ city.label }}
@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <mat-form-field class="custom-input col-span-1" appearance="outline">
-        <mat-label>{{'labelInput.district' | translate}}</mat-label>
+        <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
         <mat-select formControlName="district">
             <mat-option *ngFor="let district of listDistrict" [value]="district.value">
                 {{ district.label }}
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field class="custom-input col-span-1" appearance="outline">
-        <mat-label>{{'labelInput.priceRange' | translate}}</mat-label>
+        <mat-label class="bg-white">{{'labelInput.priceRange' | translate}}</mat-label>
         <mat-select formControlName="priceRange">
             <mat-option *ngFor="let priceRange of listPriceRange" [value]="priceRange.value">
                 {{ priceRange.label }}
@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field class="custom-input col-span-1" appearance="outline">
-        <mat-label>{{'labelInput.acreage' | translate}}</mat-label>
+        <mat-label class="bg-white">{{'labelInput.acreage' | translate}}</mat-label>
         <mat-select formControlName="acreage">
             <mat-option *ngFor="let acreage of listAcreage" [value]="acreage.value">
                 {{ acreage.label }}
