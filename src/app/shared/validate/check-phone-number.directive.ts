@@ -15,8 +15,6 @@ export function phoneNumberValidator(): ValidatorFn {
         forbidden = false;
       }
     }
-    console.log(forbidden);
-
     return forbidden ? null : { phoneNumberCheck: { value: control.value } };
   };
 }

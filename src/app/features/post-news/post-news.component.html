@@ -24,8 +24,7 @@
                     <mat-label class="bg-white">Zalo</mat-label>
                     <input formControlName="zalo" matInput maxlength="10" />
 
-                    <mat-error *ngIf="form.get('zalo')?.value>0 &&form.get('zalo')?.errors?.['phoneNumberCheck']"
-                        class="text-red-600">
+                    <mat-error *ngIf="form.get('zalo')?.errors?.['phoneNumberCheck']" class="text-red-600">
                         {{'PopUpRegister.wrongPhoneNumber'|translate}}
                     </mat-error>
 
