@@ -55,7 +55,6 @@ import { AddressService } from '../../core/services/address.service';
     NzMenuModule,
     NzButtonModule,
     NzSelectModule,
-    ReactiveFormsModule,
     NzIconModule,
     NzSkeletonModule,
     NzLayoutModule,
@@ -100,29 +99,11 @@ export class MainComponent implements OnInit {
   lengthTab: number = 5;
   deviceType: string;
 
-  public form: FormGroup = this.fb.group({
-    city: [0],
-    district: [0],
-    acreage: [null],
-    priceRange: [0],
-  });
-  labelAll: string;
-  labelBelow1Milion: string;
-  label1MilionsTo2Milions: string;
-  label2MilionsTo4Milions: string;
-  label4MilionsTo6Milions: string;
-  label6MilionsTo8Milions: string;
-  label8MilionsTo10Milions: string;
-  labelOver10Milions: string;
-  labelDeal: string;
-
   constructor(
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
     private iconService: NzIconService,
     private authService: AuthService,
-    private addressService: AddressService,
-    private fb: FormBuilder,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -159,8 +140,6 @@ export class MainComponent implements OnInit {
     this.iconService.addIconLiteral('arrowsUpIcon:antd', arrowsUpIcon);
     this.iconService.addIconLiteral('arrowsDownIcon:antd', arrowsDownIcon);
     this.iconService.addIconLiteral('logoutIcon:antd', logoutIcon);
-
-    this.translatelabelSelectInput();
   }
   count: number;
   ngOnInit(): void {
@@ -174,143 +153,9 @@ export class MainComponent implements OnInit {
     this.userName = JSON.parse(
       localStorage.getItem('id_token_claims_obj') || '{}',
     )?.name;
-
-    this.getListValue();
     MainComponent.getData();
   }
 
-  listCity: any = [];
-  listDistrict: any = [];
-  listPriceRange: any = [];
-  getListValue() {
-    this.addressService.getCities().subscribe((data) => {
-      this.listCity = data;
-      this.listCity.unshift({ label: this.labelAll, value: 0 });
-      this.listDistrict = [];
-      this.listDistrict.push({ label: this.labelAll, value: 0 });
-    });
-    this.addressService
-      .getDistricts(this.form.get('city')?.value)
-      .subscribe((data) => {
-        this.listDistrict = data;
-        this.listDistrict.unshift({ label: this.labelAll, value: 0 });
-        this.form.patchValue({ district: 0 });
-      });
-    const provinceControl = this.form.get('city') as FormControl;
-    provinceControl.valueChanges.subscribe((value) => {
-      this.addressService.getDistricts(value).subscribe((data) => {
-        this.listDistrict = data;
-        this.listDistrict.unshift({ label: this.labelAll, value: 0 });
-        this.form.patchValue({ district: 0 });
-      });
-      this.form.get('district')?.reset();
-      this.form.get('district')?.setValue(null);
-    });
-
-    this.listPriceRange = [
-      {
-        label: this.labelAll,
-        value: 0,
-      },
-      {
-        label: this.labelBelow1Milion,
-        value: 1,
-      },
-      {
-        label: this.label1MilionsTo2Milions,
-        value: 2,
-      },
-      {
-        label: this.label2MilionsTo4Milions,
-        value: 3,
-      },
-      {
-        label: this.label4MilionsTo6Milions,
-        value: 4,
-      },
-      {
-        label: this.label6MilionsTo8Milions,
-        value: 5,
-      },
-      {
-        label: this.label8MilionsTo10Milions,
-        value: 6,
-      },
-      {
-        label: this.labelOver10Milions,
-        value: 7,
-      },
-      {
-        label: this.labelDeal,
-        value: 8,
-      },
-    ];
-  }
-
-  translatelabelSelectInput() {
-    this.translate
-      .get('labelInput.all')
-      .subscribe((value) => (this.labelAll = value));
-    this.translate
-      .get('labelInput.below1Milions')
-      .subscribe((value) => (this.labelBelow1Milion = value));
-    this.translate
-      .get('labelInput.1MilionsTo2Milions')
-      .subscribe((value) => (this.label1MilionsTo2Milions = value));
-    this.translate
-      .get('labelInput.2MilionsTo4Milions')
-      .subscribe((value) => (this.label2MilionsTo4Milions = value));
-    this.translate
-      .get('labelInput.4MilionsTo6Milions')
-      .subscribe((value) => (this.label4MilionsTo6Milions = value));
-    this.translate
-      .get('labelInput.6MilionsTo8Milions')
-      .subscribe((value) => (this.label6MilionsTo8Milions = value));
-    this.translate
-      .get('labelInput.8MilionsTo10Milions')
-      .subscribe((value) => (this.label8MilionsTo10Milions = value));
-
-    this.translate
-      .get('labelInput.over10Milions')
-      .subscribe((value) => (this.labelOver10Milions = value));
-
-    this.translate
-      .get('labelInput.deal')
-      .subscribe((value) => (this.labelDeal = value));
-
-    this.translate.onLangChange.subscribe((e) => {
-      this.translate
-        .get('labelInput.all')
-        .subscribe((value) => (this.labelAll = value));
-      this.translate
-        .get('labelInput.below1Milions')
-        .subscribe((value) => (this.labelBelow1Milion = value));
-      this.translate
-        .get('labelInput.1MilionsTo2Milions')
-        .subscribe((value) => (this.label1MilionsTo2Milions = value));
-      this.translate
-        .get('labelInput.2MilionsTo4Milions')
-        .subscribe((value) => (this.label2MilionsTo4Milions = value));
-      this.translate
-        .get('labelInput.4MilionsTo6Milions')
-        .subscribe((value) => (this.label4MilionsTo6Milions = value));
-      this.translate
-        .get('labelInput.6MilionsTo8Milions')
-        .subscribe((value) => (this.label6MilionsTo8Milions = value));
-      this.translate
-        .get('labelInput.8MilionsTo10Milions')
-        .subscribe((value) => (this.label8MilionsTo10Milions = value));
-
-      this.translate
-        .get('labelInput.over10Milions')
-        .subscribe((value) => (this.labelOver10Milions = value));
-
-      this.translate
-        .get('labelInput.deal')
-        .subscribe((value) => (this.labelDeal = value));
-      this.getListValue();
-    });
-  }
   changeTab(index: number) {
     this.tabActive = index;
     this.cdr.detectChanges();

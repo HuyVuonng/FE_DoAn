@@ -1,1 +1,137 @@
-<p>post-news works!</p>
+<div class="pb-36">
+    <h1 class="text-[20px] font-medium">{{'postPage.post'| translate}}</h1>
+    <div class="mt-6 pb-10">
+        <div>
+            <form [formGroup]="form" class="grid grid-cols-2 mt-3 gap-3">
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.owner' | translate}}</mat-label>
+                    <input formControlName="Owner" matInput />
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.phoneNumber' | translate}}</mat-label>
+                    <input formControlName="phoneNumber" matInput />
+                    <mat-error
+                        *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
+                        class="text-red-600">
+                        {{'postPage.required'| translate}}
+                    </mat-error>
+                    <mat-error
+                        *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
+                        class="text-red-600">
+                        {{'PopUpRegister.wrongPhoneNumber'|translate}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">Zalo</mat-label>
+                    <input formControlName="zalo" matInput />
+                    <mat-error
+                        *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
+                        class="text-red-600">
+                        {{'postPage.required'| translate}}
+                    </mat-error>
+                    <mat-error
+                        *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
+                        class="text-red-600">
+                        {{'PopUpRegister.wrongPhoneNumber'|translate}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option *ngFor="let city of listCity" [value]="city.value">
+                            {{ city.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
+                    <mat-select formControlName="district">
+                        <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                            {{ district.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+
+                </mat-form-field>
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.ward' | translate}}</mat-label>
+                    <mat-select formControlName="ward">
+                        <mat-option *ngFor="let ward of listWard" [value]="ward.value">
+                            {{ ward.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field class="custom-input col-span-2" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.addressDetails' | translate}}</mat-label>
+                    <input formControlName="addressDetail" matInput />
+                </mat-form-field>
+
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
+                    <input formControlName="price" matInput />
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="custom-input col-span-1" appearance="outline">
+                    <mat-label class="bg-white">{{'labelInput.acreage' | translate}}(m2)</mat-label>
+                    <input formControlName="acreage" matInput />
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="custom-input col-span-2" appearance="outline">
+                    <mat-label class="bg-white">{{'postPage.title' | translate}}</mat-label>
+                    <input formControlName="title" matInput />
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+                <div class="col-span-2 h-[300px]">
+                    <p>{{'postPage.description' | translate}}</p>
+                    <ckeditor class="w-full h-full max-h-[500px] col-span-2" [editor]="Editor"
+                        formControlName="description">
+                    </ckeditor>
+                </div>
+
+                <div class="col-span-2">
+                    <nz-spin nzTip="Uploading..." [nzSpinning]="isSpinning">
+                        <div class="flex items-center gap-x-3 flex-wrap mt-10 col-span-2">
+                            <div *ngIf="urlIMGArray.length < 1" class="size-[150px] ">
+                                <label for="IMG"
+                                    class="cursor-pointer w-full h-full border-[#D8D8D8] border-[1px] border-solid text-primary flex justify-center items-center uploadImg">
+                                    <span>+Tải ảnh </span>
+                                </label>
+                            </div>
+
+
+                            <div class="flex items-center gap-3 flex-wrap" [class.w-full]="urlIMGArray.length===6"
+                                [class.justify-center]="urlIMGArray.length===6">
+                                <div *ngFor="let imgUrl of urlIMGArray;let indexOfelement=index;">
+                                    <div class="size-[150px] relative m-auto">
+                                        <i class="fa-regular fa-circle-xmark absolute top-0 right-0 text-red-600 cursor-pointer removeImg"
+                                            (click)="deleteIMG(imgUrl)"></i>
+                                        <img [src]="imgUrl" class="size-[150px] object-cover" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="file" class="hidden" name="IMG" id="IMG" (change)="onSelectIMG($event)"
+                                accept="image/png, image/jpeg" />
+                            <label *ngIf="urlIMGArray.length > 0 && urlIMGArray.length < 6 " for="IMG"
+                                class="cursor-pointer items-center justify-center flex w-[25px] h-[25px] text-primary rounded-[50%] border-solid border-primary border-2 uploadImg">
+                                <i class="fa-solid fa-plus"></i>
+                            </label>
+                        </div>
+                    </nz-spin>
+
+                </div>
+            </form>
+
+            <button
+                class="bg-primary text-white px-4 py-2 rounded-md mt-9 float-right hover:opacity-80">{{"postPage.createPost"|translate}}</button>
+        </div>
+    </div>
+</div>

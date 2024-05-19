@@ -95,6 +95,23 @@
     "6MilionsTo8Milions": "6-8 Milions",
     "8MilionsTo10Milions": "8-10 Milions",
     "over10Milions": "Over 10 Milions",
-    "deal": "Deal"
+    "deal": "Deal",
+    "over100M2": "Over 100 M2",
+    "below20M2": "Below 20 M2"
+  },
+  "sloganText": "Rooms for Rent, Cheap Rooms for Rent, Owner",
+  "postPage": {
+    "area": "Area",
+    "ward": "Ward",
+    "post": "Post",
+    "addressDetails": "Address Details",
+    "required": "Required",
+    "price": "Price/month",
+    "title": "Title",
+    "description": "Description",
+    "owner": "Owner",
+    "phoneNumber": "Phone Number",
+    "createPost": "Create Post And Pay",
+    "updatePost": "Update Post"
   }
 }

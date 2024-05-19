@@ -1,0 +1,9 @@
+:host ::ng-deep .ck-editor {
+  height: 100%;
+}
+:host ::ng-deep .ck-editor__main {
+  height: calc(100% - 39px);
+}
+:host ::ng-deep .ck-content {
+  height: 100%;
+}

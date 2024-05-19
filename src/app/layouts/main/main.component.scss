@@ -34,3 +34,7 @@
     display: none;
   }
 }
+
+.activeLink {
+  @apply text-textColor;
+}

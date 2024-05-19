@@ -3,9 +3,10 @@
     <nz-header class="bg-white  my-2">
       <ng-container>
         <div class=" w-[1200px] m-auto flex items-center justify-between h-full gap-x-2">
-          <div class="flex gap-3 items-center"> <img class="size-16" src="../../../assets/img/logoWeb.png" alt="logo"
+          <div class="flex gap-3 items-center cursor-pointer" [routerLink]="['/']"
+            routerLinkActive="router-link-active"> <img class="size-16" src="../../../assets/img/logoWeb.png" alt="logo"
               srcset="">
-            <span class="h-fit text-[24px] text-primary font-bold">{{'Menu.titleWeb'| translate}}</span>
+            <span class="h-fit text-[24px] text-primary font-bold select-none">{{'Menu.titleWeb'| translate}}</span>
           </div>
           <div class="flex gap-3">
             <div class="flex items-center gap-4">
@@ -23,7 +24,8 @@
               <div class="flex gap-3">
                 <button class="hover:text-primary">{{'Button.login' | translate}}</button>
                 <button class="hover:text-primary">{{'Button.register' | translate}}</button>
-                <button class="hover:text-primary">{{'Button.post' | translate}}</button>
+                <button class="hover:text-primary" [routerLink]="['/postNews']"
+                  routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
               </div>
               <div
                 class=" rounded-[50%] size-[25px] text-[12px] cursor-pointer !border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
@@ -40,43 +42,6 @@
       <div class=" border-t border-solid border-primary h-full">
 
         <div class=" w-[1200px] m-auto">
-          <form [formGroup]="form" class="grid grid-cols-4 mt-3 gap-3">
-            <mat-form-field class="custom-input col-span-1" appearance="outline">
-              <mat-label>{{'labelInput.city'| translate}}</mat-label>
-              <mat-select formControlName="city">
-                <mat-option *ngFor="let city of listCity" [value]="city.value">
-                  {{ city.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="custom-input col-span-1" appearance="outline">
-              <mat-label>{{'labelInput.district' | translate}}</mat-label>
-              <mat-select formControlName="district">
-                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
-                  {{ district.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="custom-input col-span-1" appearance="outline">
-              <mat-label>{{'labelInput.priceRange' | translate}}</mat-label>
-              <mat-select formControlName="priceRange">
-                <mat-option *ngFor="let priceRange of listPriceRange" [value]="priceRange.value">
-                  {{ priceRange.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="custom-input col-span-1" appearance="outline">
-              <mat-label>{{'labelInput.acreage' | translate}}</mat-label>
-              <mat-select formControlName="acreage">
-                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
-                  {{ district.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form>
           <router-outlet></router-outlet>
         </div>
       </div>
