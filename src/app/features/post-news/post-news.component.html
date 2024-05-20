@@ -5,12 +5,12 @@
             <form [formGroup]="form" class="grid grid-cols-2 mt-3 gap-3">
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.owner' | translate}}</mat-label>
-                    <input formControlName="owner" matInput />
+                    <input formControlName="owner" matInput (click)="viewMap=false" />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.phoneNumber' | translate}}</mat-label>
-                    <input formControlName="phoneNumber" maxlength="10" matInput />
+                    <input formControlName="phoneNumber" maxlength="10" matInput (click)="viewMap=false" />
                     <mat-error
                         *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
                         class="text-red-600">
@@ -22,7 +22,7 @@
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">Zalo</mat-label>
-                    <input formControlName="zalo" matInput maxlength="10" />
+                    <input formControlName="zalo" matInput maxlength="10" (click)="viewMap=false" />
 
                     <mat-error *ngIf="form.get('zalo')?.errors?.['phoneNumberCheck']" class="text-red-600">
                         {{'PopUpRegister.wrongPhoneNumber'|translate}}
@@ -31,7 +31,7 @@
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
-                    <mat-select formControlName="city">
+                    <mat-select formControlName="city" (click)="viewMap=false">
                         <mat-option *ngFor="let city of listCity" [value]="city.value">
                             {{ city.label }}
                         </mat-option>
@@ -41,7 +41,7 @@
 
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
-                    <mat-select formControlName="district">
+                    <mat-select formControlName="district" (click)="viewMap=false">
                         <mat-option *ngFor="let district of listDistrict" [value]="district.value">
                             {{ district.label }}
                         </mat-option>
@@ -51,7 +51,7 @@
                 </mat-form-field>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.ward' | translate}}</mat-label>
-                    <mat-select formControlName="ward">
+                    <mat-select formControlName="ward" (click)="viewMap=false">
                         <mat-option *ngFor="let ward of listWard" [value]="ward.value">
                             {{ ward.label }}
                         </mat-option>
@@ -62,31 +62,34 @@
 
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.addressDetails' | translate}}</mat-label>
-                    <input formControlName="addressDetail" matInput (change)="changeAddress($event)" />
+                    <input formControlName="addressDetail" matInput (change)="changeAddress($event)"
+                        (click)="viewMap=false" />
+                    <span (click)="handleViewMap()" class="cursor-pointer">View in Map</span>
                 </mat-form-field>
-                <div *ngIf="sourceMap" class="col-span-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
+                <div *ngIf="viewMap && sourceMap" class="col-span-2">
+                    <app-map [sourceMap]="sourceMap"></app-map>
                 </div>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
-                    <input formControlName="price" matInput />
+                    <input formControlName="price" matInput (click)="viewMap=false" />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'labelInput.acreage' | translate}}(m2)</mat-label>
-                    <input formControlName="acreage" matInput />
+                    <input formControlName="acreage" matInput (click)="viewMap=false" />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.title' | translate}}</mat-label>
-                    <input formControlName="title" matInput />
+                    <input formControlName="title" matInput (click)="viewMap=false" />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
                 <div class="col-span-2 h-[300px]">
                     <p>{{'postPage.description' | translate}}</p>
                     <ckeditor class="w-full h-full max-h-[500px] col-span-2" [editor]="Editor"
-                        formControlName="description">
+                        formControlName="description" (click)="viewMap=false">
                     </ckeditor>
                 </div>
 

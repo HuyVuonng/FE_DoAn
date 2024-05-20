@@ -24,6 +24,7 @@ import {
 } from '@angular/fire/storage';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MapComponent } from '../../core/components/map/map.component';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -38,6 +39,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatInputModule,
     CKEditorModule,
     NzSpinModule,
+    MapComponent,
   ],
   templateUrl: './post-news.component.html',
   styleUrl: './post-news.component.scss',
@@ -48,6 +50,7 @@ export class PostNewsComponent implements OnInit {
   urlIMGArray: any = [];
   storage = inject(Storage);
   isSpinning: boolean = false;
+  viewMap: boolean = false;
   public form: FormGroup = this.fb.group({
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
@@ -279,8 +282,23 @@ export class PostNewsComponent implements OnInit {
   deleteIMG = (file: any) => {
     this.urlIMGArray = this.urlIMGArray.filter((f: any) => f !== file);
   };
+  showMap: boolean = false;
+  handelShowMap() {
+    this.showMap = true;
+  }
   changeAddress = (e: any) => {
-    this.sourceMap = `<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e.target.value}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
+    this.sourceMap = '';
+    this.sourceMap = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q='${e.target.value}'&z=20&ie=UTF8&iwloc=B&output=embed`;
+
     this.cdr.detectChanges();
   };
+  idTimeOut: any;
+  handleViewMap() {
+    clearTimeout(this.idTimeOut);
+    this.viewMap = !this.viewMap;
+    this.idTimeOut = setTimeout(() => {
+      this.viewMap = false;
+      clearTimeout(this.idTimeOut);
+    }, 60000);
+  }
 }
