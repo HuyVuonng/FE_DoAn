@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,6 +23,7 @@ import {
   Storage,
 } from '@angular/fire/storage';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -43,6 +44,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 })
 export class PostNewsComponent implements OnInit {
   public Editor = ClassicEditor;
+  sourceMap: any;
   urlIMGArray: any = [];
   storage = inject(Storage);
   isSpinning: boolean = false;
@@ -74,6 +76,8 @@ export class PostNewsComponent implements OnInit {
     private addressService: AddressService,
     private translate: TranslateService,
     private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    public sanitizer: DomSanitizer,
   ) {
     this.translatelabelSelectInput();
   }
@@ -274,5 +278,9 @@ export class PostNewsComponent implements OnInit {
 
   deleteIMG = (file: any) => {
     this.urlIMGArray = this.urlIMGArray.filter((f: any) => f !== file);
+  };
+  changeAddress = (e: any) => {
+    this.sourceMap = `<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e.target.value}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
+    this.cdr.detectChanges();
   };
 }

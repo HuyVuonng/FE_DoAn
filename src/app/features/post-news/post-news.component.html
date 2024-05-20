@@ -62,9 +62,10 @@
 
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.addressDetails' | translate}}</mat-label>
-                    <input formControlName="addressDetail" matInput />
+                    <input formControlName="addressDetail" matInput (change)="changeAddress($event)" />
                 </mat-form-field>
-
+                <div *ngIf="sourceMap" class="col-span-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
+                </div>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
                     <input formControlName="price" matInput />
