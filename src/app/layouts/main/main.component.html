@@ -1,12 +1,13 @@
 <nz-layout class="min-h-full ">
   <nz-layout class="bg-white">
-    <nz-header class="bg-white  my-2">
+    <nz-header class="bg-white  my-2 h-fit">
       <ng-container>
-        <div class=" w-[1200px] m-auto flex items-center justify-between h-full gap-x-2">
+        <div class="w-full lg:w-[1200px] m-auto flex flex-col lg:flex-row items-center justify-between h-full gap-x-2">
           <div class="flex gap-3 items-center cursor-pointer" [routerLink]="['/']"
             routerLinkActive="router-link-active"> <img class="size-16" src="../../../assets/img/logoWeb.png" alt="logo"
               srcset="">
-            <span class="h-fit text-[24px] text-primary font-bold select-none">{{'Menu.titleWeb'| translate}}</span>
+            <span class="h-fit text-[16px] lg:text-[24px] text-primary font-bold select-none">{{'Menu.titleWeb'|
+              translate}}</span>
           </div>
           <div class="flex gap-3">
             <div class="flex items-center gap-4">
@@ -28,7 +29,7 @@
                   routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
               </div>
               <div
-                class=" rounded-[50%] size-[25px] text-[12px] cursor-pointer !border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
+                class=" rounded-[50%] absolute top-3 right-4 lg:static size-[25px] text-[12px] cursor-pointer !border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
                 <span *ngIf="language==='vi'" (click)="changeLanguage('en')" class="select-none">VN</span>
                 <span *ngIf="language==='en'" (click)="changeLanguage('vi')" class="select-none">EN</span>
               </div>
@@ -41,8 +42,8 @@
     <nz-content>
       <div class=" border-t border-solid border-primary h-full">
 
-        <div class=" w-[1200px] m-auto">
-          <router-outlet></router-outlet>
+        <div class=" w-full lg:w-[1200px] m-auto">
+          <div class="px-2 lg:px-0"> <router-outlet></router-outlet></div>
         </div>
       </div>
     </nz-content>
