@@ -288,8 +288,8 @@ export class PostNewsComponent implements OnInit {
   }
   changeAddress = (e: any) => {
     this.sourceMap = '';
-    this.sourceMap = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q='${e.target.value}'&z=20&ie=UTF8&iwloc=B&output=embed`;
-
+    // this.sourceMap = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q='${e.target.value}'&z=20&ie=UTF8&iwloc=B&output=embed`;
+    this.sourceMap = `<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e.target.value}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
     this.cdr.detectChanges();
   };
   idTimeOut: any;

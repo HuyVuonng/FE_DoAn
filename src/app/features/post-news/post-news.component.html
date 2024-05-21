@@ -66,8 +66,11 @@
                         (click)="viewMap=false" />
                     <span (click)="handleViewMap()" class="cursor-pointer">View in Map</span>
                 </mat-form-field>
-                <div *ngIf="viewMap && sourceMap" class="col-span-2">
+                <!-- <div *ngIf="viewMap && sourceMap" class="col-span-2">
                     <app-map [sourceMap]="sourceMap"></app-map>
+                </div> -->
+                <div *ngIf="viewMap &&sourceMap" class="col-span-2"
+                    [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
                 </div>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
