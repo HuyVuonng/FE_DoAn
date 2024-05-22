@@ -85,6 +85,7 @@
   "labelInput": {
     "city": "City",
     "district": "District",
+    "ward": "Ward",
     "priceRange": "Price range",
     "acreage": "Acreage",
     "all": "All",
@@ -97,7 +98,8 @@
     "over10Milions": "Over 10 Milions",
     "deal": "Deal",
     "over100M2": "Over 100 M2",
-    "below20M2": "Below 20 M2"
+    "below20M2": "Below 20 M2",
+    "reset": "Reset"
   },
   "sloganText": "Rooms for Rent, Cheap Rooms for Rent, Owner",
   "postPage": {

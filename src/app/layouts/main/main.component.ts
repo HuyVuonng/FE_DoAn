@@ -143,7 +143,7 @@ export class MainComponent implements OnInit {
   }
   count: number;
   ngOnInit(): void {
-    if (this.getDeviceType() === 'mobile') {
+    if (MainComponent.getDeviceType() === 'mobile') {
       this.isCollapsed = true;
       this.cdr.detectChanges();
     }
@@ -160,7 +160,7 @@ export class MainComponent implements OnInit {
     this.tabActive = index;
     this.cdr.detectChanges();
   }
-  getDeviceType = () => {
+  public static getDeviceType = () => {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
       return 'tablet';

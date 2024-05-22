@@ -10,6 +10,7 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { MainComponent } from '../../layouts/main/main.component';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -28,9 +29,11 @@ export class HomeComponent implements OnInit {
   public form: FormGroup = this.fb.group({
     city: [0],
     district: [0],
+    ward: [0],
     acreage: [0],
     priceRange: [0],
   });
+  isShowSearch: boolean = true;
   labelAll: string;
   labelBelow1Milion: string;
   label1MilionsTo2Milions: string;
@@ -51,6 +54,14 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getListValue();
+    console.log(MainComponent.getDeviceType());
+
+    if (
+      MainComponent.getDeviceType() === 'mobile' ||
+      MainComponent.getDeviceType() === 'tablet'
+    ) {
+      this.isShowSearch = false;
+    }
   }
 
   translatelabelSelectInput() {
@@ -131,6 +142,7 @@ export class HomeComponent implements OnInit {
   }
   listCity: any = [];
   listDistrict: any = [];
+  listWard: any = [];
   listPriceRange: any = [];
   listAcreage: any = [];
   getListValue() {
@@ -139,6 +151,8 @@ export class HomeComponent implements OnInit {
       this.listCity.unshift({ label: this.labelAll, value: 0 });
       this.listDistrict = [];
       this.listDistrict.push({ label: this.labelAll, value: 0 });
+      this.listWard = [];
+      this.listWard.push({ label: this.labelAll, value: 0 });
     });
     this.addressService
       .getDistricts(this.form.get('city')?.value)
@@ -156,6 +170,16 @@ export class HomeComponent implements OnInit {
       });
       this.form.get('district')?.reset();
       this.form.get('district')?.setValue(null);
+    });
+    const districtControl = this.form.get('district') as FormControl;
+    districtControl.valueChanges.subscribe((value) => {
+      this.addressService.getWards(value).subscribe((data) => {
+        this.listWard = data;
+        this.listWard.unshift({ label: this.labelAll, value: 0 });
+        this.form.patchValue({ ward: 0 });
+      });
+      this.form.get('ward')?.reset();
+      this.form.get('ward')?.setValue(null);
     });
 
     this.listPriceRange = [
@@ -231,5 +255,14 @@ export class HomeComponent implements OnInit {
         value: 7,
       },
     ];
+  }
+  resetSearch() {
+    this.form.patchValue({
+      city: 0,
+      district: 0,
+      ward: 0,
+      acreage: 0,
+      priceRange: 0,
+    });
   }
 }
