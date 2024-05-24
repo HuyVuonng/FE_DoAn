@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AddressService } from '../../core/services/address.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
@@ -11,6 +17,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from '../../layouts/main/main.component';
+import { ItemComponent } from '../../core/components/item/item.component';
+import { Swiper } from 'swiper/types';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -21,9 +30,11 @@ import { MainComponent } from '../../layouts/main/main.component';
     MatFormFieldModule,
     TranslateModule,
     CommonModule,
+    ItemComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeComponent implements OnInit {
   public form: FormGroup = this.fb.group({
@@ -52,16 +63,47 @@ export class HomeComponent implements OnInit {
   ) {
     this.translatelabelSelectInput();
   }
+
+  device: string;
   ngOnInit(): void {
     this.getListValue();
     console.log(MainComponent.getDeviceType());
 
+    this.device = MainComponent.getDeviceType();
     if (
       MainComponent.getDeviceType() === 'mobile' ||
       MainComponent.getDeviceType() === 'tablet'
     ) {
       this.isShowSearch = false;
     }
+  }
+  @ViewChild('swiper') swiper!: ElementRef<any>;
+  ngAfterViewInit(): void {
+    const swiper = {
+      // Default parameters
+      slidesPerView: 1,
+      spaceBetween: 10,
+      // Responsive breakpoints
+      breakpoints: {
+        // when window width is >= 320px
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        // when window width is >= 480px
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        // when window width is >= 640px
+        640: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+      },
+    };
+    Object.assign(this.swiper.nativeElement, swiper);
+    this.swiper.nativeElement.initialize();
   }
 
   translatelabelSelectInput() {
