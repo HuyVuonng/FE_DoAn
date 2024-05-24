@@ -114,5 +114,9 @@
     "phoneNumber": "Số điện thoại",
     "createPost": "Đăng tin và thanh toán",
     "updatePost": "Cập nhật"
+  },
+  "homePage": {
+    "mostViewed": "Được xem nhiều nhất",
+    "newest": "Mới nhất"
   }
 }

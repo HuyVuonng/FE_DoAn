@@ -115,5 +115,9 @@
     "phoneNumber": "Phone Number",
     "createPost": "Create Post And Pay",
     "updatePost": "Update Post"
+  },
+  "homePage": {
+    "mostViewed": "Most Viewed",
+    "newest": "Newest"
   }
 }
