@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { HomeListComponent } from './home-list/home-list.component';
+import { HomeSearchComponent } from './home-search/home-search.component';
 
 // import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
@@ -12,7 +14,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        component: HomeListComponent,
+      },
+      {
+        path: 'search',
+        component: HomeSearchComponent,
       },
     ],
   },

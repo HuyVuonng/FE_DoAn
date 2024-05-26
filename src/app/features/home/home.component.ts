@@ -17,24 +17,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from '../../layouts/main/main.component';
-import { ItemComponent } from '../../core/components/item/item.component';
-import { Swiper } from 'swiper/types';
+
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
 
   imports: [
+    RouterModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     TranslateModule,
     CommonModule,
-    ItemComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeComponent implements OnInit {
   public form: FormGroup = this.fb.group({
@@ -60,6 +59,7 @@ export class HomeComponent implements OnInit {
     private addressService: AddressService,
     private translate: TranslateService,
     private fb: FormBuilder,
+    private router: Router,
   ) {
     this.translatelabelSelectInput();
   }
@@ -76,34 +76,6 @@ export class HomeComponent implements OnInit {
     ) {
       this.isShowSearch = false;
     }
-  }
-  @ViewChild('swiper') swiper!: ElementRef<any>;
-  ngAfterViewInit(): void {
-    const swiper = {
-      // Default parameters
-      slidesPerView: 1,
-      spaceBetween: 10,
-      // Responsive breakpoints
-      breakpoints: {
-        // when window width is >= 320px
-        320: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-        // when window width is >= 480px
-        480: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-        // when window width is >= 640px
-        640: {
-          slidesPerView: 4,
-          spaceBetween: 40,
-        },
-      },
-    };
-    Object.assign(this.swiper.nativeElement, swiper);
-    this.swiper.nativeElement.initialize();
   }
 
   translatelabelSelectInput() {
@@ -210,8 +182,8 @@ export class HomeComponent implements OnInit {
         this.listDistrict.unshift({ label: this.labelAll, value: 0 });
         this.form.patchValue({ district: 0 });
       });
-      this.form.get('district')?.reset();
-      this.form.get('district')?.setValue(null);
+      // this.form.get('district')?.reset();
+      this.form.get('district')?.setValue(0);
     });
     const districtControl = this.form.get('district') as FormControl;
     districtControl.valueChanges.subscribe((value) => {
@@ -220,8 +192,8 @@ export class HomeComponent implements OnInit {
         this.listWard.unshift({ label: this.labelAll, value: 0 });
         this.form.patchValue({ ward: 0 });
       });
-      this.form.get('ward')?.reset();
-      this.form.get('ward')?.setValue(null);
+      // this.form.get('ward')?.reset();
+      this.form.get('ward')?.setValue(0);
     });
 
     this.listPriceRange = [
@@ -306,5 +278,31 @@ export class HomeComponent implements OnInit {
       acreage: 0,
       priceRange: 0,
     });
+    this.router.navigate(['/search']);
+  }
+  handelSearch() {
+    const searchValue = { ...this.form.getRawValue() };
+
+    Object.keys(searchValue).forEach((key) => {
+      if (
+        searchValue[key] === null ||
+        searchValue[key] === '' ||
+        searchValue[key] === 0
+      ) {
+        delete searchValue[key];
+      }
+    });
+
+    if (
+      searchValue.city ||
+      searchValue.district ||
+      searchValue.ward ||
+      searchValue.acreage ||
+      searchValue.priceRange
+    ) {
+      this.router.navigate(['/search'], {
+        queryParams: searchValue,
+      });
+    }
   }
 }

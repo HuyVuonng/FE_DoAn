@@ -1,5 +1,6 @@
 <div class="relative border-b-2 border-solid border-[#D8D8D8] mb-3" [class.border-b-2]="device!=='desktop'">
-    <form *ngIf="isShowSearch" [formGroup]="form" class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[repeat(5,1fr)_90px]">
+    <form *ngIf="isShowSearch" [formGroup]="form"
+        class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[repeat(5,1fr)_120px]">
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
             <mat-select formControlName="city">
@@ -43,9 +44,16 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button class="h-fit self-center  translate-y-[-20%] py-4 w-fit px-4" (click)="resetSearch()"><i
-                class="fa-solid fa-rotate"></i>
-            {{'labelInput.reset'|translate}}</button>
+        <div class="flex gap-2 ">
+            <div class="cursor-pointer h-fit flex lg:flex-col  gap-1 items-center translate-y-[-20%] py-4 w-fit px-2 hover:opacity-70"
+                (click)="handelSearch()"><i class="fa-solid fa-magnifying-glass"></i>
+                <span class="text-center"> {{'labelInput.search'|translate}}</span>
+            </div>
+            <div class=" cursor-pointer h-fit flex lg:flex-col gap-1 items-center translate-y-[-20%] py-4 w-fit px-2 hover:opacity-70"
+                (click)="resetSearch()"><i class="fa-solid fa-rotate"></i>
+                <span class="text-center"> {{'labelInput.reset'|translate}}</span>
+            </div>
+        </div>
     </form>
     <div *ngIf="isShowSearch && device!=='desktop'" (click)="isShowSearch = false"
         class="absolute bottom-[-12px] right-5 w-6 h-6 rounded-full flex items-center justify-center text-red-500 border-solid border-[2px] border-red-500 bg-white hover:bg-gray-100 cursor-pointer">
@@ -56,42 +64,4 @@
         <i class="fa-solid fa-chevron-down"></i>
     </div>
 </div>
-
-<h1 class="text-[16px] lg:text-[36px] font-medium block text-center">{{"sloganText" | translate}}</h1>
-<div>
-    <h2 class="text-[14px] lg:text-[26px] font-medium block">{{"homePage.mostViewed" | translate}}</h2>
-    <swiper-container class="swiper-container" slides-per-view="4" autoplay space-between=" 12" speed="500" loop="true"
-        centerInsufficientSlides="true" wrapperClass="slide-Wrapper" #swiper>
-
-        <swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide>
-        <swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide>
-
-
-    </swiper-container>
-</div>
-<div>
-    <h2 class="text-[14px] lg:text-[26px] font-medium block">{{"homePage.newest" | translate}}</h2>
-    <div class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-    </div>
-</div>
+<router-outlet></router-outlet>
