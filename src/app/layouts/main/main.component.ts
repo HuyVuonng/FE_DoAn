@@ -36,6 +36,7 @@ import {
   detailTaskIcon,
   ghostIcon,
   groupUser,
+  iconZalo,
   logoutIcon,
   resizeColIcon,
   schoolDocumentIcon,
@@ -140,6 +141,7 @@ export class MainComponent implements OnInit {
     this.iconService.addIconLiteral('arrowsUpIcon:antd', arrowsUpIcon);
     this.iconService.addIconLiteral('arrowsDownIcon:antd', arrowsDownIcon);
     this.iconService.addIconLiteral('logoutIcon:antd', logoutIcon);
+    this.iconService.addIconLiteral('zaloIcon:antd', iconZalo);
   }
   count: number;
   ngOnInit(): void {

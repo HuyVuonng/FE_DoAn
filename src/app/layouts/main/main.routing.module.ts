@@ -30,6 +30,14 @@ const routes: Routes = [
           ),
         // title: 'Unit',
       },
+      {
+        path: 'detail/:id',
+        loadComponent: () =>
+          import('../../features/detail-hostel/detail-hostel.component').then(
+            (m) => m.DetailHostelComponent,
+          ),
+        // title: 'Unit',
+      },
 
       {
         path: '**',

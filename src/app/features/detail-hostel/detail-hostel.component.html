@@ -1,0 +1,83 @@
+<div class="mt-4 flex lg:flex-row  flex-col gap-4">
+    <div class="lg:w-8/12 bg-white rounded-md p-4 text-black">
+        <div>
+            <h1 class="lg:text-[30px] tex-[18px] text-textColor font-semibold">CHDV hiện đại - 5,8 triệu/tháng - Tại
+                214C/21
+                Lê
+                Văn Thịnh
+                - Full tiện ích</h1>
+            <p><i class="fa-solid fa-location-dot mr-2"></i> <span>Quận 5, Hồ Chí Minh</span></p>
+            <div class="flex justify-between mt-3">
+                <div class="flex gap-3">
+                    <p><i class="fa-solid fa-money-bill mr-2"></i>2.5 Triệu/tháng</p>
+                    <p><i class="fa-solid fa-expand mr-2"></i>25m<sup>2</sup></p>
+                </div>
+                <p><i class="fa-regular fa-clock mr-1"></i>25/04/2024</p>
+            </div>
+        </div>
+        <div class="mt-2">
+
+
+            <swiper-container class="swiper-container" slides-per-view="1" autoplay space-between=" 12" speed="500"
+                loop="true" centerInsufficientSlides="true" wrapperClass="slide-Wrapper"
+                [pagination]="{ clickable: true }" #swiper>
+
+                <swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide>
+                <swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155803-f2d4a.jpg" />
+                </swiper-slide><swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide><swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide><swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide><swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide><swiper-slide class="swiper-slide py-4">
+                    <img class="w-full h-[500px] object-contain"
+                        src="https://img.thuephongtro.com/images/large/2020/11/13/20201113155802-r4yra.jpg" />
+                </swiper-slide>
+
+
+            </swiper-container>
+        </div>
+        <div class="mt-2">
+            <h3 class="font-medium text-[24px]">Thông tin mô tả</h3>
+        </div>
+
+        <div class="mt-2">
+            <h3 class="font-medium text-[24px]">Vị trí trên bản đồ</h3>
+            <div class="col-span-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
+            </div>
+        </div>
+
+    </div>
+    <div class="lg:w-4/12 bg-white rounded-md h-fit">
+        <div class="flex items-center">
+            <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg"
+                class="size-[70px] rounded-[50%] object-cover m-3" alt="">
+            <div>
+                <p class="font-bold">Hồng Vân Phạm</p>
+                <p class="text-gray-300">Ngày tham gia: 25/04/2024</p>
+            </div>
+        </div>
+        <div class="p-5 border-t flex flex-col gap-3">
+            <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md "><a
+                    class=" w-full h-full flex items-center justify-center gap-2" [href]="telZalo"><span nz-icon
+                        nzType="zaloIcon:antd" nzTheme="outline"></span>Liên hệ
+                    zalo</a></div>
+            <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md"><a
+                    class=" w-full h-full flex items-center justify-center gap-2" [href]="tel"><i
+                        class="fa-solid fa-phone"></i>Gọi điện</a>
+            </div>
+        </div>
+    </div>
+</div>
