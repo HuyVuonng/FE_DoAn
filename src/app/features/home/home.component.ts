@@ -18,7 +18,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from '../../layouts/main/main.component';
 
-import { Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+  RouterModule,
+} from '@angular/router';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +49,12 @@ export class HomeComponent implements OnInit {
     acreage: [0],
     priceRange: [0],
   });
+  city: Observable<string | null>;
+  district: Observable<string | null>;
+  ward: Observable<string | null>;
+  acreage: Observable<string | null>;
+  priceRange: Observable<string | null>;
+
   isShowSearch: boolean = true;
   labelAll: string;
   labelBelow1Milion: string;
@@ -55,20 +67,19 @@ export class HomeComponent implements OnInit {
   labelDeal: string;
   labelBelow20M2: string;
   labelOver100M2: string;
+  href: string;
   constructor(
     private addressService: AddressService,
     private translate: TranslateService,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.translatelabelSelectInput();
   }
 
   device: string;
   ngOnInit(): void {
-    this.getListValue();
-    console.log(MainComponent.getDeviceType());
-
     this.device = MainComponent.getDeviceType();
     if (
       MainComponent.getDeviceType() === 'mobile' ||
@@ -76,6 +87,27 @@ export class HomeComponent implements OnInit {
     ) {
       this.isShowSearch = false;
     }
+
+    this.city = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('city')),
+    );
+    this.district = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('district')),
+    );
+
+    this.ward = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('ward')),
+    );
+
+    this.acreage = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('acreage')),
+    );
+
+    this.priceRange = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('priceRange')),
+    );
+
+    this.getListValue();
   }
 
   translatelabelSelectInput() {
@@ -167,6 +199,11 @@ export class HomeComponent implements OnInit {
       this.listDistrict.push({ label: this.labelAll, value: 0 });
       this.listWard = [];
       this.listWard.push({ label: this.labelAll, value: 0 });
+      this.city?.subscribe((param) => {
+        if (param) {
+          this.form.patchValue({ city: param });
+        }
+      });
     });
     this.addressService
       .getDistricts(this.form.get('city')?.value)
@@ -174,6 +211,11 @@ export class HomeComponent implements OnInit {
         this.listDistrict = data;
         this.listDistrict.unshift({ label: this.labelAll, value: 0 });
         this.form.patchValue({ district: 0 });
+        this.district?.subscribe((param) => {
+          if (param) {
+            this.form.patchValue({ district: param });
+          }
+        });
       });
     const provinceControl = this.form.get('city') as FormControl;
     provinceControl.valueChanges.subscribe((value) => {
@@ -181,6 +223,11 @@ export class HomeComponent implements OnInit {
         this.listDistrict = data;
         this.listDistrict.unshift({ label: this.labelAll, value: 0 });
         this.form.patchValue({ district: 0 });
+        this.district?.subscribe((param) => {
+          if (param) {
+            this.form.patchValue({ district: param });
+          }
+        });
       });
       // this.form.get('district')?.reset();
       this.form.get('district')?.setValue(0);
@@ -191,6 +238,11 @@ export class HomeComponent implements OnInit {
         this.listWard = data;
         this.listWard.unshift({ label: this.labelAll, value: 0 });
         this.form.patchValue({ ward: 0 });
+        this.ward?.subscribe((param) => {
+          if (param) {
+            this.form.patchValue({ ward: param });
+          }
+        });
       });
       // this.form.get('ward')?.reset();
       this.form.get('ward')?.setValue(0);
@@ -269,6 +321,17 @@ export class HomeComponent implements OnInit {
         value: 7,
       },
     ];
+
+    this.acreage?.subscribe((param) => {
+      if (param) {
+        this.form.patchValue({ acreage: 2 });
+      }
+    });
+    this.priceRange?.subscribe((param) => {
+      if (param) {
+        this.form.patchValue({ priceRange: 2 });
+      }
+    });
   }
   resetSearch() {
     this.form.patchValue({
@@ -278,7 +341,10 @@ export class HomeComponent implements OnInit {
       acreage: 0,
       priceRange: 0,
     });
-    this.router.navigate(['/search']);
+    this.href = this.router.url;
+    if (this.href.includes('search')) {
+      this.router.navigate(['/search']);
+    }
   }
   handelSearch() {
     const searchValue = { ...this.form.getRawValue() };

@@ -1,1 +1,32 @@
-<p>home-search works!</p>
+<div class="flex justify-between">
+    <p>Tìm thấy 12 kết quả</p>
+    <a nz-dropdown [nzDropdownMenu]="menu">
+        Sắp xếp
+        <span nz-icon nzType="down"></span>
+    </a>
+</div>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+        <li nz-menu-item (click)="handelSort(1)">Giá tăng dần</li>
+        <li nz-menu-item (click)="handelSort(2)">Giá giảm dần</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="handelSort(3)">Diện tích tăng dần</li>
+        <li nz-menu-item (click)="handelSort(4)">Diện tích giảm dần</li>
+    </ul>
+</nz-dropdown-menu>
+<div class="grid lg:grid-cols-5 grid-cols-1 mt-5 gap-4">
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+</div>
+<div class="flex justify-end mt-4">
+    <div class="w-fit">
+        <nz-pagination [nzPageIndex]="1" [nzTotal]="60" [nzSize]="'small'" [nzShowTotal]="totalTemplate"
+            nzShowSizeChanger></nz-pagination>
+        <ng-template #totalTemplate let-total>Tổng số kết quả: {{ total }}</ng-template>
+    </div>
+</div>
