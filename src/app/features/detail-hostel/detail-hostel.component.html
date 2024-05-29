@@ -50,12 +50,32 @@
             </swiper-container>
         </div>
         <div class="mt-2">
-            <h3 class="font-medium text-[24px]">Thông tin mô tả</h3>
+            <h3 class="font-medium text-[24px]">{{"detailpage.descriptionInformation"|translate}}</h3>
         </div>
 
         <div class="mt-2">
-            <h3 class="font-medium text-[24px]">Vị trí trên bản đồ</h3>
+            <h3 class="font-medium text-[24px]">{{"detailpage.locationInMap"|translate}}</h3>
             <div class="col-span-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="flex gap-3 justify-between">
+                <h3 class="font-medium text-[24px]">{{"detailpage.evaluationAndReporting"|translate}}</h3>
+                <button nz-button nzType="primary" nzDanger nz-popconfirm
+                    nzPopconfirmTitle="{{'detailpage.areYouSureToReport' | translate}}" (nzOnConfirm)="confirm()"
+                    nzOkText="{{'Button.yes'|translate}}" nzCancelText="{{'Button.no'|translate}}"
+                    [nzPopconfirmShowArrow]="false">{{"Button.report"|translate}}</button>
+
+            </div>
+            <div class="flex gap-3 items-center mt-5">
+                <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg" alt=""
+                    class="size-[30px] rounded-[50%]">
+                <span class="">bình luận</span>
+            </div>
+            <div>
+                <textarea class="resize-none h-[100px] w-full border mt-4" [(ngModel)]="evaluation"></textarea>
+                <button nz-button nzType="primary" (click)="handelSendEvaluation()">{{"Button.send"|translate}}
+                </button>
             </div>
         </div>
 
@@ -66,17 +86,17 @@
                 class="size-[70px] rounded-[50%] object-cover m-3" alt="">
             <div>
                 <p class="font-bold">Hồng Vân Phạm</p>
-                <p class="text-gray-300">Ngày tham gia: 25/04/2024</p>
+                <p class="text-gray-300">{{"detailpage.joiningDate"|translate}}: 25/04/2024</p>
             </div>
         </div>
         <div class="p-5 border-t flex flex-col gap-3">
             <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md "><a
                     class=" w-full h-full flex items-center justify-center gap-2" [href]="telZalo"><span nz-icon
-                        nzType="zaloIcon:antd" nzTheme="outline"></span>Liên hệ
-                    zalo</a></div>
+                        nzType="zaloIcon:antd" nzTheme="outline"></span>
+                    Zalo</a></div>
             <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md"><a
                     class=" w-full h-full flex items-center justify-center gap-2" [href]="tel"><i
-                        class="fa-solid fa-phone"></i>Gọi điện</a>
+                        class="fa-solid fa-phone"></i>{{"Button.call"|translate}}</a>
             </div>
         </div>
     </div>

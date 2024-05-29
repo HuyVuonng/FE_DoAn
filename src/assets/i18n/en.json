@@ -10,7 +10,10 @@
     "setting": "Setting",
     "individual": "Individual",
     "otherTasks": "Other Tasks",
-    "home": "Home"
+    "home": "Home",
+    "accountInfor": "Account Information",
+    "postManagement": "Post Management",
+    "logout": "Logout"
   },
 
   "Button": {
@@ -29,7 +32,10 @@
     "register": "Register",
     "login": "Login",
     "post": "Post",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "report": "Report",
+    "call": "Call",
+    "send": "Send"
   },
 
   "PopUpRegister": {
@@ -120,5 +126,12 @@
   "homePage": {
     "mostViewed": "Most Viewed",
     "newest": "Newest"
+  },
+  "detailpage": {
+    "descriptionInformation": "Description Information",
+    "locationInMap": "Location In Map",
+    "evaluationAndReporting": "Evaluation and reporting",
+    "joiningDate": "Joining date",
+    "areYouSureToReport": "Are you sure you want to report it?"
   }
 }

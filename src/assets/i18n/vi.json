@@ -10,7 +10,10 @@
     "setting": "Điều chỉnh",
     "individual": "Cá nhân",
     "otherTasks": "Công việc khác",
-    "home": "Trang chủ"
+    "home": "Trang chủ",
+    "accountInfor": "Thông tin tài khoản",
+    "postManagement": "Quản lý bài đăng",
+    "logout": "Đăng xuất"
   },
 
   "Button": {
@@ -29,7 +32,10 @@
     "register": "Đăng ký",
     "login": "Đăng nhập",
     "post": "Đăng tin",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "report": "Báo cáo",
+    "call": "Gọi điện",
+    "send": "Gửi"
   },
 
   "PopUpRegister": {
@@ -119,5 +125,12 @@
   "homePage": {
     "mostViewed": "Được xem nhiều nhất",
     "newest": "Mới nhất"
+  },
+  "detailpage": {
+    "descriptionInformation": "Thông tin mô tả",
+    "locationInMap": "Vị trí trên bản đồ",
+    "evaluationAndReporting": "Đánh giá và báo cáo",
+    "joiningDate": "Ngày tham gia",
+    "areYouSureToReport": "Bạn có chắc chắn muốn báo cáo bài viết này?"
   }
 }

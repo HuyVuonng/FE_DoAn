@@ -22,11 +22,21 @@
               <div class="flex items-center space-x-2 ml-2 justify-center">
                 <span class="font-[500] text-[16px]">Nguyễn Đặng Hùng</span>
               </div> -->
-              <div class="flex gap-3">
-                <button class="hover:text-primary">{{'Button.login' | translate}}</button>
-                <button class="hover:text-primary">{{'Button.register' | translate}}</button>
+              <div class="flex gap-3 items-center">
+                <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.login' | translate}}</button>
+                <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.register' | translate}}</button>
                 <button class="hover:text-primary" [routerLink]="['/postNews']"
                   routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
+                <img *ngIf="isLogin" src="assets/img/avatar.png" class="rounded-full size-10 cursor-pointer" alt=""
+                  nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomCenter" />
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item>{{"Menu.accountInfor"| translate}}</li>
+                    <li nz-menu-item>{{"Menu.postManagement"| translate}}</li>
+                    <li nz-menu-divider></li>
+                    <li nz-menu-item>{{"Menu.logout"| translate}}</li>
+                  </ul>
+                </nz-dropdown-menu>
               </div>
               <div
                 class=" rounded-[50%] absolute top-3 right-4 lg:static size-[25px] text-[12px] cursor-pointer !border-[#1C274C] border bg-[#FFF] flex justify-center items-center">

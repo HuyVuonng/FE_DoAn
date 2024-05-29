@@ -79,7 +79,7 @@ export class MainComponent implements OnInit {
   language: string = 'vi';
   userName: string;
   _store = inject(Store);
-
+  isLogin: boolean = localStorage.getItem('access_token') ? true : false;
   languageList = [
     {
       label: 'Tiếng Việt',
