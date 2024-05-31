@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SwiperOptions } from 'swiper/types';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -17,13 +18,23 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     CommonModule,
     FormsModule,
     NzPopconfirmModule,
+    RouterModule,
   ],
   templateUrl: './detail-hostel.component.html',
   styleUrl: './detail-hostel.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DetailHostelComponent {
-  constructor(public sanitizer: DomSanitizer) {}
+export class DetailHostelComponent implements OnInit {
+  constructor(
+    public sanitizer: DomSanitizer,
+    private router: Router,
+  ) {}
+  isManager: boolean = false;
+  ngOnInit(): void {
+    if (this.router.url.includes('detail/manager')) {
+      this.isManager = true;
+    }
+  }
   telZalo: string = 'https://zalo.me/0903985085';
   tel: string = 'tel:0903985085';
   evaluation: string;
@@ -33,4 +44,6 @@ export class DetailHostelComponent {
     console.log(this.evaluation);
   }
   confirm() {}
+
+  handleDeletePost() {}
 }

@@ -31,7 +31,7 @@
     "close": "Close",
     "register": "Register",
     "login": "Login",
-    "post": "Post",
+    "post": "Create Post",
     "confirm": "Confirm",
     "report": "Report",
     "call": "Call",
@@ -133,5 +133,22 @@
     "evaluationAndReporting": "Evaluation and reporting",
     "joiningDate": "Joining date",
     "areYouSureToReport": "Are you sure you want to report it?"
+  },
+  "userInforPage": {
+    "accountInfor": "Account Information",
+    "personalInformation": "Personal Information",
+    "statusBlock": "Block",
+    "statusActive": "Active",
+    "status": "Status",
+    "activeDate": "Active Date",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "fullName": "Full Name",
+    "dateOfBirth": "Date of Birth",
+    "phoneNumber": "Phone Number",
+    "address": "Address"
+  },
+  "managerPostPage": {
+    "postedArticles": "Posted articles"
   }
 }

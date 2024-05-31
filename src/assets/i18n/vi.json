@@ -132,5 +132,22 @@
     "evaluationAndReporting": "Đánh giá và báo cáo",
     "joiningDate": "Ngày tham gia",
     "areYouSureToReport": "Bạn có chắc chắn muốn báo cáo bài viết này?"
+  },
+  "userInforPage": {
+    "accountInfor": "Thông tin tài khoản",
+    "personalInformation": "Thông tin cá nhân",
+    "statusBlock": "Khoá",
+    "statusActive": "Hoạt động",
+    "status": "Trạng thái",
+    "activeDate": "Ngày kích hoạt",
+    "changePassword": "Đổi mật khẩu",
+    "deleteAccount": "Xóa tài khoản",
+    "fullName": "Họ và tên",
+    "dateOfBirth": "Ngày sinh",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ"
+  },
+  "managerPostPage": {
+    "postedArticles": "Các bài viết đã đăng"
   }
 }

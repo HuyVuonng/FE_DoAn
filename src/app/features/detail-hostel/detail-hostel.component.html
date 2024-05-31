@@ -80,24 +80,40 @@
         </div>
 
     </div>
-    <div class="lg:w-4/12 bg-white rounded-md h-fit">
-        <div class="flex items-center">
-            <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg"
-                class="size-[70px] rounded-[50%] object-cover m-3" alt="">
-            <div>
-                <p class="font-bold">Hồng Vân Phạm</p>
-                <p class="text-gray-300">{{"detailpage.joiningDate"|translate}}: 25/04/2024</p>
+    <div class="lg:w-4/12  h-fit">
+        <div *ngIf="isManager" class="  rounded-md mb-5 flex gap-4">
+            <button [routerLink]="['/editNews',1]" routerLinkActive="router-link-active"
+                class="px-4 py-2 bg-yellow-500 text-white w-[110px] rounded-lg hover:opacity-80">
+                {{"Button.edit"|translate}}</button>
+            <button class="px-4 py-2 bg-red-600 text-white w-[110px] rounded-lg hover:opacity-80" nz-popconfirm
+                nzPopconfirmTitle="{{'Toast.confirmDelete'|translate}} " (nzOnConfirm)="handleDeletePost()"
+                nzPopconfirmPlacement="right" nzCancelText="{{'Button.cancel'|translate}}"
+                nzOkText="{{'Button.confirm'|translate}}">
+                {{"Button.delete"|translate}}</button>
+
+
+
+        </div>
+        <div class="bg-white  rounded-md">
+            <div class="flex items-center">
+                <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg"
+                    class="size-[70px] rounded-[50%] object-cover m-3" alt="">
+                <div>
+                    <p class="font-bold">Hồng Vân Phạm</p>
+                    <p class="text-gray-300">{{"detailpage.joiningDate"|translate}}: 25/04/2024</p>
+                </div>
+            </div>
+            <div class="p-5 border-t flex flex-col gap-3">
+                <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md "><a
+                        class=" w-full h-full flex items-center justify-center gap-2" [href]="telZalo"><span nz-icon
+                            nzType="zaloIcon:antd" nzTheme="outline"></span>
+                        Zalo</a></div>
+                <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md"><a
+                        class=" w-full h-full flex items-center justify-center gap-2" [href]="tel"><i
+                            class="fa-solid fa-phone"></i>{{"Button.call"|translate}}</a>
+                </div>
             </div>
         </div>
-        <div class="p-5 border-t flex flex-col gap-3">
-            <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md "><a
-                    class=" w-full h-full flex items-center justify-center gap-2" [href]="telZalo"><span nz-icon
-                        nzType="zaloIcon:antd" nzTheme="outline"></span>
-                    Zalo</a></div>
-            <div class="hover:text-[#1890ff] w-full h-[50px] bg-[#f2f8fe] rounded-md"><a
-                    class=" w-full h-full flex items-center justify-center gap-2" [href]="tel"><i
-                        class="fa-solid fa-phone"></i>{{"Button.call"|translate}}</a>
-            </div>
-        </div>
+
     </div>
 </div>
