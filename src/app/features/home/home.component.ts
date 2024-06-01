@@ -43,7 +43,7 @@ import { Observable, map } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   public form: FormGroup = this.fb.group({
-    city: [0],
+    city: ['Thành phố Hà Nội'],
     district: [0],
     ward: [0],
     acreage: [0],
@@ -192,19 +192,19 @@ export class HomeComponent implements OnInit {
   listPriceRange: any = [];
   listAcreage: any = [];
   getListValue() {
-    this.addressService.getCities().subscribe((data) => {
-      this.listCity = data;
-      this.listCity.unshift({ label: this.labelAll, value: 0 });
-      this.listDistrict = [];
-      this.listDistrict.push({ label: this.labelAll, value: 0 });
-      this.listWard = [];
-      this.listWard.push({ label: this.labelAll, value: 0 });
-      this.city?.subscribe((param) => {
-        if (param) {
-          this.form.patchValue({ city: param });
-        }
-      });
-    });
+    // this.addressService.getCities().subscribe((data) => {
+    //   this.listCity = data;
+    //   this.listCity.unshift({ label: this.labelAll, value: 0 });
+    //   this.listDistrict = [];
+    //   this.listDistrict.push({ label: this.labelAll, value: 0 });
+    //   this.listWard = [];
+    //   this.listWard.push({ label: this.labelAll, value: 0 });
+    //   this.city?.subscribe((param) => {
+    //     if (param) {
+    //       this.form.patchValue({ city: param });
+    //     }
+    //   });
+    // });
     this.addressService
       .getDistricts(this.form.get('city')?.value)
       .subscribe((data) => {
@@ -217,21 +217,21 @@ export class HomeComponent implements OnInit {
           }
         });
       });
-    const provinceControl = this.form.get('city') as FormControl;
-    provinceControl.valueChanges.subscribe((value) => {
-      this.addressService.getDistricts(value).subscribe((data) => {
-        this.listDistrict = data;
-        this.listDistrict.unshift({ label: this.labelAll, value: 0 });
-        this.form.patchValue({ district: 0 });
-        this.district?.subscribe((param) => {
-          if (param) {
-            this.form.patchValue({ district: param });
-          }
-        });
-      });
-      // this.form.get('district')?.reset();
-      this.form.get('district')?.setValue(0);
-    });
+    // const provinceControl = this.form.get('city') as FormControl;
+    // provinceControl.valueChanges.subscribe((value) => {
+    //   this.addressService.getDistricts(value).subscribe((data) => {
+    //     this.listDistrict = data;
+    //     this.listDistrict.unshift({ label: this.labelAll, value: 0 });
+    //     this.form.patchValue({ district: 0 });
+    //     this.district?.subscribe((param) => {
+    //       if (param) {
+    //         this.form.patchValue({ district: param });
+    //       }
+    //     });
+    //   });
+    //   // this.form.get('district')?.reset();
+    //   this.form.get('district')?.setValue(0);
+    // });
     const districtControl = this.form.get('district') as FormControl;
     districtControl.valueChanges.subscribe((value) => {
       this.addressService.getWards(value).subscribe((data) => {

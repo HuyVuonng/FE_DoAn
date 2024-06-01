@@ -74,7 +74,7 @@
                 </div>
                 <mat-form-field class="custom-input col-span-1" appearance="outline">
                     <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
-                    <input formControlName="price" matInput (click)="viewMap=false" />
+                    <input currencyMask [options]="config" formControlName="price" matInput (click)="viewMap=false" />
                     <mat-error>{{'postPage.required'| translate}}</mat-error>
                 </mat-form-field>
 

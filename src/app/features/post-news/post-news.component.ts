@@ -26,6 +26,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MapComponent } from '../../core/components/map/map.component';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
+import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -41,6 +42,7 @@ import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
     CKEditorModule,
     NzSpinModule,
     MapComponent,
+    CurrencyMaskModule,
   ],
   templateUrl: './post-news.component.html',
   styleUrl: './post-news.component.scss',
@@ -89,7 +91,15 @@ export class PostNewsComponent implements OnInit {
   ngOnInit(): void {
     this.getListValue();
   }
-
+  config: CurrencyMaskConfig = {
+    align: 'left',
+    allowNegative: false,
+    decimal: ',',
+    precision: 0,
+    prefix: 'VND ',
+    suffix: '',
+    thousands: '.',
+  };
   translatelabelSelectInput() {
     this.translate
       .get('labelInput.all')
