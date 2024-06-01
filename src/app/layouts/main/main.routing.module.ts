@@ -70,6 +70,14 @@ const routes: Routes = [
           ),
         // title: 'Unit',
       },
+      {
+        path: 'paymentStatus',
+        loadComponent: () =>
+          import('../../features/payment-status/payment-status.component').then(
+            (m) => m.PaymentStatusComponent,
+          ),
+        // title: 'Unit',
+      },
 
       {
         path: '**',

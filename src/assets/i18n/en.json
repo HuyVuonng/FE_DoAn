@@ -120,7 +120,7 @@
     "description": "Description",
     "owner": "Owner",
     "phoneNumber": "Phone Number",
-    "createPost": "Create Post And Pay",
+    "createPost": "Create Post And Pay With 2$",
     "updatePost": "Update Post"
   },
   "homePage": {

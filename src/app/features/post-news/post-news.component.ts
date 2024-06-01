@@ -25,6 +25,7 @@ import {
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MapComponent } from '../../core/components/map/map.component';
+import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -81,6 +82,7 @@ export class PostNewsComponent implements OnInit {
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
+    private PayAndSendMailService: PayAndSendMailService,
   ) {
     this.translatelabelSelectInput();
   }
@@ -300,5 +302,11 @@ export class PostNewsComponent implements OnInit {
       this.viewMap = false;
       clearTimeout(this.idTimeOut);
     }, 60000);
+  }
+  handelPostAndPay() {
+    sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
+    this.PayAndSendMailService.pay().subscribe((res) => {
+      window.location.href = res.link;
+    });
   }
 }
