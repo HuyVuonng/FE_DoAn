@@ -27,6 +27,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MapComponent } from '../../core/components/map/map.component';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+import { SnackbarService } from '../../core/services/snackbar.service';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -53,7 +54,9 @@ export class PostNewsComponent implements OnInit {
   urlIMGArray: any = [];
   storage = inject(Storage);
   isSpinning: boolean = false;
+  isSpinningPay: boolean = false;
   viewMap: boolean = false;
+  snackBar = inject(SnackbarService);
   public form: FormGroup = this.fb.group({
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
@@ -97,6 +100,15 @@ export class PostNewsComponent implements OnInit {
     decimal: ',',
     precision: 0,
     prefix: 'VND ',
+    suffix: '',
+    thousands: '.',
+  };
+  configAcreage: CurrencyMaskConfig = {
+    align: 'left',
+    allowNegative: false,
+    decimal: ',',
+    precision: 0,
+    prefix: ' ',
     suffix: '',
     thousands: '.',
   };
@@ -314,9 +326,17 @@ export class PostNewsComponent implements OnInit {
     }, 60000);
   }
   handelPostAndPay() {
+    this.isSpinningPay = true;
     sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
-    this.PayAndSendMailService.pay().subscribe((res) => {
-      window.location.href = res.link;
-    });
+    this.PayAndSendMailService.pay().subscribe(
+      (res) => {
+        this.isSpinningPay = false;
+        window.location.href = res.link;
+      },
+      () => {
+        this.isSpinningPay = false;
+        this.snackBar.error('Error');
+      },
+    );
   }
 }
