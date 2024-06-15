@@ -9,6 +9,13 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./features/admin/admin.routing.module').then(
+        (m) => m.AdminRoutingModule,
+      ),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./layouts/main/main.routing.module').then(

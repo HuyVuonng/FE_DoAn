@@ -27,22 +27,7 @@ import { TabComponent } from '../../shared/components/tab/tab.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import 'zone.js';
 import { Store } from '@ngrx/store';
-import {
-  arrowsDownIcon,
-  arrowsUpIcon,
-  ascSortIcon,
-  circle,
-  descSortIcon,
-  detailTaskIcon,
-  ghostIcon,
-  groupUser,
-  iconZalo,
-  logoutIcon,
-  resizeColIcon,
-  schoolDocumentIcon,
-  tabTaskIcon,
-  taskIcon,
-} from '../../shared/components/iconAntd/iconAddOnAntd.component';
+
 import { AuthService } from '../../core/api/auth.service';
 import { AddressService } from '../../core/services/address.service';
 
@@ -125,23 +110,6 @@ export class MainComponent implements OnInit {
     document.addEventListener('keyup', (event: any) => {
       delete keysPressed[event.keyCode];
     });
-    this.iconService.addIconLiteral('groupUserIcon:antd', groupUser);
-    this.iconService.addIconLiteral('ghostIcon:antd', ghostIcon);
-    this.iconService.addIconLiteral('taskIcon:antd', taskIcon);
-    this.iconService.addIconLiteral('circleIcon:antd', circle);
-    this.iconService.addIconLiteral('tabTaskIcon:antd', tabTaskIcon);
-    this.iconService.addIconLiteral('resizeColIcon:antd', resizeColIcon);
-    this.iconService.addIconLiteral('ascSortIcon:antd', ascSortIcon);
-    this.iconService.addIconLiteral('descSortIcon:antd', descSortIcon);
-    this.iconService.addIconLiteral('detailTaskIcon:antd', detailTaskIcon);
-    this.iconService.addIconLiteral(
-      'schoolDocumentIcon:antd',
-      schoolDocumentIcon,
-    );
-    this.iconService.addIconLiteral('arrowsUpIcon:antd', arrowsUpIcon);
-    this.iconService.addIconLiteral('arrowsDownIcon:antd', arrowsDownIcon);
-    this.iconService.addIconLiteral('logoutIcon:antd', logoutIcon);
-    this.iconService.addIconLiteral('zaloIcon:antd', iconZalo);
   }
   count: number;
   ngOnInit(): void {

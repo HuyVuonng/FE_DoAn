@@ -1,0 +1,59 @@
+<div class="p-3">
+    <form *ngIf="isShowSearch" [formGroup]="form" class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-3">
+
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.title' | translate}}</mat-label>
+            <input formControlName="title" matInput (keyPress)="searchByEnter($event)" />
+        </mat-form-field>
+
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.owner' | translate}}</mat-label>
+            <input formControlName="owner" matInput (keyPress)="searchByEnter($event)" />
+        </mat-form-field>
+
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
+            <mat-select formControlName="district">
+                <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                    {{ district.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.ward' | translate}}</mat-label>
+            <mat-select formControlName="ward">
+                <mat-option *ngFor="let ward of listWard" [value]="ward.value">
+                    {{ ward.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.priceRange' | translate}}</mat-label>
+            <mat-select formControlName="priceRange">
+                <mat-option *ngFor="let priceRange of listPriceRange" [value]="priceRange.value">
+                    {{ priceRange.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.acreage' | translate}}</mat-label>
+            <mat-select formControlName="acreage">
+                <mat-option *ngFor="let acreage of listAcreage" [value]="acreage.value">
+                    {{ acreage.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="flex gap-2 col-span-1 col-start-3 col-end-4 justify-end">
+            <div class="bg-primary text-white rounded-xl w-[70px] cursor-pointer h-fit flex lg:flex-col  gap-1 items-center translate-y-[-20%] py-2  px-2 hover:opacity-70"
+                (click)="handelSearch()">
+                <span class="text-center"> {{'labelInput.search'|translate}}</span>
+            </div>
+            <div class="bg-red-500 text-white rounded-xl cursor-pointer h-fit flex lg:flex-col gap-1 items-center translate-y-[-20%] py-2 w-[70px] px-2 hover:opacity-70"
+                (click)="resetSearch()">
+                <span class="text-center"> {{'labelInput.reset'|translate}}</span>
+            </div>
+        </div>
+    </form>
+</div>

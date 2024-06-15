@@ -1,35 +1,27 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { AddressService } from '../../core/services/address.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-import { MainComponent } from '../../layouts/main/main.component';
-
+import { Observable, map } from 'rxjs';
+import { AddressService } from '../../../../core/services/address.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   ActivatedRoute,
   ParamMap,
   Router,
   RouterModule,
 } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-post-list',
   standalone: true,
-
   imports: [
     RouterModule,
     MatSelectModule,
@@ -37,17 +29,20 @@ import { Observable, map } from 'rxjs';
     MatFormFieldModule,
     TranslateModule,
     CommonModule,
+    MatInputModule,
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './post-list.component.html',
+  styleUrl: './post-list.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class PostListComponent implements OnInit {
   public form: FormGroup = this.fb.group({
     city: ['Thành phố Hà Nội'],
     district: [0],
     ward: [0],
     acreage: [0],
     priceRange: [0],
+    owner: [null],
+    title: [null],
   });
   city: Observable<string | null>;
   district: Observable<string | null>;
@@ -80,13 +75,13 @@ export class HomeComponent implements OnInit {
 
   device: string;
   ngOnInit(): void {
-    this.device = MainComponent.getDeviceType();
-    if (
-      MainComponent.getDeviceType() === 'mobile' ||
-      MainComponent.getDeviceType() === 'tablet'
-    ) {
-      this.isShowSearch = false;
-    }
+    // this.device = MainComponent.getDeviceType();
+    // if (
+    //   MainComponent.getDeviceType() === 'mobile' ||
+    //   MainComponent.getDeviceType() === 'tablet'
+    // ) {
+    //   this.isShowSearch = false;
+    // }
 
     this.city = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('city')),
@@ -342,6 +337,11 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/search'], {
         queryParams: searchValue,
       });
+    }
+  }
+  searchByEnter(e: any) {
+    if (e.keyCode === 13) {
+      this.handelSearch();
     }
   }
 }

@@ -1,0 +1,64 @@
+<nz-layout class="min-h-full">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [class.hidden]="isCollapsed" [class.lg:block]="isCollapsed"
+        [nzWidth]="width" nzTheme="light" [nzTrigger]="null" [nzReverseArrow]="isReverseArrow"
+        class="!fixed px-4 left-0  z-10 !h-screen overflow-y-auto !overflow-x-hidden bg-primaryBG border-r-2 border-solid text-textColor shadow-[2px_0px_7px_0px_rgba(1,87,155,0.30)]">
+        <div class="relative">
+            <div [routerLink]="['/']" routerLinkActive="router-link-active"
+                class="cursor-pointer logo mb-2 mt-4  m-auto flex flex-col h-10 items-center justify-center  rounded-md">
+                <div class="text-[20px] flex gap-3 items-center">
+                    <i class="text-[26px] fa-regular fa-circle-user"></i>
+                    <span>ADMIN</span>
+                </div>
+            </div>
+            <div
+                class="absolute top-0 right-0 rounded-[50%] size-[25px] text-[12px] cursor-pointer border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
+                <span *ngIf="language==='vi'" (click)="changeLanguage('en')" class="select-none">VN</span>
+                <span *ngIf="language==='en'" (click)="changeLanguage('vi')" class="select-none">EN</span>
+            </div>
+        </div>
+        <div class="absolute z-50 bottom-0 left-0 right-0 flex flex-col p-3 gap-2 items-center">
+            <div [routerLink]="['/']" routerLinkActive="router-link-active"
+                class="flex justify-center p-3 gap-2 w-full items-center bg-[#DAF4FF] logoutBTN cursor-pointer hover:text-red-500">
+                <span nz-icon nzType="logoutIcon:antd" class="icon" nzTheme="outline"></span>
+                <span class="select-none">{{'Menu.backToHome' | translate}}</span>
+            </div>
+            <div class="flex justify-center p-3 gap-2 w-full items-center bg-[#DAF4FF] logoutBTN cursor-pointer hover:text-red-500"
+                (click)="handleLogout()">
+                <span nz-icon nzType="logoutIcon:antd" class="icon" nzTheme="outline"></span>
+                <span class="select-none">{{'Menu.logout' | translate}}</span>
+            </div>
+        </div>
+        <div>
+            <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" class="border-none">
+                <li nz-menu-item [routerLink]="['/admin/posts']" nzMatchRouter>
+                    <span nz-icon nzType="user"></span>
+                    <span>{{'Menu.posts'| translate}}</span>
+                </li>
+            </ul>
+            <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" class="border-none">
+                <li nz-menu-item [routerLink]="['/admin/accounts']" nzMatchRouter>
+                    <span nz-icon nzType="user"></span>
+                    <span>{{'Menu.accounts'| translate}}</span>
+                </li>
+            </ul>
+            <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" class="border-none">
+                <li nz-menu-item [routerLink]="['/admin/reports']" nzMatchRouter>
+                    <span nz-icon nzType="user"></span>
+                    <span>{{'Menu.reports'| translate}}</span>
+                </li>
+            </ul>
+
+        </div>
+    </nz-sider>
+    <nz-layout class="bg-white" [ngClass]="{ 'ml-[280px]': !isCollapsed, 'lg:ml-[80px]': isCollapsed }">
+
+        <nz-content>
+            <div class=" border-t border-solid border-primary px-1 h-full" [class.hidden]="!isCollapsed"
+                [class.lg:block]="!isCollapsed">
+
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <!-- <nz-footer clas></nz-footer> -->
+    </nz-layout>
+</nz-layout>

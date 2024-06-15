@@ -29,8 +29,22 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import {
   arrowsIcon,
   filterIcon,
+  groupUser,
   keySquareIcon,
   sortIcon,
+  arrowsDownIcon,
+  arrowsUpIcon,
+  ascSortIcon,
+  circle,
+  descSortIcon,
+  detailTaskIcon,
+  ghostIcon,
+  iconZalo,
+  logoutIcon,
+  resizeColIcon,
+  schoolDocumentIcon,
+  tabTaskIcon,
+  taskIcon,
 } from './shared/components/iconAntd/iconAddOnAntd.component';
 
 const MY_DATE_FORMAT = {
@@ -94,5 +108,22 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.i18n.setLocale(vi_VN);
+    this.iconService.addIconLiteral('groupUserIcon:antd', groupUser);
+    this.iconService.addIconLiteral('ghostIcon:antd', ghostIcon);
+    this.iconService.addIconLiteral('taskIcon:antd', taskIcon);
+    this.iconService.addIconLiteral('circleIcon:antd', circle);
+    this.iconService.addIconLiteral('tabTaskIcon:antd', tabTaskIcon);
+    this.iconService.addIconLiteral('resizeColIcon:antd', resizeColIcon);
+    this.iconService.addIconLiteral('ascSortIcon:antd', ascSortIcon);
+    this.iconService.addIconLiteral('descSortIcon:antd', descSortIcon);
+    this.iconService.addIconLiteral('detailTaskIcon:antd', detailTaskIcon);
+    this.iconService.addIconLiteral(
+      'schoolDocumentIcon:antd',
+      schoolDocumentIcon,
+    );
+    this.iconService.addIconLiteral('arrowsUpIcon:antd', arrowsUpIcon);
+    this.iconService.addIconLiteral('arrowsDownIcon:antd', arrowsDownIcon);
+    this.iconService.addIconLiteral('logoutIcon:antd', logoutIcon);
+    this.iconService.addIconLiteral('zaloIcon:antd', iconZalo);
   }
 }

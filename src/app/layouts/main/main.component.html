@@ -31,6 +31,9 @@
                   nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomCenter" />
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                   <ul nz-menu>
+                    <li nz-menu-item [routerLink]="['/admin']" routerLinkActive="activeLink">
+                      {{"Menu.adminManagement"| translate}}</li>
+                    <li nz-menu-divider></li>
                     <li nz-menu-item [routerLink]="['/userInfor',1]" routerLinkActive="activeLink">
                       {{"Menu.accountInfor"| translate}}</li>
                     <li nz-menu-item [routerLink]="['/managerPost',1]" routerLinkActive="activeLink">
