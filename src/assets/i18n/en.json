@@ -113,7 +113,9 @@
     "reset": "Reset",
     "search": "Search",
     "title": "Title",
-    "owner": "Owner"
+    "owner": "Owner",
+    "active": "Active",
+    "deactivate": "Deactivate"
   },
   "sloganText": "Rooms for Rent, Cheap Rooms for Rent, Owner",
   "postPage": {
@@ -157,5 +159,23 @@
   },
   "managerPostPage": {
     "postedArticles": "Posted articles"
+  },
+  "pagination": {
+    "totalPages": "Total",
+    "results": "results",
+    "noData": "No data"
+  },
+  "AdminPage": {
+    "accountList": "Account List",
+    "no": "No",
+    "accountsPage": {
+      "account": "Account",
+      "fullName": "Full Name",
+      "action": "Actions",
+      "status": "Status",
+      "deleteAccount": "Delete Account",
+      "block": "Block",
+      "unBlock": "Unblock"
+    }
   }
 }

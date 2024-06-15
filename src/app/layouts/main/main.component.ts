@@ -30,6 +30,7 @@ import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../core/api/auth.service';
 import { AddressService } from '../../core/services/address.service';
+import { NzI18nService, en_US, vi_VN } from 'ng-zorro-antd/i18n';
 
 @Component({
   selector: 'app-main',
@@ -79,6 +80,11 @@ export class MainComponent implements OnInit {
   changeLanguage(e: any) {
     this.language = e;
     this.translate.use(this.language);
+    if (e === 'en') {
+      this.i18n.setLocale(en_US);
+    } else {
+      this.i18n.setLocale(vi_VN);
+    }
     this.cdr.detectChanges();
   }
   tabActive: number = 0;
@@ -90,6 +96,7 @@ export class MainComponent implements OnInit {
     private translate: TranslateService,
     private iconService: NzIconService,
     private authService: AuthService,
+    private i18n: NzI18nService,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -113,6 +120,10 @@ export class MainComponent implements OnInit {
   }
   count: number;
   ngOnInit(): void {
+    const dfMessenger = document.getElementById('dfMessenger') as HTMLElement;
+    if (dfMessenger) {
+      dfMessenger.style.display = 'block';
+    }
     if (MainComponent.getDeviceType() === 'mobile') {
       this.isCollapsed = true;
       this.cdr.detectChanges();

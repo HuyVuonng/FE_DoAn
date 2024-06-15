@@ -112,7 +112,9 @@
     "reset": "Đặt lại",
     "search": "Tìm kiếm",
     "title": "Tiêu đề",
-    "owner": "Chủ sở hữu"
+    "owner": "Chủ sở hữu",
+    "active": "Hoạt động",
+    "deactivate": "Ngừng hoạt động"
   },
   "sloganText": "Cho Thuê Phòng Trọ, Thuê Nhà Trọ Giá Rẻ, Chính Chủ",
   "postPage": {
@@ -156,5 +158,23 @@
   },
   "managerPostPage": {
     "postedArticles": "Các bài viết đã đăng"
+  },
+  "pagination": {
+    "totalPages": "Tổng số",
+    "results": "kết quả",
+    "noData": "Không có dữ liệu"
+  },
+  "AdminPage": {
+    "accountList": "Danh sách tài khoản",
+    "no": "STT",
+    "accountsPage": {
+      "account": "Tài khoản",
+      "fullName": "Họ và tên",
+      "action": "Thao tác",
+      "status": "Trạng thái",
+      "deleteAccount": "Xóa tài khoản",
+      "block": "Chặn",
+      "unBlock": "Bỏ chặn"
+    }
   }
 }

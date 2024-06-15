@@ -23,7 +23,7 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { NzI18nService, vi_VN } from 'ng-zorro-antd/i18n';
+import { NzI18nService, en_US, vi_VN } from 'ng-zorro-antd/i18n';
 import { TranslateService } from '@ngx-translate/core';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import {
@@ -98,16 +98,19 @@ export class AppComponent implements OnInit {
     this.iconService.addIconLiteral('sortIcon:antd', sortIcon);
     this.iconService.addIconLiteral('keySquareIcon:antd', keySquareIcon);
     this.iconService.addIconLiteral('arrowsIcon:antd', arrowsIcon);
+
     if (navigator.language.includes('vi')) {
+      this.i18n.setLocale(vi_VN);
       this.translate.use('vi');
       this.language = 'vi';
     } else if (navigator.language.includes('en')) {
+      this.i18n.setLocale(en_US);
       this.translate.use('en');
       this.language = 'en';
     }
   }
   ngOnInit(): void {
-    this.i18n.setLocale(vi_VN);
+    // this.i18n.setLocale(vi_VN);
     this.iconService.addIconLiteral('groupUserIcon:antd', groupUser);
     this.iconService.addIconLiteral('ghostIcon:antd', ghostIcon);
     this.iconService.addIconLiteral('taskIcon:antd', taskIcon);

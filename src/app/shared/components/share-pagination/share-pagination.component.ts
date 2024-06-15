@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { WithConfig } from 'ng-zorro-antd/core/config';
 import { TableStorage } from '../../../core/enums/storage.enum';
-import { NzI18nService, vi_VN } from 'ng-zorro-antd/i18n';
+import { NzI18nService, en_US, vi_VN } from 'ng-zorro-antd/i18n';
 @Component({
   selector: 'app-share-pagination',
   templateUrl: './share-pagination.component.html',
@@ -25,7 +25,11 @@ export class SharePaginationComponent implements OnInit {
   constructor(private i18n: NzI18nService) {}
 
   ngOnInit() {
-    this.i18n.setLocale(vi_VN);
+    if (navigator.language.includes('vi')) {
+      this.i18n.setLocale(vi_VN);
+    } else if (navigator.language.includes('en')) {
+      this.i18n.setLocale(en_US);
+    }
   }
   setPageSize($event: any) {
     localStorage.setItem(TableStorage.currentPageSize, $event);
