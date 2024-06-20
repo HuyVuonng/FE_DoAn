@@ -114,7 +114,8 @@
     "title": "Tiêu đề",
     "owner": "Chủ sở hữu",
     "active": "Hoạt động",
-    "deactivate": "Ngừng hoạt động"
+    "deactivate": "Ngừng hoạt động",
+    "type": "Loại"
   },
   "sloganText": "Cho Thuê Phòng Trọ, Thuê Nhà Trọ Giá Rẻ, Chính Chủ",
   "postPage": {

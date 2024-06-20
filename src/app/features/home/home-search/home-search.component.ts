@@ -13,7 +13,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
   styleUrl: './home-search.component.scss',
 })
 export class HomeSearchComponent implements OnInit {
-  city: Observable<string | null>;
+  type: Observable<string | null>;
   district: Observable<string | null>;
   ward: Observable<string | null>;
   acreage: Observable<string | null>;
@@ -21,8 +21,8 @@ export class HomeSearchComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
   ngOnInit(): void {
-    this.city = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('city')),
+    this.type = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('type')),
     );
     this.district = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('district')),
@@ -40,7 +40,7 @@ export class HomeSearchComponent implements OnInit {
       map((params: ParamMap) => params.get('priceRange')),
     );
 
-    // this.city.subscribe((param) => console.log(param));
+    // this.type.subscribe((param) => console.log(param));
     // this.district.subscribe((param) => console.log(param));
     // this.ward.subscribe((param) => console.log(param));
     // this.acreage.subscribe((param) => console.log(param));

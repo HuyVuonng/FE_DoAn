@@ -36,7 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class PostListComponent implements OnInit {
   public form: FormGroup = this.fb.group({
-    city: ['Thành phố Hà Nội'],
+    type: [0],
     district: [0],
     ward: [0],
     acreage: [0],
@@ -44,7 +44,7 @@ export class PostListComponent implements OnInit {
     owner: [null],
     title: [null],
   });
-  city: Observable<string | null>;
+  type: Observable<string | null>;
   district: Observable<string | null>;
   ward: Observable<string | null>;
   acreage: Observable<string | null>;
@@ -83,8 +83,8 @@ export class PostListComponent implements OnInit {
     //   this.isShowSearch = false;
     // }
 
-    this.city = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('city')),
+    this.type = this.route.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('type')),
     );
     this.district = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('district')),
@@ -181,24 +181,22 @@ export class PostListComponent implements OnInit {
       this.getListValue();
     });
   }
-  listCity: any = [];
+  listType: any = [];
   listDistrict: any = [];
   listWard: any = [];
   listPriceRange: any = [];
   listAcreage: any = [];
   getListValue() {
-    this.addressService
-      .getDistricts(this.form.get('city')?.value)
-      .subscribe((data) => {
-        this.listDistrict = data;
-        this.listDistrict.unshift({ label: this.labelAll, value: 0 });
-        this.form.patchValue({ district: 0 });
-        this.district?.subscribe((param) => {
-          if (param) {
-            this.form.patchValue({ district: param });
-          }
-        });
+    this.addressService.getDistricts('Thành phố Hà Nội').subscribe((data) => {
+      this.listDistrict = data;
+      this.listDistrict.unshift({ label: this.labelAll, value: 0 });
+      this.form.patchValue({ district: 0 });
+      this.district?.subscribe((param) => {
+        if (param) {
+          this.form.patchValue({ district: param });
+        }
       });
+    });
 
     const districtControl = this.form.get('district') as FormControl;
     districtControl.valueChanges.subscribe((value) => {
@@ -289,56 +287,29 @@ export class PostListComponent implements OnInit {
         value: 7,
       },
     ];
-
-    this.acreage?.subscribe((param) => {
-      if (param) {
-        this.form.patchValue({ acreage: 2 });
-      }
-    });
-    this.priceRange?.subscribe((param) => {
-      if (param) {
-        this.form.patchValue({ priceRange: 2 });
-      }
-    });
+    this.listType = [
+      {
+        label: this.labelAll,
+        value: 0,
+      },
+      {
+        label: 'Nhà trọ',
+        value: 1,
+      },
+    ];
   }
   resetSearch() {
     this.form.patchValue({
-      city: 0,
+      type: 0,
       district: 0,
       ward: 0,
       acreage: 0,
       priceRange: 0,
+      title: null,
+      owner: null,
     });
-    this.href = this.router.url;
-    if (this.href.includes('search')) {
-      this.router.navigate(['/search']);
-    }
   }
-  handelSearch() {
-    const searchValue = { ...this.form.getRawValue() };
-
-    Object.keys(searchValue).forEach((key) => {
-      if (
-        searchValue[key] === null ||
-        searchValue[key] === '' ||
-        searchValue[key] === 0
-      ) {
-        delete searchValue[key];
-      }
-    });
-
-    if (
-      searchValue.city ||
-      searchValue.district ||
-      searchValue.ward ||
-      searchValue.acreage ||
-      searchValue.priceRange
-    ) {
-      this.router.navigate(['/search'], {
-        queryParams: searchValue,
-      });
-    }
-  }
+  handelSearch() {}
   searchByEnter(e: any) {
     if (e.keyCode === 13) {
       this.handelSearch();

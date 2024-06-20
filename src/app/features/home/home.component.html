@@ -1,14 +1,14 @@
 <div class="relative border-b-2 border-solid border-[#D8D8D8] mb-3" [class.border-b-2]="device!=='desktop'">
     <form *ngIf="isShowSearch" [formGroup]="form"
-        class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[repeat(4,1fr)_120px]">
-        <!-- <mat-form-field class="custom-input col-span-1" appearance="outline">
-            <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
-            <mat-select formControlName="city">
-                <mat-option *ngFor="let city of listCity" [value]="city.value">
-                    {{ city.label }}
+        class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[repeat(5,1fr)_120px]">
+        <mat-form-field class="custom-input col-span-1" appearance="outline">
+            <mat-label class="bg-white">{{'labelInput.type'| translate}}</mat-label>
+            <mat-select formControlName="type">
+                <mat-option *ngFor="let type of listType" [value]="type.value">
+                    {{ type.label }}
                 </mat-option>
             </mat-select>
-        </mat-form-field> -->
+        </mat-form-field>
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
