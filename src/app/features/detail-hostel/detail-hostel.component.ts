@@ -8,6 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SwiperOptions } from 'swiper/types';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { Router, RouterModule } from '@angular/router';
+import { MapComponent } from './map/map.component';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -19,6 +20,7 @@ import { Router, RouterModule } from '@angular/router';
     FormsModule,
     NzPopconfirmModule,
     RouterModule,
+    MapComponent,
   ],
   templateUrl: './detail-hostel.component.html',
   styleUrl: './detail-hostel.component.scss',
@@ -38,7 +40,7 @@ export class DetailHostelComponent implements OnInit {
   telZalo: string = 'https://zalo.me/0903985085';
   tel: string = 'tel:0903985085';
   evaluation: string;
-  sourceMap = `<div style="width: 100%"><iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='96 định công';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
+  sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='96 định công khoa công nghệ thông tin';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
 
   handelSendEvaluation() {
     console.log(this.evaluation);
