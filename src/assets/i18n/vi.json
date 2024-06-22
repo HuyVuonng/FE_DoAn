@@ -176,6 +176,18 @@
       "deleteAccount": "Xóa tài khoản",
       "block": "Chặn",
       "unBlock": "Bỏ chặn"
+    },
+    "reportpage": {
+      "listReports": "Danh sách báo cáo",
+      "postReport": "Bài viết bị báo cáo",
+      "status": "Trạng thái xử lý",
+      "statusAccept": "Trạng thái báo cáo",
+      "noProcessor": "Chưa xử lý",
+      "processed": "Đã xử lý",
+      "acceptReport": "Chấp nhận báo cáo",
+      "denyReport": "Từ chối báo cáo",
+      "annunciator": "Người báo cáo",
+      "contentReports": "Nội dung báo cáo"
     }
   }
 }

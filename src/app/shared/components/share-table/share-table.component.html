@@ -13,7 +13,7 @@
       <tbody class="w-full overflow-y-auto overflow-x-hidden">
         <ng-container *ngIf="loaded  ; else loadingTmpl">
           <ng-container *ngIf="data?.length || listproduct; else blankTmpl">
-            <tr class="h-14 text-sm" *ngFor=" let row of data; index as i">
+            <tr class="h-14text-sm" *ngFor=" let row of data; index as i">
               <ng-container *ngIf="row.edit || row.edit == undefined">
                 <ng-container *ngTemplateOutlet="
                     rows || defaultRowTemplate;

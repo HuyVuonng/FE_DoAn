@@ -177,6 +177,18 @@
       "deleteAccount": "Delete Account",
       "block": "Block",
       "unBlock": "Unblock"
+    },
+    "reportpage": {
+      "listReports": "List Reports",
+      "postReport": "Post Report",
+      "status": "Status Process",
+      "statusAccept": "Status Report",
+      "noProcessor": "No Process",
+      "processed": "Processed",
+      "acceptReport": "Accept Report",
+      "denyReport": "Deny Report",
+      "annunciator": "Annunciator",
+      "contentReports": "Content Reports"
     }
   }
 }
