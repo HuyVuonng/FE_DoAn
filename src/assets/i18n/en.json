@@ -52,7 +52,10 @@
     "rePass": "Re-enter password",
     "noEmty": "No Emty",
     "notMatch": "Password Is Not Match",
-    "wrongPhoneNumber": "Wrong Phone Number"
+    "wrongPhoneNumber": "Wrong Phone Number",
+    "wrongEmail": "Wrong Email",
+    "requiredPassword": "Password must have at least one uppercase letter, one lowercase letter, number, special character and be at least 8 characters long",
+    "registerSuccess": "Registration successful, please check your email to activate your account"
   },
   "PopUpForgotPassword": {
     "forgotPassword": "Forgot Password",
@@ -73,7 +76,9 @@
     "loginWith": "Login With",
     "registerAccount": "Register Account",
     "noEmty": "No Emty",
-    "userNamePlaceholder": "User Name/Email/Phone Number"
+    "userNamePlaceholder": "User Name/Email/Phone Number",
+    "activingAccount": "Account is activing",
+    "accountActivated": "Account activated"
   },
   "Toast": {
     "createSuccess": "Create Success",

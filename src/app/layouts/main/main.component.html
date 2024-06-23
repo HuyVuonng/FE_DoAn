@@ -23,8 +23,9 @@
                 <span class="font-[500] text-[16px]">Nguyễn Đặng Hùng</span>
               </div> -->
               <div class="flex gap-3 items-center">
-                <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.login' | translate}}</button>
-                <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.register' | translate}}</button>
+                <button *ngIf="!isLogin" [routerLink]="['/login']" routerLinkActive="router-link-active"
+                  class="hover:text-primary">{{'Button.login' | translate}}</button>
+                <!-- <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.register' | translate}}</button> -->
                 <button class="hover:text-primary" [routerLink]="['/postNews']"
                   routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
                 <img *ngIf="isLogin" src="assets/img/avatar.png" class="rounded-full size-10 cursor-pointer" alt=""

@@ -23,6 +23,9 @@ import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSelectModule, NzSelectSizeType } from 'ng-zorro-antd/select';
 import { phoneNumberValidator } from '../../shared/validate/check-phone-number.directive';
 import { rePassValidator } from '../../shared/validate/check-repass.directive';
+import { passWordValidator } from '../../shared/validate/check-password.directive';
+import { SnackbarService } from '../../core/services/snackbar.service';
+import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 
 @Component({
   selector: 'app-register',
@@ -49,6 +52,7 @@ export class RegisterComponent implements OnInit {
   notify: string;
   AlerPhoneNumber: string;
   AlerEmail: string;
+  registerSuccess: string;
   handleOk(): void {
     console.log('Button ok clicked!');
     this.isVisiblePopUpOpen.emit(false);
@@ -76,15 +80,17 @@ export class RegisterComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private modal: NzModalService,
     private translate: TranslateService,
+    private snackBar: SnackbarService,
+    private PayAndSendMailService: PayAndSendMailService,
   ) {}
 
   public form: FormGroup = this.fb.group({
-    username: [null, Validators.required],
+    // username: [null, Validators.required],
     fullName: [null, Validators.required],
-    phoneNumber: [null, [phoneNumberValidator()]],
-    password: [null, Validators.required],
+    phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
+    password: [null, [Validators.required, passWordValidator()]],
     rePass: [null, Validators.required],
-    email: [null],
+    email: [null, [Validators.required, Validators.email]],
   });
   ngOnInit(): void {
     this.form
@@ -100,7 +106,9 @@ export class RegisterComponent implements OnInit {
     this.translate
       .get('Toast.AlerPhoneNumber')
       .subscribe((value) => (this.AlerPhoneNumber = value));
-
+    this.translate
+      .get('PopUpRegister.registerSuccess')
+      .subscribe((value) => (this.registerSuccess = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
         .get('Toast.notify')
@@ -111,11 +119,14 @@ export class RegisterComponent implements OnInit {
       this.translate
         .get('Toast.AlerPhoneNumber')
         .subscribe((value) => (this.AlerPhoneNumber = value));
+      this.translate
+        .get('PopUpRegister.registerSuccess')
+        .subscribe((value) => (this.registerSuccess = value));
     });
   }
   register(): void {
     const body = {
-      username: this.form.get('username')?.value,
+      // username: this.form.get('username')?.value,
       fullName: this.form.get('fullName')?.value,
       phoneNumber: this.form.get('phoneNumber')?.value,
       password: this.form.get('password')?.value,
@@ -123,7 +134,7 @@ export class RegisterComponent implements OnInit {
       email: this.form.get('email')?.value,
     };
     if (this.form.invalid) {
-      this.form.get('username')?.markAsTouched();
+      // this.form.get('username')?.markAsTouched();
       this.form.get('fullName')?.markAsTouched();
       this.form.get('phoneNumber')?.markAsTouched();
       this.form.get('password')?.markAsTouched();
@@ -133,7 +144,10 @@ export class RegisterComponent implements OnInit {
     }
     console.log('Button ok clicked!');
     this.isVisiblePopUpOpen.emit(false);
+    this.snackBar.success(this.registerSuccess);
+    this.handelSendMailActiveAccount();
   }
+
   updateValidateRepass(e: any) {
     this.form.get('rePass')?.clearValidators();
     this.form.get('rePass')?.addValidators(rePassValidator(e.target.value));
@@ -185,5 +199,15 @@ export class RegisterComponent implements OnInit {
   }
   handleConfirmEmail() {
     console.log('confirm email');
+  }
+
+  handelSendMailActiveAccount() {
+    const nameCustomer = this.form.get('fullName')?.value;
+    const body = {
+      nameCustomer,
+      email: this.form.get('email')?.value,
+      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/1`,
+    };
+    this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(() => {});
   }
 }

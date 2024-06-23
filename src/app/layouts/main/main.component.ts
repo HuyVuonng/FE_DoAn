@@ -5,7 +5,7 @@ import {
   importProvidersFrom,
   inject,
 } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -97,6 +97,7 @@ export class MainComponent implements OnInit {
     private iconService: NzIconService,
     private authService: AuthService,
     private i18n: NzI18nService,
+    private route: Router,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -200,5 +201,12 @@ export class MainComponent implements OnInit {
     // window.location.reload();
     this.authService.logout();
     // this.OauthService.refreshToken();
+  }
+  handleGoToPost() {
+    if (!localStorage.getItem('access_token')) {
+      this.route.navigate(['/login']);
+    } else {
+      this.route.navigate(['/postNews']);
+    }
   }
 }

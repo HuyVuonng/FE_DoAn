@@ -31,15 +31,6 @@
                         </mat-error>
 
                     </mat-form-field>
-                    <mat-form-field class="custom-input col-span-1" appearance="outline">
-                        <mat-label class="bg-white">{{'labelInput.city'| translate}}</mat-label>
-                        <mat-select formControlName="city" (click)="viewMap=false">
-                            <mat-option *ngFor="let city of listCity" [value]="city.value">
-                                {{ city.label }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error>{{'postPage.required'| translate}}</mat-error>
-                    </mat-form-field>
 
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
@@ -60,6 +51,16 @@
                         </mat-select>
                         <mat-error>{{'postPage.required'| translate}}</mat-error>
 
+                    </mat-form-field>
+
+                    <mat-form-field class="custom-input col-span-1" appearance="outline">
+                        <mat-label class="bg-white">{{'labelInput.type'| translate}}</mat-label>
+                        <mat-select formControlName="type" (click)="viewMap=false">
+                            <mat-option *ngFor="let type of listType" [value]="type.value">
+                                {{ type.label }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{'postPage.required'| translate}}</mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="custom-input col-span-2" appearance="outline">
@@ -89,15 +90,21 @@
                     </mat-form-field>
 
                     <mat-form-field class="custom-input col-span-2" appearance="outline">
-                        <mat-label class="bg-white">{{'postPage.title' | translate}}</mat-label>
-                        <input formControlName="title" matInput (click)="viewMap=false" />
+                        <mat-label class="bg-white">{{'postPage.title' | translate}} ({{countTitle}}/100)</mat-label>
+                        <input formControlName="title" matInput (click)="viewMap=false"
+                            (input)="handelPressTitle($event)" maxlength="100" />
                         <mat-error>{{'postPage.required'| translate}}</mat-error>
                     </mat-form-field>
                     <div class="col-span-2 h-[300px]">
                         <p>{{'postPage.description' | translate}}</p>
-                        <ckeditor class="w-full h-full max-h-[500px] col-span-2" [editor]="Editor"
+                        <ckeditor class="w-full h-full max-h-[500px] text-black col-span-2" [editor]="Editor"
                             formControlName="description" (click)="viewMap=false">
                         </ckeditor>
+                        <span
+                            *ngIf="form.get('description')?.errors?.['required']&& (form.get('description')?.dirty || form.get('description')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </span>
                     </div>
 
                     <div class="col-span-2">
@@ -124,12 +131,19 @@
 
                                 <input type="file" class="hidden" name="IMG" id="IMG" (change)="onSelectIMG($event)"
                                     accept="image/png, image/jpeg" />
+
                                 <label *ngIf="urlIMGArray.length > 0 && urlIMGArray.length < 6 " for="IMG"
                                     class="cursor-pointer items-center justify-center flex w-[25px] h-[25px] text-primary rounded-[50%] border-solid border-primary border-2 uploadImg">
                                     <i class="fa-solid fa-plus"></i>
                                 </label>
                             </div>
                         </nz-spin>
+
+                        <span
+                            *ngIf="form.get('linkImg')?.errors?.['required']&& (form.get('linkImg')?.dirty || form.get('linkImg')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </span>
 
                     </div>
                 </form>

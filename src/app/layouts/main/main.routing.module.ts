@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthGuard } from '../../core/guards/auth.guard';
 // import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
           import('../../features/post-news/post-news.component').then(
             (m) => m.PostNewsComponent,
           ),
+        canActivate: [AuthGuard],
         // title: 'Unit',
       },
       {

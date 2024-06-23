@@ -61,14 +61,15 @@ export class PostNewsComponent implements OnInit {
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
     zalo: [null, [phoneNumberValidator()]],
-    city: [null, Validators.required],
+    type: [null, Validators.required],
     district: [null, Validators.required],
     ward: [null, Validators.required],
     acreage: [null, Validators.required],
     price: [null, Validators.required],
     addressDetail: [null, Validators.required],
     title: [null, Validators.required],
-    description: [null],
+    description: [null, Validators.required],
+    linkImg: [null, Validators.required],
   });
   labelAll: string;
   labelBelow1Milion: string;
@@ -188,24 +189,18 @@ export class PostNewsComponent implements OnInit {
       this.getListValue();
     });
   }
-  listCity: any = [];
+  listType: any = [];
   listDistrict: any = [];
   listWard: any = [];
-  listPriceRange: any = [];
-  listAcreage: any = [];
   getListValue() {
-    this.addressService.getCities().subscribe((data) => {
-      this.listCity = data;
+    // this.addressService.getCities().subscribe((data) => {
+    //   this.listCity = data;
+    // });
+
+    this.addressService.getDistricts('Thành phố Hà Nội').subscribe((data) => {
+      this.listDistrict = data;
     });
 
-    const provinceControl = this.form.get('city') as FormControl;
-    provinceControl.valueChanges.subscribe((value) => {
-      this.addressService.getDistricts(value).subscribe((data) => {
-        this.listDistrict = data;
-      });
-      this.form.get('district')?.reset();
-      this.form.get('district')?.setValue(null);
-    });
     const districtControl = this.form.get('district') as FormControl;
     districtControl.valueChanges.subscribe((value) => {
       this.addressService.getWards(value).subscribe((data) => {
@@ -215,77 +210,10 @@ export class PostNewsComponent implements OnInit {
       this.form.get('ward')?.setValue(null);
     });
 
-    this.listPriceRange = [
+    this.listType = [
       {
-        label: this.labelAll,
-        value: 0,
-      },
-      {
-        label: this.labelBelow1Milion,
+        label: 'Nhà trọ',
         value: 1,
-      },
-      {
-        label: this.label1MilionsTo2Milions,
-        value: 2,
-      },
-      {
-        label: this.label2MilionsTo4Milions,
-        value: 3,
-      },
-      {
-        label: this.label4MilionsTo6Milions,
-        value: 4,
-      },
-      {
-        label: this.label6MilionsTo8Milions,
-        value: 5,
-      },
-      {
-        label: this.label8MilionsTo10Milions,
-        value: 6,
-      },
-      {
-        label: this.labelOver10Milions,
-        value: 7,
-      },
-      {
-        label: this.labelDeal,
-        value: 8,
-      },
-    ];
-
-    this.listAcreage = [
-      {
-        label: this.labelAll,
-        value: 0,
-      },
-      {
-        label: this.labelBelow20M2,
-        value: 1,
-      },
-      {
-        label: '20-30 M2',
-        value: 2,
-      },
-      {
-        label: '30-40 M2',
-        value: 3,
-      },
-      {
-        label: '40-60 M2',
-        value: 4,
-      },
-      {
-        label: '60-80 M2',
-        value: 5,
-      },
-      {
-        label: '80-100 M2',
-        value: 6,
-      },
-      {
-        label: this.labelOver100M2,
-        value: 7,
       },
     ];
   }
@@ -298,6 +226,9 @@ export class PostNewsComponent implements OnInit {
     uploadBytes(imgRef, file).then((res) => {
       getDownloadURL(res.ref).then((url) => {
         this.urlIMGArray.push(url);
+        this.form.patchValue({
+          linkImg: this.urlIMGArray,
+        });
         this.isSpinning = false;
       });
     });
@@ -312,7 +243,6 @@ export class PostNewsComponent implements OnInit {
   }
   changeAddress = (e: any) => {
     this.sourceMap = '';
-    // this.sourceMap = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q='${e.target.value}'&z=20&ie=UTF8&iwloc=B&output=embed`;
     this.sourceMap = `<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e.target.value}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
     this.cdr.detectChanges();
   };
@@ -327,6 +257,24 @@ export class PostNewsComponent implements OnInit {
   }
   handelPostAndPay() {
     this.isSpinningPay = true;
+
+    if (this.form.invalid) {
+      // this.form.get('username')?.markAsTouched();
+      this.form.get('owner')?.markAsTouched();
+      this.form.get('phoneNumber')?.markAsTouched();
+      this.form.get('type')?.markAsTouched();
+      this.form.get('district')?.markAsTouched();
+      this.form.get('ward')?.markAsTouched();
+      this.form.get('acreage')?.markAsTouched();
+      this.form.get('price')?.markAsTouched();
+      this.form.get('addressDetail')?.markAsTouched();
+      this.form.get('title')?.markAsTouched();
+      this.form.get('description')?.markAsTouched();
+      this.form.get('linkImg')?.markAsTouched();
+      this.isSpinningPay = false;
+
+      return;
+    }
     sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
     this.PayAndSendMailService.pay().subscribe(
       (res) => {
@@ -338,5 +286,9 @@ export class PostNewsComponent implements OnInit {
         this.snackBar.error('Error');
       },
     );
+  }
+  countTitle: number = 0;
+  handelPressTitle(e: any) {
+    this.countTitle = e.target.value.length;
   }
 }

@@ -52,7 +52,10 @@
     "rePass": "Nhập lại mật khẩu",
     "noEmty": "Không bỏ trống trường này",
     "notMatch": "Mật khẩu không khớp",
-    "wrongPhoneNumber": "Sai số điện thoại"
+    "wrongPhoneNumber": "Sai số điện thoại",
+    "wrongEmail": "Sai định dạng email",
+    "requiredPassword": "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường,số, ký tự đặc biệt và dài ít nhất 8 ký tự",
+    "registerSuccess": "Đăng ký thành công, vui lòng kiểm tra mail để kích hoạt tài khoản"
   },
   "PopUpForgotPassword": {
     "forgotPassword": "Quên mật khẩu",
@@ -73,7 +76,9 @@
     "loginWith": "Đăng nhập với",
     "registerAccount": "Đăng ký tài khoản",
     "noEmty": "Không bỏ trống trường này",
-    "userNamePlaceholder": "Nhập User Name/Email/Số điện thoại"
+    "userNamePlaceholder": "Nhập User Name/Email/Số điện thoại",
+    "activingAccount": "Đang kích hoạt tài khoản",
+    "accountActivated": "Tài khoản đã được kích hoạt"
   },
   "Toast": {
     "createSuccess": "Tạo mới thành công",

@@ -10,8 +10,8 @@
         <div class="text-center text-primary font-semibold text-[40px]">
             <span>{{'PopUpRegister.register'|translate}}</span>
         </div>
-        <form [formGroup]="form" class="grid grid-cols-2 gap-2 lg:!w-[450px]  h-fit lg:px-[30px] lg:pb-2 overflow-auto">
-            <div class="col-span-2 flex flex-col">
+        <form [formGroup]="form" class="grid grid-cols-2 gap-4 lg:!w-[450px]  h-fit lg:px-[30px] lg:pb-2 overflow-auto">
+            <!-- <div class="col-span-2 flex flex-col">
                 <span>{{'PopUpRegister.username'|translate}}<span class="text-red-500">*</span></span>
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <input matInput formControlName="username" />
@@ -21,6 +21,25 @@
                         {{'PopUpRegister.noEmty'|translate}}
                     </mat-error>
                 </mat-form-field>
+            </div> -->
+            <div class="col-span-2 flex flex-col">
+                <span>Email<span class="text-red-500">*</span></span>
+                <div class="flex relative">
+                    <mat-form-field class="custom-input col-span-2  w-full" appearance="outline">
+                        <input class="!w-[85%]" matInput formControlName="email" />
+                        <mat-error
+                            *ngIf="form.get('email')?.errors?.['required']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="form.get('email')?.errors?.['email']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.wrongEmail'|translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
             </div>
 
             <div class="col-span-2 flex flex-col">
@@ -36,17 +55,15 @@
             </div>
 
             <div class="col-span-2 flex flex-col">
-                <span>{{'PopUpRegister.phoneNumber'|translate}}<span
-                        class="text-red-500 text-[8px] cursor-pointer translate-y-[-5px] px-1 ml-1 inline-block border border-red-500"
-                        (click)="showAlerPhoneNumber()">i</span></span>
+                <span>{{'PopUpRegister.phoneNumber'|translate}}<span class="text-red-500">*</span></span>
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <input matInput formControlName="phoneNumber" maxlength="10" />
 
-                    <!-- <mat-error
+                    <mat-error
                         *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
                         class="text-red-600">
                         {{'PopUpRegister.noEmty'|translate}}
-                    </mat-error> -->
+                    </mat-error>
                     <mat-error
                         *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
                         class="text-red-600">
@@ -55,23 +72,7 @@
 
                 </mat-form-field>
             </div>
-            <div class="col-span-2 flex flex-col">
-                <span>Email<span
-                        class="text-red-500 text-[8px] cursor-pointer translate-y-[-5px] px-1 ml-1 inline-block border border-red-500"
-                        (click)="showAlerEmail()">i</span></span>
-                <div class="flex relative">
-                    <mat-form-field class="custom-input col-span-2  w-full" appearance="outline">
-                        <input class="!w-[85%]" matInput formControlName="email" />
-                        <mat-error
-                            *ngIf="form.get('email')?.errors?.['required']&& (form.get('email')?.dirty || form.get('email')?.touched)"
-                            class="text-red-600">
-                            {{'PopUpRegister.noEmty'|translate}}
-                        </mat-error>
-                    </mat-form-field>
-                    <span class="absolute top-[36%] right-2 translate-y-[-50%] hover:opacity-70 cursor-pointer"
-                        (click)="handleConfirmEmail()">Xác nhận</span>
-                </div>
-            </div>
+
 
             <div class="col-span-2 flex flex-col">
                 <span>{{'PopUpRegister.password'|translate}}<span class="text-red-500">*</span></span>
@@ -86,6 +87,9 @@
                         *ngIf="form.get('password')?.errors?.['required']&& (form.get('password')?.dirty || form.get('password')?.touched)"
                         class="text-red-600">
                         {{'PopUpRegister.noEmty'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="form.get('password')?.errors?.['passWordCheck']" class="text-red-600">
+                        {{'PopUpRegister.requiredPassword'|translate}}
                     </mat-error>
                 </mat-form-field>
             </div>

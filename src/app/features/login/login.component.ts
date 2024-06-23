@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private translate: TranslateService,
+    private snackBar: SnackbarService,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');

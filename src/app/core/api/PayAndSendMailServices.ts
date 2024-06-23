@@ -29,4 +29,8 @@ export class PayAndSendMailService {
   sendMail(body: any): Observable<any> {
     return this.http.post(this.apiUrl + '/sendMail', body);
   }
+
+  sendMailActiveAccount(body: any): Observable<any> {
+    return this.http.post(this.apiUrl + '/sendMailActiveAccount', body);
+  }
 }
