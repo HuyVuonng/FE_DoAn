@@ -51,7 +51,7 @@
         </ng-template>
         <ng-template #rows let-row let-index="index">
             <td class="max-w-[50px] text-balance ">{{ index+1 }}</td>
-            <td class=" max-w-[350px] truncate cursor-pointer hover:underline text-blue-600"
+            <td class=" max-w-[300px] truncate cursor-pointer hover:underline text-blue-600"
                 (click)="handelViewPostReport(row.id)">{{ row.postReport }}
             </td>
             <td class="max-w-[315px]  ">{{ row.annunciator}}</td>
