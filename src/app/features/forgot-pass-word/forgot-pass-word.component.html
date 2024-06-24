@@ -14,15 +14,24 @@
         <div class="flex flex-col gap-2   h-fit lg:px-[30px] lg:pb-2 overflow-auto">
             <span>{{'PopUpForgotPassword.reciveOTP'|translate}}</span>
             <form [formGroup]="form">
-                <nz-radio-group formControlName="reciveOTP" class="flex flex-col">
-                    <label nz-radio nzValue="0">{{'PopUpForgotPassword.phoneNumber'|translate}}</label>
-                    <label nz-radio nzValue="1">Email</label>
-                </nz-radio-group>
-                <span
-                    *ngIf="form.get('reciveOTP')?.errors?.['required']&& (form.get('reciveOTP')?.dirty || form.get('reciveOTP')?.touched)"
-                    class="text-red-600">
-                    {{'PopUpRegister.noEmty'|translate}}
-                </span>
+                <div class="flex flex-col relative">
+                    <div class="flex flex-col">
+                        <label for="email" class="w-52">Email</label>
+                        <mat-form-field class="custom-input" appearance="outline">
+                            <input formControlName="email" name="email" matInput placeholder="Email" />
+                            <mat-error
+                                *ngIf="form.get('email')?.errors?.['required']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                                class="text-red-600">
+                                {{'PopUpRegister.noEmty'|translate}}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="form.get('email')?.errors?.['email']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                                class="text-red-600">
+                                {{'PopUpRegister.wrongEmail'|translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
             </form>
         </div>
     </ng-template>

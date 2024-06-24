@@ -60,7 +60,8 @@
   "PopUpForgotPassword": {
     "forgotPassword": "Quên mật khẩu",
     "reciveOTP": "Nhận mã OTP qua",
-    "phoneNumber": "Số điện thoại"
+    "phoneNumber": "Số điện thoại",
+    "forgotPassSendmail": "Link đặt lại mật khẩu đã được gửi về mail của bạn"
   },
 
   "PopUpChangePassword": {
@@ -88,7 +89,8 @@
     "AlerEmail": "Bạn không thể xác minh tài khoản thông qua email nếu bỏ trống",
     "AlerPhoneNumber": "Bạn không thể xác minh tài khoản thông qua số điện thoại nếu bỏ trống",
     "notify": "Thông báo",
-    "confirmDelete": "Xác nhận xóa"
+    "confirmDelete": "Xác nhận xóa",
+    "changePasswordSuccess": "Đổi mật khẩu thành công"
   },
   "item": {
     "yourTask": "Công việc của bạn",

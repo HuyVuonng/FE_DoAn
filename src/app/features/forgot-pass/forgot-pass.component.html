@@ -1,0 +1,82 @@
+<div class="w-svw h-svh flex justify-center items-center relative">
+    <div
+        class="absolute top-10 right-10 rounded-[50%] size-[25px] text-[12px] cursor-pointer border-[#1C274C] border bg-[#FFF] flex justify-center items-center">
+        <span *ngIf="language==='vi'" (click)="changeLanguage('en')" class="select-none">VN</span>
+        <span *ngIf="language==='en'" (click)="changeLanguage('vi')" class="select-none">EN</span>
+    </div>
+    <div
+        class=" w-[700px] p-9 shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)] relative">
+
+        <h1 class="text-[28px] text-primary">{{"userInforPage.changePassword"|translate}}</h1>
+        <!-- Change Pass -->
+        <div class="w-full m-auto flex items-center justify-center">
+            <form nz-form class="w-[700px] flex flex-col gap-y-4" [formGroup]="form" (ngSubmit)="submit()">
+                <div class="col-span-2 flex flex-col">
+                    <span>Email<span class="text-red-500">*</span></span>
+                    <mat-form-field class="custom-input col-span-2  w-full" appearance="outline">
+                        <input class="!w-[85%]" matInput formControlName="email" [disabled]="true" readonly />
+                        <mat-error
+                            *ngIf="form.get('email')?.errors?.['required']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="form.get('email')?.errors?.['email']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.wrongEmail'|translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-span-2 flex flex-col">
+                    <span>{{'PopUpRegister.password'|translate}}<span class="text-red-500">*</span></span>
+                    <mat-form-field class="custom-input col-span-2 relative" appearance="outline">
+                        <input matInput formControlName="password" (change)="updateValidateRepass($event)"
+                            id="inputPassRegister" type="password" autocomplete="off" />
+                        <i *ngIf="hidePass" class="fas fa-eye absolute right-0 top-[50%] translate-y-[-50%]"
+                            (click)="showPass($event)"></i>
+                        <i *ngIf="!hidePass" class="fa-solid fa-eye-slash absolute right-0 top-[50%] translate-y-[-50%]"
+                            (click)="showPass($event)"></i>
+                        <mat-error
+                            *ngIf="form.get('password')?.errors?.['required']&& (form.get('password')?.dirty || form.get('password')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </mat-error>
+                        <mat-error *ngIf="form.get('password')?.errors?.['passWordCheck']" class="text-red-600">
+                            {{'PopUpRegister.requiredPassword'|translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-2 flex flex-col">
+                    <span>{{'PopUpRegister.rePass'|translate}}<span class="text-red-500">*</span></span>
+                    <mat-form-field class="custom-input col-span-2" appearance="outline">
+                        <input matInput formControlName="rePass" id="inputRePassRegister" type="password"
+                            autocomplete="off" />
+                        <i *ngIf="hideRePass" class="fas fa-eye absolute right-0 top-[50%] translate-y-[-50%]"
+                            (click)="showRePass($event)"></i>
+                        <i *ngIf="!hideRePass"
+                            class="fa-solid fa-eye-slash absolute right-0 top-[50%] translate-y-[-50%]"
+                            (click)="showRePass($event)"></i>
+                        <mat-error
+                            *ngIf="form.get('rePass')?.errors?.['required']&& (form.get('rePass')?.dirty || form.get('rePass')?.touched)"
+                            class="text-red-600">
+                            {{'PopUpRegister.noEmty'|translate}}
+                        </mat-error>
+                        <mat-error *ngIf="form.get('rePass')?.errors?.['rePassCheck']" class="text-red-600">
+                            {{'PopUpRegister.notMatch'|translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class=" flex gap-3">
+                    <button nz-button nzType="primary" [nzLoading]="isForgotPassConfirmLoading"
+                        class="!bg-primary !w-full !rounded-lg !mt-6">{{"userInforPage.changePassword"|translate}}</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

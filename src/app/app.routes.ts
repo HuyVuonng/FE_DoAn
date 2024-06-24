@@ -26,6 +26,14 @@ export const routes: Routes = [
     // canActivate: [AuthAdminGuard],
   },
   {
+    path: 'forgotPass/:id',
+    loadComponent: () =>
+      import('./features/forgot-pass/forgot-pass.component').then(
+        (m) => m.ForgotPassComponent,
+      ),
+    // canActivate: [AuthAdminGuard],
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./layouts/main/main.routing.module').then(

@@ -16,7 +16,7 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -24,6 +24,8 @@ import { NzSelectModule, NzSelectSizeType } from 'ng-zorro-antd/select';
 import { phoneNumberValidator } from '../../shared/validate/check-phone-number.directive';
 import { rePassValidator } from '../../shared/validate/check-repass.directive';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-forgot-pass-word',
@@ -52,13 +54,14 @@ export class ForgotPassWordComponent {
   handleOk(): void {
     console.log('Button ok clicked!');
     if (this.form.invalid) {
-      this.form.get('reciveOTP')?.markAsTouched();
+      this.form.get('email')?.markAsTouched();
       return;
     }
     this.isVisiblePopUpOpen.emit({
       thisPopUp: false,
-      nextPopUp: true,
+      nextPopUp: false,
     });
+    this.handelSendMailForgotPass();
   }
   size: NzSelectSizeType = 'default';
   handleCancel(): void {
@@ -71,9 +74,40 @@ export class ForgotPassWordComponent {
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-  ) {}
+    private PayAndSendMailService: PayAndSendMailService,
+    private snackBar: SnackbarService,
+    private translate: TranslateService,
+  ) {
+    this.translate
+      .get('PopUpForgotPassword.forgotPassSendmail')
+      .subscribe((value) => (this.mess = value));
+
+    this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('PopUpForgotPassword.forgotPassSendmail')
+        .subscribe((value) => (this.mess = value));
+    });
+  }
 
   public form: FormGroup = this.fb.group({
-    reciveOTP: [null, Validators.required],
+    email: [null, [Validators.email, Validators.required]],
   });
+  mess: string;
+  handelSendMailForgotPass() {
+    const nameCustomer = this.form.get('fullName')?.value;
+    const body = {
+      email: this.form.get('email')?.value,
+      activeLink: `${window.location.protocol}//${window.location.host}/forgotPass/1`,
+    };
+    this.PayAndSendMailService.sendMailForgotPass(body).subscribe(
+      () => {
+        this.snackBar.success(this.mess);
+      },
+      (err) => {
+        if (err.status === 200) {
+          this.snackBar.success(this.mess);
+        }
+      },
+    );
+  }
 }

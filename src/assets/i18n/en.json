@@ -60,7 +60,8 @@
   "PopUpForgotPassword": {
     "forgotPassword": "Forgot Password",
     "reciveOTP": "Receive OTP code via",
-    "phoneNumber": "Phone Number"
+    "phoneNumber": "Phone Number",
+    "forgotPassSendmail": "Link forgot password has been sent to your email address"
   },
 
   "PopUpChangePassword": {
@@ -88,7 +89,8 @@
     "AlerEmail": "You cannot verify your account via email if left blank",
     "AlerPhoneNumber": "You cannot verify your account via phone number if left blank",
     "notify": "Notification",
-    "confirmDelete": "Confirm Delete"
+    "confirmDelete": "Confirm Delete",
+    "changePasswordSuccess": "Change Password Success"
   },
 
   "item": {
