@@ -66,5 +66,22 @@
         </div>
     </form>
 
-
+    <div class="flex  mt-5">
+        <p class="text-primary text-xl font-medium ">{{"AdminPage.postsPage.postList"|translate}}</p>
+    </div>
+    <div *ngIf="total" class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
+        <app-item></app-item>
+        <app-item></app-item>
+        <app-item></app-item>
+        <app-item></app-item>
+        <app-item></app-item>
+        <app-item></app-item>
+        <app-item></app-item>
+    </div>
+    <ng-container *ngIf="total">
+        <div class="flex items-center flex-row-reverse justify-between mt-4">
+            <app-share-pagination [pageIndex]="pageIndex" [pageSize]="pageSize" [total]="total"
+                (pageIndexChange)="changePage($event)" (pageSizeChange)="changePageSize($event)"></app-share-pagination>
+        </div>
+    </ng-container>
 </div>

@@ -51,15 +51,15 @@
                 <th scope="col" class="w-[150px] !text-center">{{'AdminPage.accountsPage.action'| translate}}</th>
             </ng-template>
             <ng-template #rows let-row let-index="index">
-                <td class="max-w-[75px] text-balance">{{ index+1 }}</td>
-                <td class="text-balance max-w-[450px] truncate">{{ row.account }}</td>
-                <td class="max-w-[450px]  truncate">{{ row.fullName}}</td>
-                <td class="max-w-[150px]" [class.text-green-600]="row.status===1"
+                <td class="max-w-[75px] min-h-12 text-balance">{{ index+1 }}</td>
+                <td class="text-balance min-h-12 max-w-[450px] truncate">{{ row.account }}</td>
+                <td class="max-w-[450px] min-h-12 truncate">{{ row.fullName}}</td>
+                <td class="max-w-[150px] min-h-12" [class.text-green-600]="row.status===1"
                     [class.text-yellow-600]="row.status===0" [class.text-red-600]="row.status===2">
                     {{row.status===1? activelable :row.status===0?deactiveLable: row.status===2?blockLabel:""}}</td>
 
                 <td>
-                    <div class="flex items-center justify-center ">
+                    <div class="flex items-center justify-center min-h-12">
                         <i class="fa-solid fa-ellipsis cursor-pointer" nz-dropdown nzTrigger="click"
                             [nzDropdownMenu]="menu"></i>
                         <nz-dropdown-menu #menu="nzDropdownMenu">

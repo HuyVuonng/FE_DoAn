@@ -80,6 +80,14 @@ const routes: Routes = [
           ),
         // title: 'Unit',
       },
+      {
+        path: 'favoritePost/:id',
+        loadComponent: () =>
+          import('../../features/favorite-post/favorite-post.component').then(
+            (m) => m.FavoritePostComponent,
+          ),
+        // title: 'Unit',
+      },
 
       {
         path: '**',

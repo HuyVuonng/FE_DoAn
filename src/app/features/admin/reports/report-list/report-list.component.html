@@ -50,23 +50,24 @@
             <th scope="col" class="w-[50px] !text-center">{{'AdminPage.accountsPage.action'| translate}}</th>
         </ng-template>
         <ng-template #rows let-row let-index="index">
-            <td class="max-w-[50px] text-balance ">{{ index+1 }}</td>
-            <td class=" max-w-[300px] truncate cursor-pointer hover:underline text-blue-600"
+            <td class="max-w-[50px]  min-h-12text-balance ">{{ index+1 }}</td>
+            <td class=" max-w-[300px] min-h-12 truncate cursor-pointer hover:underline text-blue-600"
                 (click)="handelViewPostReport(row.id)">{{ row.postReport }}
             </td>
-            <td class="max-w-[315px]  ">{{ row.annunciator}}</td>
-            <td class="max-w-[400px]   line-clamp-3 leading-7 hover:line-clamp-none">{{ row.contentReports}}
+            <td class="max-w-[315px]  min-h-12 ">{{ row.annunciator}}</td>
+            <td class="max-w-[400px]  min-h-12  line-clamp-3 leading-7 hover:line-clamp-none">{{ row.contentReports}}
             </td>
-            <td class="max-w-[150px] !text-center" [class.text-green-500]="row.status"
+            <td class="max-w-[150px]  min-h-12!text-center" [class.text-green-500]="row.status"
                 [class.text-gray-500]="!row.status">
                 {{row.status?processedTitle:noProcessTitle}}
             </td>
 
-            <td class="max-w-[150px]" [class.text-green-500]="row.status===1" [class.text-gray-500]="row.status===-1">
+            <td class="max-w-[150px] min-h-12" [class.text-green-500]="row.status===1"
+                [class.text-gray-500]="row.status===-1">
                 {{row.status===1?acceptReportTitle: row.status===-1?denyReportTitle:""}}
             </td>
             <td>
-                <div class="flex items-center justify-center ">
+                <div class="flex items-center  min-h-12justify-center ">
                     <i class="fa-solid fa-ellipsis cursor-pointer" nz-dropdown nzTrigger="click"
                         [nzDropdownMenu]="menu"></i>
                     <nz-dropdown-menu #menu="nzDropdownMenu">

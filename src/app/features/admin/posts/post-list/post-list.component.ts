@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { SharePaginationModule } from '../../../../shared/components/share-pagination/share-pagination.module';
+import { ItemComponent } from '../../../manager-post/item/item.component';
 
 @Component({
   selector: 'app-post-list',
@@ -30,6 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     TranslateModule,
     CommonModule,
     MatInputModule,
+    ItemComponent,
+    SharePaginationModule,
   ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',
@@ -74,6 +78,15 @@ export class PostListComponent implements OnInit {
   }
 
   device: string;
+  total: number = 100;
+  pageIndex: number = 1;
+  pageSize: number = 30;
+  changePage(e: any) {
+    console.log(e);
+  }
+  changePageSize(e: any) {
+    console.log(e);
+  }
   ngOnInit(): void {
     // this.device = MainComponent.getDeviceType();
     // if (

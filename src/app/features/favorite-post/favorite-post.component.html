@@ -1,0 +1,17 @@
+<h1 class="text-[24px] text-black">{{'favoritesPage.title'|translate}}</h1>
+<p *ngIf="!total">{{'favoritesPage.noPost'|translate}}</p>
+<div *ngIf="total" class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+    <app-item></app-item>
+</div>
+<ng-container *ngIf="total">
+    <div class="flex items-center flex-row-reverse justify-between mt-4">
+        <app-share-pagination [pageIndex]="pageIndex" [pageSize]="pageSize" [total]="total"
+            (pageIndexChange)="changePage($event)" (pageSizeChange)="changePageSize($event)"></app-share-pagination>
+    </div>
+</ng-container>

@@ -173,8 +173,12 @@
     "results": "results",
     "noData": "No data"
   },
+  "favoritesPage": {
+    "title": "Favorite Posts",
+    "noPost": "There are no posts"
+  },
   "AdminPage": {
-    "accountList": "Account List",
+    "accountList": "Accounts List",
     "no": "No",
     "accountsPage": {
       "account": "Account",
@@ -186,7 +190,7 @@
       "unBlock": "Unblock"
     },
     "reportpage": {
-      "listReports": "List Reports",
+      "listReports": "Reports List ",
       "postReport": "Post Report",
       "status": "Status Process",
       "statusAccept": "Status Report",
@@ -196,6 +200,9 @@
       "denyReport": "Deny Report",
       "annunciator": "Annunciator",
       "contentReports": "Content Reports"
+    },
+    "postsPage": {
+      "postList": "Posts List"
     }
   }
 }

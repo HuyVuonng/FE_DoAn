@@ -172,6 +172,10 @@
     "results": "kết quả",
     "noData": "Không có dữ liệu"
   },
+  "favoritesPage": {
+    "title": "Các bài viết quan tâm",
+    "noPost": "Không có bài viết nào"
+  },
   "AdminPage": {
     "accountList": "Danh sách tài khoản",
     "no": "STT",
@@ -195,6 +199,9 @@
       "denyReport": "Từ chối báo cáo",
       "annunciator": "Người báo cáo",
       "contentReports": "Nội dung báo cáo"
+    },
+    "postsPage": {
+      "postList": "Danh sách các bài đăng"
     }
   }
 }
