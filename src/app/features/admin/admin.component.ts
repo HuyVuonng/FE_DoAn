@@ -7,6 +7,7 @@ import { NzI18nService, en_US, vi_VN } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { MainComponent } from '../../layouts/main/main.component';
 
 @Component({
   selector: 'app-admin',
@@ -30,12 +31,22 @@ export class AdminComponent {
   isCollapsed: boolean = false;
   language: string = 'vi';
   isReverseArrow = false;
+  showCollapsedIcon: boolean = false;
   width = 280;
   constructor(
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private i18n: NzI18nService,
   ) {
+    if (
+      MainComponent.getDeviceType() === 'mobile' ||
+      MainComponent.getDeviceType() === 'tablet'
+    ) {
+      this.showCollapsedIcon = true;
+      this.isCollapsed = true;
+    } else {
+      this.isCollapsed = false;
+    }
     const dfMessenger = document.getElementById('dfMessenger') as HTMLElement;
     if (dfMessenger) {
       dfMessenger.style.display = 'none';

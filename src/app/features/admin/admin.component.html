@@ -53,9 +53,10 @@
     <nz-layout class="bg-white" [ngClass]="{ 'ml-[280px]': !isCollapsed, 'lg:ml-[80px]': isCollapsed }">
 
         <nz-content>
-            <div class=" border-t border-solid border-primary px-1 h-full" [class.hidden]="!isCollapsed"
-                [class.lg:block]="!isCollapsed">
+            <div class=" border-t border-solid border-primary px-1 h-full">
 
+                <span *ngIf="showCollapsedIcon" nz-icon nzType="menu" nzTheme="outline"
+                    (click)="isCollapsed=!isCollapsed"></span>
                 <router-outlet></router-outlet>
             </div>
         </nz-content>
