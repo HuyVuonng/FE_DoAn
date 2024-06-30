@@ -1,64 +1,33 @@
-<nz-modal [(nzVisible)]="isVisiblePopUpRegister" nzCentered [nzContent]="modalContent" [nzFooter]="modalFooter"
+<nz-modal [(nzVisible)]="isVisiblePopUpChangePass" nzCentered [nzContent]="modalContent" [nzFooter]="modalFooter"
     (nzOnCancel)="handleCancel()">
     <ng-template #modalContent>
         <div class="text-center text-primary font-semibold text-[40px]">
-            <span>{{'PopUpRegister.register'|translate}}</span>
+            <span>{{'PopUpChangePassword.changePassword'|translate}}</span>
         </div>
         <form [formGroup]="form" class="grid grid-cols-2 gap-4 lg:!w-[450px]  h-fit lg:px-[30px] lg:pb-2 overflow-auto">
             <div class="col-span-2 flex flex-col">
-                <span>Email<span class="text-red-500">*</span></span>
-                <div class="flex relative">
-                    <mat-form-field class="custom-input col-span-2  w-full" appearance="outline">
-                        <input class="!w-[85%]" matInput formControlName="email" />
-                        <mat-error
-                            *ngIf="form.get('email')?.errors?.['required']&& (form.get('email')?.dirty || form.get('email')?.touched)"
-                            class="text-red-600">
-                            {{'PopUpRegister.noEmty'|translate}}
-                        </mat-error>
-                        <mat-error
-                            *ngIf="form.get('email')?.errors?.['email']&& (form.get('email')?.dirty || form.get('email')?.touched)"
-                            class="text-red-600">
-                            {{'PopUpRegister.wrongEmail'|translate}}
-                        </mat-error>
-                    </mat-form-field>
-
-                </div>
-            </div>
-
-            <div class="col-span-2 flex flex-col">
-                <span>{{'PopUpRegister.fullName'|translate}}<span class="text-red-500">*</span></span>
-                <mat-form-field class="custom-input col-span-2" appearance="outline">
-                    <input matInput formControlName="fullName" />
+                <span>{{'PopUpChangePassword.oldPassword'|translate}}<span class="text-red-500">*</span></span>
+                <mat-form-field class="custom-input col-span-2 relative" appearance="outline">
+                    <input matInput formControlName="oldPassword" id="inputOldPassword" type="password"
+                        autocomplete="off" />
+                    <i *ngIf="hideOldPass" class="fas fa-eye absolute right-0 top-[50%] translate-y-[-50%]"
+                        (click)="showOldPass($event)"></i>
+                    <i *ngIf="!hideOldPass" class="fa-solid fa-eye-slash absolute right-0 top-[50%] translate-y-[-50%]"
+                        (click)="showOldPass($event)"></i>
                     <mat-error
-                        *ngIf="form.get('fullName')?.errors?.['required']&& (form.get('fullName')?.dirty || form.get('fullName')?.touched)"
+                        *ngIf="form.get('oldPassword')?.errors?.['required']&& (form.get('oldPassword')?.dirty || form.get('oldPassword')?.touched)"
                         class="text-red-600">
                         {{'PopUpRegister.noEmty'|translate}}
                     </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="col-span-2 flex flex-col">
-                <span>{{'PopUpRegister.phoneNumber'|translate}}<span class="text-red-500">*</span></span>
-                <mat-form-field class="custom-input col-span-2" appearance="outline">
-                    <input matInput formControlName="phoneNumber" maxlength="10" />
-
-                    <mat-error
-                        *ngIf="form.get('phoneNumber')?.errors?.['required']&& (form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched)"
-                        class="text-red-600">
-                        {{'PopUpRegister.noEmty'|translate}}
+                    <mat-error *ngIf="form.get('oldPassword')?.errors?.['passWordCheck']" class="text-red-600">
+                        {{'PopUpRegister.requiredPassword'|translate}}
                     </mat-error>
-                    <mat-error
-                        *ngIf="form.get('phoneNumber')?.value>0 &&form.get('phoneNumber')?.errors?.['phoneNumberCheck']"
-                        class="text-red-600">
-                        {{'PopUpRegister.wrongPhoneNumber'|translate}}
-                    </mat-error>
-
                 </mat-form-field>
             </div>
 
 
             <div class="col-span-2 flex flex-col">
-                <span>{{'PopUpRegister.password'|translate}}<span class="text-red-500">*</span></span>
+                <span>{{'PopUpChangePassword.newPassword'|translate}}<span class="text-red-500">*</span></span>
                 <mat-form-field class="custom-input col-span-2 relative" appearance="outline">
                     <input matInput formControlName="password" (change)="updateValidateRepass($event)"
                         id="inputPassRegister" type="password" autocomplete="off" />
@@ -78,7 +47,7 @@
             </div>
 
             <div class="col-span-2 flex flex-col">
-                <span>{{'PopUpRegister.rePass'|translate}}<span class="text-red-500">*</span></span>
+                <span>{{'PopUpChangePassword.rePass'|translate}}<span class="text-red-500">*</span></span>
                 <mat-form-field class="custom-input col-span-2" appearance="outline">
                     <input matInput formControlName="rePass" id="inputRePassRegister" type="password"
                         autocomplete="off" />
@@ -103,7 +72,7 @@
         <div class="flex justify-center">
             <button nz-button nzType="primary"
                 class="!bg-primary text-white border-none  rounded-lg hover:opacity-60 hover:bg-primary  hover:text-white"
-                (click)="register()" [nzLoading]="isConfirmLoading">{{'Button.register'| translate }}</button>
+                (click)="confirm()" [nzLoading]="isConfirmLoading">{{'Button.save'| translate }}</button>
         </div>
     </ng-template>
 </nz-modal>

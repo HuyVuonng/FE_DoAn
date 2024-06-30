@@ -65,6 +65,8 @@
   },
 
   "PopUpChangePassword": {
+    "changePassword": "Đổi mật khẩu",
+    "oldPassword": "Mật khẩu cũ",
     "newPassword": "Mật khẩu mới",
     "rePass": "Nhập lại mật khẩu"
   },
@@ -162,7 +164,8 @@
     "fullName": "Họ và tên",
     "dateOfBirth": "Ngày sinh",
     "phoneNumber": "Số điện thoại",
-    "address": "Địa chỉ"
+    "address": "Địa chỉ",
+    "areYouSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản này?"
   },
   "managerPostPage": {
     "postedArticles": "Các bài viết đã đăng"

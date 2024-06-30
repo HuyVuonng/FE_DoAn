@@ -65,6 +65,8 @@
   },
 
   "PopUpChangePassword": {
+    "changePassword": "Change Password",
+    "oldPassword": "Old Password",
     "newPassword": "New Password",
     "rePass": "Re-enter password"
   },
@@ -163,7 +165,8 @@
     "fullName": "Full Name",
     "dateOfBirth": "Date of Birth",
     "phoneNumber": "Phone Number",
-    "address": "Address"
+    "address": "Address",
+    "areYouSureDeleteAccount": "Are you sure to delete this account?"
   },
   "managerPostPage": {
     "postedArticles": "Posted articles"

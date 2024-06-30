@@ -48,10 +48,11 @@
                 </mat-form-field>
             </div>
             <div class="col-span-1 flex gap-6 justify-end items-end translate-y-[-20px]">
-                <span
-                    class="cursor-pointer text-textColor font-medium text-[16px] underline">{{'userInforPage.changePassword'|translate}}</span>
-                <span
-                    class="cursor-pointer text-[#EE2E2E] font-medium text-[16px] underline">{{'userInforPage.deleteAccount'|translate}}</span>
+                <span class="cursor-pointer text-textColor font-medium text-[16px] underline"
+                    (click)="handelOpenPopUpChangePass()">{{'userInforPage.changePassword'|translate}}</span>
+                <span class="cursor-pointer text-[#EE2E2E] font-medium text-[16px] underline" nz-popconfirm
+                    [nzPopconfirmTitle]="'userInforPage.areYouSureDeleteAccount'|translate" (nzOnConfirm)="confirm()"
+                    (nzOnCancel)="cancel()" nz-button>{{'userInforPage.deleteAccount'|translate}}</span>
             </div>
         </form>
     </div>
@@ -146,3 +147,5 @@
         </div>
     </div>
 </div>
+<app-popup-change-pass *ngIf="isVisibleChangePass" [isVisiblePopUpChangePass]="isVisibleChangePass"
+    (isVisiblePopUpOpen)="handleShowChangePassPopUp($event)"></app-popup-change-pass>

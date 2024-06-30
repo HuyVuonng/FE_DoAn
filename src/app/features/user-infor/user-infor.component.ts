@@ -15,7 +15,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { phoneNumberValidator } from '../../shared/validate/check-phone-number.directive';
 import { CommonModule } from '@angular/common';
 import moment from 'moment';
-
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { PopupChangePassComponent } from '../popup-change-pass/popup-change-pass.component';
 @Component({
   selector: 'app-user-infor',
   standalone: true,
@@ -27,6 +28,8 @@ import moment from 'moment';
     ReactiveFormsModule,
     CommonModule,
     MatDatepickerModule,
+    NzPopconfirmModule,
+    PopupChangePassComponent,
   ],
   templateUrl: './user-infor.component.html',
   styleUrl: './user-infor.component.scss',
@@ -44,6 +47,10 @@ export class UserInforComponent implements OnInit {
     private translate: TranslateService,
   ) {}
   isEdit: boolean = false;
+  isVisibleChangePass = false;
+  handleShowChangePassPopUp(e: boolean) {
+    this.isVisibleChangePass = e;
+  }
   ngOnInit(): void {
     this.translate
       .get('userInforPage.statusActive')
@@ -96,4 +103,9 @@ export class UserInforComponent implements OnInit {
     this.formAccountInfor.disable();
     this.formUserInfor.disable();
   }
+  handelOpenPopUpChangePass() {
+    this.isVisibleChangePass = true;
+  }
+  cancel() {}
+  confirm() {}
 }
