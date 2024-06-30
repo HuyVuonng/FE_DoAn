@@ -36,6 +36,7 @@ export class DetailHostelComponent implements OnInit {
     if (this.router.url.includes('detail/manager')) {
       this.isManager = true;
     }
+    window.scrollTo(0, 0);
   }
   telZalo: string = 'https://zalo.me/0903985085';
   tel: string = 'tel:0903985085';
