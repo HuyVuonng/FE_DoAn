@@ -48,9 +48,7 @@ export class CommentComponent implements AfterViewInit {
       this.comment.nativeElement.classList.add('line-clamp-3');
     }
   }
-
   commentDate = new Date();
-
   handelShowMore() {
     this.comment.nativeElement.classList.toggle('line-clamp-3');
     this.isOpen = !this.isOpen;
