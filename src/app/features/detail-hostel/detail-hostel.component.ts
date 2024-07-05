@@ -5,10 +5,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { SwiperOptions } from 'swiper/types';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { Router, RouterModule } from '@angular/router';
 import { MapComponent } from './map/map.component';
+import { CommentComponent } from './comment/comment.component';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -21,6 +21,7 @@ import { MapComponent } from './map/map.component';
     NzPopconfirmModule,
     RouterModule,
     MapComponent,
+    CommentComponent,
   ],
   templateUrl: './detail-hostel.component.html',
   styleUrl: './detail-hostel.component.scss',
@@ -31,6 +32,7 @@ export class DetailHostelComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private router: Router,
   ) {}
+
   isManager: boolean = false;
   ngOnInit(): void {
     if (this.router.url.includes('detail/manager')) {

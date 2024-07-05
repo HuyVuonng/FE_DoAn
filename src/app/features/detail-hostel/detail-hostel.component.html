@@ -68,16 +68,28 @@
                     [nzPopconfirmShowArrow]="false">{{"Button.report"|translate}}</button>
 
             </div>
-            <div class="flex gap-3 items-center mt-5">
-                <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg" alt=""
-                    class="size-[30px] rounded-[50%]">
-                <span class="">bình luận</span>
-            </div>
             <div>
-                <textarea class="resize-none h-[100px] w-full border mt-4" [(ngModel)]="evaluation"></textarea>
+                <textarea class="resize-none h-[100px] w-full border mt-4 px-2" [(ngModel)]="evaluation"></textarea>
                 <button nz-button nzType="primary" (click)="handelSendEvaluation()">{{"Button.send"|translate}}
                 </button>
             </div>
+
+            <app-comment [content]="'Nhớ hồi xưa, thời mà con người không bị chi phối bởi chiếc điện
+            thoại,
+            rất nhiều kỉ niệm vui,
+            giới trẻ bây giờ không bao giờ có được khoảng thời gian ngây thơ trong sáng đẹp như thời
+            8x9x, cảm ơn vì mình được sinh ra ở thế hệ 8x9x Nhớ hồi xưa, thời mà con người không bị chi
+            phối bởi chiếc điện thoại,
+            rất nhiều kỉ niệm vui,
+            giới trẻ bây giờ không bao giờ có được khoảng thời gian ngây thơ trong sáng đẹp như thời
+            8x9x, cảm ơn vì mình được sinh ra ở thế hệ 8x9x'"></app-comment>
+
+            <app-comment [content]="'Nhớ hồi xưa, thời mà con người không bị chi phối bởi chiếc điện
+            thoại,
+            rất nhiều kỉ niệm vui,
+            giới trẻ bây giờ không bao giờ có được khoảng thời gian ngây thơ trong sáng đẹp như thời
+            8x9x, cảm ơn vì mình được sinh ra ở thế hệ 8x9x '"></app-comment>
+
         </div>
 
     </div>
