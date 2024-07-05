@@ -41,7 +41,9 @@
     "confirm": "Xác nhận",
     "report": "Báo cáo",
     "call": "Gọi điện",
-    "send": "Gửi"
+    "send": "Gửi",
+    "more": "Đọc thêm",
+    "hide": "Ẩn bớt"
   },
 
   "PopUpRegister": {

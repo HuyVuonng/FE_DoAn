@@ -32,7 +32,6 @@ export class DetailHostelComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private router: Router,
   ) {}
-
   isManager: boolean = false;
   ngOnInit(): void {
     if (this.router.url.includes('detail/manager')) {

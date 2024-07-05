@@ -41,7 +41,9 @@
     "confirm": "Confirm",
     "report": "Report",
     "call": "Call",
-    "send": "Send"
+    "send": "Send",
+    "more": "More",
+    "hide": "Hide"
   },
 
   "PopUpRegister": {

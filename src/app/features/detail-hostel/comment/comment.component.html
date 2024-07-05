@@ -8,8 +8,9 @@
         </div>
         <div>
             <p #comment>{{content}}</p>
-            <span *ngIf="showBtnShowMore" class="cursor-pointer font-semibold" (click)="handelShowMore()">Đọc
-                thêm</span>
+            <span *ngIf="showBtnShowMore" class="cursor-pointer font-semibold"
+                (click)="handelShowMore()">{{titleShowMore}}</span>
+
         </div>
     </div>
 </div>
