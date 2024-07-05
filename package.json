@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --o",
-    "build": "ng build",
+    "build": "ng build && npm run zip",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "zip": "npx gzipper compress --gzip ./dist/NganHangNhaTro/browser ./dist/NganHangNhaTro/browser",
     "serve:ssr:base-angular17": "node dist/base-angular17/server/server.mjs"
   },
   "private": true,

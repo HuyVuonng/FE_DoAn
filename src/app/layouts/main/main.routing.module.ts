@@ -88,6 +88,14 @@ const routes: Routes = [
           ),
         // title: 'Unit',
       },
+      {
+        path: 'payHistory/:id',
+        loadComponent: () =>
+          import('../../features/pay-history/pay-history.component').then(
+            (m) => m.PayHistoryComponent,
+          ),
+        // title: 'Unit',
+      },
 
       {
         path: '**',

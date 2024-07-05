@@ -18,7 +18,8 @@
     "accounts": "Tài khoản",
     "reports": "Báo cáo",
     "backToHome": "Quay về trang chủ",
-    "adminManagement": "Trang quản trị"
+    "adminManagement": "Trang quản trị",
+    "payHistory": "Lịch sử thanh toán"
   },
 
   "Button": {
@@ -206,5 +207,14 @@
     "postsPage": {
       "postList": "Danh sách các bài đăng"
     }
+  },
+  "payHistoryPage": {
+    "postTitle": "Tiêu đề bài viết",
+    "payHistory": "Lịch sử thanh toán",
+    "payType": "Loại thanh toán",
+    "createNewPost": "Tạo mới",
+    "editPost": "Chỉnh sửa",
+    "payDate": "Ngày thanh toán",
+    "cost": "Giá"
   }
 }

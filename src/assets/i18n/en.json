@@ -18,7 +18,8 @@
     "accounts": "Accounts",
     "reports": "Reports",
     "backToHome": "Back To Home Page",
-    "adminManagement": "Admin Management"
+    "adminManagement": "Admin Management",
+    "payHistory": "Pay History"
   },
 
   "Button": {
@@ -207,5 +208,14 @@
     "postsPage": {
       "postList": "Posts List"
     }
+  },
+  "payHistoryPage": {
+    "postTitle": "Post Title",
+    "payHistory": "Pay History",
+    "payType": "Pay Type",
+    "createNewPost": "Create New Post",
+    "editPost": "Edit Post",
+    "payDate": "Pay Date",
+    "cost": "Cost"
   }
 }
