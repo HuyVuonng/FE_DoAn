@@ -9,6 +9,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { Router, RouterModule } from '@angular/router';
 import { MapComponent } from './map/map.component';
 import { CommentComponent } from './comment/comment.component';
+import { PopupReportComponent } from './popup-report/popup-report.component';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -22,6 +23,7 @@ import { CommentComponent } from './comment/comment.component';
     RouterModule,
     MapComponent,
     CommentComponent,
+    PopupReportComponent,
   ],
   templateUrl: './detail-hostel.component.html',
   styleUrl: './detail-hostel.component.scss',
@@ -50,4 +52,13 @@ export class DetailHostelComponent implements OnInit {
   confirm() {}
 
   handleDeletePost() {}
+
+  // report
+  isVisiblePopUpReport: boolean = false;
+  handleShowReportPopUp(e: any) {
+    this.isVisiblePopUpReport = e;
+  }
+  handleOpenReportPopUp() {
+    this.isVisiblePopUpReport = true;
+  }
 }

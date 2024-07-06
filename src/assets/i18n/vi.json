@@ -95,7 +95,9 @@
     "AlerPhoneNumber": "Bạn không thể xác minh tài khoản thông qua số điện thoại nếu bỏ trống",
     "notify": "Thông báo",
     "confirmDelete": "Xác nhận xóa",
-    "changePasswordSuccess": "Đổi mật khẩu thành công"
+    "changePasswordSuccess": "Đổi mật khẩu thành công",
+    "reportSuccess": "Báo cáo thành công",
+    "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo"
   },
   "item": {
     "yourTask": "Công việc của bạn",
@@ -218,5 +220,9 @@
     "editPost": "Chỉnh sửa",
     "payDate": "Ngày thanh toán",
     "cost": "Giá"
+  },
+  "popupReport": {
+    "report": "Báo cáo",
+    "other": "Khác"
   }
 }

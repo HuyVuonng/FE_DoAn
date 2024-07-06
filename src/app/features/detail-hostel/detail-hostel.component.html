@@ -62,15 +62,14 @@
         <div class="mt-4">
             <div class="flex gap-3 justify-between">
                 <h3 class="font-medium text-[24px]">{{"detailpage.evaluationAndReporting"|translate}}</h3>
-                <button nz-button nzType="primary" nzDanger nz-popconfirm
-                    nzPopconfirmTitle="{{'detailpage.areYouSureToReport' | translate}}" (nzOnConfirm)="confirm()"
-                    nzOkText="{{'Button.yes'|translate}}" nzCancelText="{{'Button.no'|translate}}"
-                    [nzPopconfirmShowArrow]="false">{{"Button.report"|translate}}</button>
+                <button nz-button nzType="primary" nzDanger
+                    (click)="handleOpenReportPopUp()">{{"Button.report"|translate}}</button>
 
             </div>
             <div>
                 <textarea class="resize-none h-[100px] w-full border mt-4 px-2" [(ngModel)]="evaluation"></textarea>
-                <button nz-button nzType="primary" (click)="handelSendEvaluation()">{{"Button.send"|translate}}
+                <button [disabled]="!evaluation" nz-button nzType="primary"
+                    (click)="handelSendEvaluation()">{{"Button.send"|translate}}
                 </button>
             </div>
 
@@ -130,3 +129,6 @@
 
     </div>
 </div>
+
+<app-popup-report *ngIf="isVisiblePopUpReport" [isVisiblePopUpReport]="isVisiblePopUpReport"
+    (isVisiblePopUpOpen)="handleShowReportPopUp($event)"></app-popup-report>

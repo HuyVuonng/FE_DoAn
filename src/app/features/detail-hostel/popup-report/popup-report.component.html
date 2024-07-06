@@ -1,0 +1,28 @@
+<nz-modal [(nzVisible)]="isVisiblePopUpReport" nzCentered [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalContent>
+        <div class="text-center text-primary font-semibold text-[40px]">
+            <span>{{'popupReport.report'|translate}}</span>
+        </div>
+        <nz-radio-group [(ngModel)]="radioValue" class="flex flex-col gap-3 w-full">
+            <label nz-radio nzValue="A">Option A</label>
+            <label nz-radio nzValue="B">Option B</label>
+            <label nz-radio nzValue="C">Option C</label>
+            <label nz-radio nzValue="M">
+                {{'popupReport.other'|translate}}
+            </label>
+        </nz-radio-group>
+        <form [formGroup]="rpForm" *ngIf="radioValue === 'M'">
+            <textarea formControlName="rpOther" type="text" class="border w-full resize-none h-36 p-2"></textarea>
+            <p *ngIf="rpForm.get('rpOther')?.errors?.['required']" class="text-red-600">{{'Login.noEmty'|translate}}</p>
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <div class="flex justify-center">
+            <button nz-button nzType="primary"
+                class="!bg-primary text-white border-none  rounded-lg hover:opacity-60 hover:bg-primary  hover:text-white"
+                (click)="handelReport()" [nzLoading]="isConfirmLoading">{{'Button.report'| translate }}</button>
+        </div>
+    </ng-template>
+</nz-modal>

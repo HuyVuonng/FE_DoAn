@@ -95,7 +95,9 @@
     "AlerPhoneNumber": "You cannot verify your account via phone number if left blank",
     "notify": "Notification",
     "confirmDelete": "Confirm Delete",
-    "changePasswordSuccess": "Change Password Success"
+    "changePasswordSuccess": "Change Password Success",
+    "reportSuccess": "Report Success",
+    "pleaseSelectResionReport": "Please Select Resion Report"
   },
 
   "item": {
@@ -219,5 +221,9 @@
     "editPost": "Edit Post",
     "payDate": "Pay Date",
     "cost": "Cost"
+  },
+  "popupReport": {
+    "report": "Report",
+    "other": "Other"
   }
 }
