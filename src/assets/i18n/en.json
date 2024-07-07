@@ -130,7 +130,8 @@
     "owner": "Owner",
     "active": "Active",
     "deactivate": "Deactivate",
-    "type": "Type"
+    "type": "Type",
+    "houseNumberStreet": "House number, street"
   },
   "sloganText": "Rooms for Rent, Cheap Rooms for Rent, Owner",
   "postPage": {

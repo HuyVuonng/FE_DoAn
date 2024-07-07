@@ -26,6 +26,8 @@ import { rePassValidator } from '../../shared/validate/check-repass.directive';
 import { passWordValidator } from '../../shared/validate/check-password.directive';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
+import { AuthService } from '../../core/api/auth.service';
+import { signInModel } from '../../core/models/user';
 
 @Component({
   selector: 'app-register',
@@ -82,6 +84,7 @@ export class RegisterComponent implements OnInit {
     private translate: TranslateService,
     private snackBar: SnackbarService,
     private PayAndSendMailService: PayAndSendMailService,
+    private authService: AuthService,
   ) {}
 
   public form: FormGroup = this.fb.group({
@@ -125,13 +128,15 @@ export class RegisterComponent implements OnInit {
     });
   }
   register(): void {
-    const body = {
+    const body: signInModel = {
       // username: this.form.get('username')?.value,
       fullName: this.form.get('fullName')?.value,
       phoneNumber: this.form.get('phoneNumber')?.value,
       password: this.form.get('password')?.value,
-      rePass: this.form.get('rePass')?.value,
       email: this.form.get('email')?.value,
+      roleId: 0,
+      statusAccount: 0,
+      userAddress: 'Hà Nội',
     };
     if (this.form.invalid) {
       // this.form.get('username')?.markAsTouched();
@@ -142,10 +147,26 @@ export class RegisterComponent implements OnInit {
       this.form.get('email')?.markAsTouched();
       return;
     }
-    console.log('Button ok clicked!');
-    this.isVisiblePopUpOpen.emit(false);
-    this.snackBar.success(this.registerSuccess);
-    this.handelSendMailActiveAccount();
+    this.authService.signIn(body).subscribe(
+      (data) => {
+        if (!data) {
+          return;
+        }
+        this.isVisiblePopUpOpen.emit(false);
+        this.snackBar.success(this.registerSuccess);
+        this.handelSendMailActiveAccount();
+      },
+      (err) => {
+        if (err.code === 200) {
+          this.isVisiblePopUpOpen.emit(false);
+          this.snackBar.success(this.registerSuccess);
+          this.handelSendMailActiveAccount();
+        } else {
+          this.isVisiblePopUpOpen.emit(false);
+          this.snackBar.error(err.error);
+        }
+      },
+    );
   }
 
   updateValidateRepass(e: any) {
@@ -206,7 +227,7 @@ export class RegisterComponent implements OnInit {
     const body = {
       nameCustomer,
       email: this.form.get('email')?.value,
-      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/1`,
+      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${this.form.get('email')?.value}`,
     };
     this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(() => {});
   }

@@ -1,6 +1,6 @@
 <nz-spin nzTip="Loading..." [nzSpinning]="isSpinningPay">
 
-    <div class="pb-36">
+    <div class="pb-36 mt-9">
         <h1 class="text-[20px] font-medium">{{'postPage.post'| translate}}</h1>
         <div class="mt-6 pb-10">
             <div>
@@ -34,7 +34,8 @@
 
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'labelInput.district' | translate}}</mat-label>
-                        <mat-select formControlName="district" (click)="viewMap=false">
+                        <mat-select formControlName="district" (click)="viewMap=false"
+                            (selectionChange)="handelChangeDistrict($event)">
                             <mat-option *ngFor="let district of listDistrict" [value]="district.value">
                                 {{ district.label }}
                             </mat-option>
@@ -44,7 +45,8 @@
                     </mat-form-field>
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'postPage.ward' | translate}}</mat-label>
-                        <mat-select formControlName="ward" (click)="viewMap=false">
+                        <mat-select formControlName="ward" (click)="viewMap=false"
+                            (selectionChange)="handelChangeWard($event)">
                             <mat-option *ngFor="let ward of listWard" [value]="ward.value">
                                 {{ ward.label }}
                             </mat-option>
@@ -52,7 +54,21 @@
                         <mat-error>{{'postPage.required'| translate}}</mat-error>
 
                     </mat-form-field>
+                    <mat-form-field class="custom-input col-span-1" appearance="outline">
+                        <mat-label class="bg-white">{{'labelInput.houseNumberStreet'| translate}}</mat-label>
+                        <input formControlName="houseNumberStreet" matInput (click)="viewMap=false"
+                            (change)="handleChangeHouseNumberStreet()" />
+                        <mat-error>{{'postPage.required'| translate}}</mat-error>
+                    </mat-form-field>
 
+                    <div class="col-span-1 flex items-center gap-2">
+                        <mat-form-field class="custom-input flex-1" appearance="outline">
+                            <mat-label class="bg-white">{{'postPage.addressDetails' | translate}}</mat-label>
+                            <input formControlName="addressDetail" matInput (click)="viewMap=false" />
+
+                        </mat-form-field>
+                        <!-- <span (click)="handleViewMap()" class="cursor-pointer">View in Map</span> -->
+                    </div>
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'labelInput.type'| translate}}</mat-label>
                         <mat-select formControlName="type" (click)="viewMap=false">
@@ -63,18 +79,13 @@
                         <mat-error>{{'postPage.required'| translate}}</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="custom-input col-span-2" appearance="outline">
-                        <mat-label class="bg-white">{{'postPage.addressDetails' | translate}}</mat-label>
-                        <input formControlName="addressDetail" matInput (change)="changeAddress($event)"
-                            (click)="viewMap=false" />
-                        <span (click)="handleViewMap()" class="cursor-pointer">View in Map</span>
-                    </mat-form-field>
                     <!-- <div *ngIf="viewMap && sourceMap" class="col-span-2">
                     <app-map [sourceMap]="sourceMap"></app-map>
                 </div> -->
-                    <div *ngIf="viewMap &&sourceMap" class="col-span-2"
+                    <!-- <div *ngIf="viewMap &&sourceMap" class="col-span-2"
                         [innerHTML]="sanitizer.bypassSecurityTrustHtml(sourceMap)">
-                    </div>
+                    </div> -->
+                    <app-map class="col-span-2" [height]="500" [source]="sourceMap"></app-map>
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'postPage.price' | translate}}</mat-label>
                         <input currencyMask [options]="config" formControlName="price" matInput

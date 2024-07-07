@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  API_URL: 'https://active-api.trueconnect.io.vn',
+  API_URL: 'https://hostelbanking.somee.com/api',
   name: 'dev',
   firebaseConfig: {
     apiKey: 'AIzaSyCZet-Z0nObrxeOwDjgvWAMXpo3gQJ8zLI',

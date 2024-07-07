@@ -24,10 +24,10 @@ import {
 } from '@angular/fire/storage';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MapComponent } from '../../core/components/map/map.component';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { SnackbarService } from '../../core/services/snackbar.service';
+import { MapComponent } from '../detail-hostel/map/map.component';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -42,15 +42,15 @@ import { SnackbarService } from '../../core/services/snackbar.service';
     MatInputModule,
     CKEditorModule,
     NzSpinModule,
-    MapComponent,
     CurrencyMaskModule,
+    MapComponent,
   ],
   templateUrl: './post-news.component.html',
   styleUrl: './post-news.component.scss',
 })
 export class PostNewsComponent implements OnInit {
   public Editor = ClassicEditor;
-  sourceMap: any;
+  sourceMap: any = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='thành phố Hà Nội';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
   urlIMGArray: any = [];
   storage = inject(Storage);
   isSpinning: boolean = false;
@@ -63,6 +63,7 @@ export class PostNewsComponent implements OnInit {
     zalo: [null, [phoneNumberValidator()]],
     type: [null, Validators.required],
     district: [null, Validators.required],
+    houseNumberStreet: [null, [Validators.required]],
     ward: [null, Validators.required],
     acreage: [null, Validators.required],
     price: [null, Validators.required],
@@ -90,6 +91,7 @@ export class PostNewsComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private PayAndSendMailService: PayAndSendMailService,
   ) {
+    this.form.get('addressDetail')?.disable();
     this.translatelabelSelectInput();
   }
   ngOnInit(): void {
@@ -241,13 +243,16 @@ export class PostNewsComponent implements OnInit {
   handelShowMap() {
     this.showMap = true;
   }
+
   changeAddress = (e: any) => {
     this.sourceMap = '';
-    this.sourceMap = `<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e.target.value}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>`;
+    this.sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='${e}';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
     this.cdr.detectChanges();
   };
   idTimeOut: any;
   handleViewMap() {
+    console.log('sa');
+
     clearTimeout(this.idTimeOut);
     this.viewMap = !this.viewMap;
     this.idTimeOut = setTimeout(() => {
@@ -290,5 +295,41 @@ export class PostNewsComponent implements OnInit {
   countTitle: number = 0;
   handelPressTitle(e: any) {
     this.countTitle = e.target.value.length;
+  }
+
+  address: string;
+  handelChangeWard(e: any) {
+    this.address =
+      `${this.form.get('houseNumberStreet')?.value !== null ? this.form.get('houseNumberStreet')?.value + ', ' : ''}` +
+      e.value +
+      ', ' +
+      `${this.form.get('district')?.value !== null ? this.form.get('district')?.value + ', ' : ''} ` +
+      'thành phố Hà Nội';
+    this.form.patchValue({
+      addressDetail: this.address,
+    });
+    this.changeAddress(this.address);
+  }
+  handelChangeDistrict(e: any) {
+    this.address =
+      `${this.form.get('houseNumberStreet')?.value !== null ? this.form.get('houseNumberStreet')?.value + ', ' : ''}` +
+      `${this.form.get('ward')?.value !== null ? this.form.get('ward')?.value + ', ' : ''}` +
+      e.value +
+      ', thành phố Hà Nội';
+    this.form.patchValue({
+      addressDetail: this.address,
+    });
+    this.changeAddress(this.address);
+  }
+  handleChangeHouseNumberStreet() {
+    this.address =
+      `${this.form.get('houseNumberStreet')?.value !== null ? this.form.get('houseNumberStreet')?.value + ', ' : ''}` +
+      `${this.form.get('ward')?.value !== null ? this.form.get('ward')?.value + ', ' : ''}` +
+      `${this.form.get('district')?.value !== null ? this.form.get('district')?.value + ', ' : ''}` +
+      'thành phố Hà Nội';
+    this.form.patchValue({
+      addressDetail: this.address,
+    });
+    this.changeAddress(this.address);
   }
 }

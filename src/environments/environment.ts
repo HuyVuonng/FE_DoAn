@@ -2,7 +2,7 @@ let index: any = 'env';
 let apiUrl: any = 'apiURL';
 export const environment = {
   production: false,
-  API_URL: window[index][apiUrl] || 'https://active-api.trueconnect.io.vn',
+  API_URL: window[index][apiUrl] || 'https://hostelbanking.somee.com/api',
   name: window[index]['name'] || 'production',
   firebaseConfig: {
     apiKey: 'AIzaSyCZet-Z0nObrxeOwDjgvWAMXpo3gQJ8zLI',

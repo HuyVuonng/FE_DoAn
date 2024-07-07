@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../core/api/auth.service';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-active-email',
@@ -12,14 +14,18 @@ import { Router } from '@angular/router';
   styleUrl: './active-email.component.scss',
 })
 export class ActiveEmailComponent implements OnInit {
+  activeRoute = inject(ActivatedRoute);
   message: string;
   activing: string;
   actived: string;
   type: any = 'infor';
   isSpinning: boolean = true;
+  email: string = this.activeRoute.snapshot.params['id'];
   constructor(
     private translate: TranslateService,
     private router: Router,
+    private auth: AuthService,
+    private snackbar: SnackbarService,
   ) {
     this.translate
       .get('Login.activingAccount')
@@ -41,14 +47,33 @@ export class ActiveEmailComponent implements OnInit {
     this.handelActiveAccount();
   }
   handelActiveAccount() {
-    setTimeout(() => {
-      this.type = 'success';
-      this.message = this.actived;
-      this.isSpinning = false;
+    const body = {
+      email: this.email,
+    };
+    this.auth.activeAccount(body).subscribe(
+      (data) => {
+        this.type = 'success';
+        this.message = this.actived;
+        this.isSpinning = false;
 
-      setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 2000);
-    }, 3000);
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      },
+      (err) => {
+        if (err.status === 200) {
+          this.type = 'success';
+          this.message = this.actived;
+          this.isSpinning = false;
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
+        } else {
+          this.isSpinning = false;
+          this.snackbar.error(err.error);
+        }
+      },
+    );
   }
 }

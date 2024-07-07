@@ -108,8 +108,8 @@
   },
   "labelInput": {
     "city": "Thành phố",
-    "district": "Quận",
-    "ward": "Xã",
+    "district": "Quận/huyện",
+    "ward": "Phường/xã",
     "priceRange": "Khoảng giá",
     "acreage": "Diện tích",
     "all": "Tất cả",
@@ -129,12 +129,13 @@
     "owner": "Chủ sở hữu",
     "active": "Hoạt động",
     "deactivate": "Ngừng hoạt động",
-    "type": "Loại"
+    "type": "Loại",
+    "houseNumberStreet": "Đường, số nhà"
   },
   "sloganText": "Cho Thuê Phòng Trọ, Thuê Nhà Trọ Giá Rẻ, Chính Chủ",
   "postPage": {
     "area": "Khu vực",
-    "ward": "Xã",
+    "ward": "Phường/xã",
     "post": "Đăng tin",
     "addressDetails": "Địa chỉ chi tiết",
     "required": "Bắt buộc",
