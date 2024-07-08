@@ -4,7 +4,12 @@ import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../services/storage.service';
-import { logInModel, signInModel } from '../models/user';
+import {
+  changePassModel,
+  logInModel,
+  signInModel,
+  updateUserInforModel,
+} from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +26,7 @@ export class AuthService {
 
   logout(): void {
     this.storageService.clearStorage();
-    window.location.reload();
-    this.router.navigate(['/']);
+    window.location.href = '/';
   }
   signIn(body: signInModel): Observable<any> {
     return this.http.post(this.apiUrl + '/user/create-user', body);
@@ -32,5 +36,14 @@ export class AuthService {
   }
   activeAccount(body: any): Observable<any> {
     return this.http.post(this.apiUrl + '/user/active', body);
+  }
+  changePass(body: changePassModel): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/update-password', body);
+  }
+  getAccountInforByID(id: string): Observable<any> {
+    return this.http.get(this.apiUrl + `/user/get-user-by-id/${id}`);
+  }
+  updateUser(body: updateUserInforModel): Observable<any> {
+    return this.http.put(this.apiUrl + '/user/update-user', body);
   }
 }

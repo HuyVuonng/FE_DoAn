@@ -9,6 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { AdminService } from '../../../../core/api/admin.service';
+import { PopUpDeleteModule } from '../../../../shared/components/popup-delete/popup-delete.module';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../../core/api/auth.service';
+import { updateUserInforModel } from '../../../../core/models/user';
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
@@ -23,29 +28,14 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     CommonModule,
     MatInputModule,
     NzDropDownModule,
+    PopUpDeleteModule,
   ],
   templateUrl: './accounts-list.component.html',
   styleUrl: './accounts-list.component.scss',
 })
 export class AccountsListComponent implements OnInit {
   isSpinning: boolean = false;
-  public data: any = [
-    {
-      account: 'test',
-      fullName: 'test',
-      status: 0,
-    },
-    {
-      account: 'test',
-      fullName: 'test',
-      status: 1,
-    },
-    {
-      account: 'test',
-      fullName: 'test',
-      status: 2,
-    },
-  ];
+  public data: any = [];
   public dataBackup: any = [];
   public isLoading: boolean = false;
   public totalCount: number = 90;
@@ -53,6 +43,7 @@ export class AccountsListComponent implements OnInit {
   activelable: string;
   deactiveLable: string;
   blockLabel: string;
+  notActivatedLabel: string;
   changePage($event: number) {}
   changePageSize($event: number) {}
   public form: FormGroup = this.fb.group({
@@ -60,10 +51,32 @@ export class AccountsListComponent implements OnInit {
     fullName: [null],
     status: [null],
   });
+  titleDelete: string;
+  contentDelete: string;
+  titleChangeStatus: string;
+  contentChangeStatus: string;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
+    private adminService: AdminService,
+    private auth: AuthService,
   ) {
+    this.translate
+      .get('Toast.confirmDeleteAccount')
+      .subscribe((value) => (this.titleDelete = value));
+    this.translate
+      .get('Toast.areUSureDeleteAccount')
+      .subscribe((value) => (this.contentDelete = value));
+    this.translate
+      .get('Toast.confirmChangeStatus')
+      .subscribe((value) => (this.titleChangeStatus = value));
+    this.translate
+      .get('Toast.areUSureChangeStatusAccount')
+      .subscribe((value) => (this.contentChangeStatus = value));
+
+    this.translate
+      .get('userInforPage.notActivated')
+      .subscribe((value) => (this.notActivatedLabel = value));
     this.translate
       .get('labelInput.active')
       .subscribe((value) => (this.activelable = value));
@@ -75,6 +88,21 @@ export class AccountsListComponent implements OnInit {
       .subscribe((value) => (this.blockLabel = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
+        .get('Toast.confirmDeleteAccount')
+        .subscribe((value) => (this.titleDelete = value));
+      this.translate
+        .get('Toast.areUSureDeleteAccount')
+        .subscribe((value) => (this.contentDelete = value));
+      this.translate
+        .get('Toast.confirmChangeStatus')
+        .subscribe((value) => (this.titleChangeStatus = value));
+      this.translate
+        .get('Toast.areUSureChangeStatusAccount')
+        .subscribe((value) => (this.contentChangeStatus = value));
+      this.translate
+        .get('userInforPage.notActivated')
+        .subscribe((value) => (this.notActivatedLabel = value));
+      this.translate
         .get('labelInput.active')
         .subscribe((value) => (this.activelable = value));
       this.translate
@@ -85,16 +113,20 @@ export class AccountsListComponent implements OnInit {
         .subscribe((value) => (this.blockLabel = value));
       this.listStatus = [
         {
+          label: this.notActivatedLabel,
+          value: 0,
+        },
+        {
           label: this.activelable,
           value: 1,
         },
         {
           label: this.deactiveLable,
-          value: 0,
+          value: 2,
         },
         {
           label: this.blockLabel,
-          value: 2,
+          value: 3,
         },
       ];
     });
@@ -102,18 +134,23 @@ export class AccountsListComponent implements OnInit {
   ngOnInit(): void {
     this.listStatus = [
       {
+        label: this.notActivatedLabel,
+        value: 0,
+      },
+      {
         label: this.activelable,
         value: 1,
       },
       {
         label: this.deactiveLable,
-        value: 0,
+        value: 2,
       },
       {
         label: this.blockLabel,
-        value: 2,
+        value: 3,
       },
     ];
+    this.getListUsers();
   }
   resetSearch() {
     this.form.reset();
@@ -134,6 +171,53 @@ export class AccountsListComponent implements OnInit {
   searchByEnter(e: any) {
     if (e.keyCode === 13) {
       this.handelSearch();
+    }
+  }
+
+  getListUsers() {
+    this.isLoading = true;
+    this.adminService.getListUser().subscribe((data) => {
+      this.data = data;
+      this.isLoading = false;
+    });
+  }
+  handelDeleteAccount(data: any) {
+    this.title = this.titleDelete;
+    this.content = this.contentDelete + data.email + '?';
+    const body: updateUserInforModel = {
+      ...data,
+      deleteFlag: true,
+    };
+    this.param = body;
+
+    this.handelOpenPopUpConfirm();
+  }
+  handelChangeStatusAccount(data: any, status: number) {
+    this.title = this.titleChangeStatus;
+    this.content = this.contentChangeStatus + data.email + '?';
+    const body: updateUserInforModel = {
+      ...data,
+      statusAccount: status,
+    };
+    this.param = body;
+    this.handelOpenPopUpConfirm();
+  }
+  title: string;
+  content: string;
+  param: any;
+  visiblePopUp: boolean = false;
+  callConfirm(data: any): Observable<any> {
+    return this.auth.updateUser(data);
+  }
+  handelOpenPopUpConfirm() {
+    this.visiblePopUp = true;
+  }
+
+  changVisiblePopUp(e: any) {
+    this.visiblePopUp = e.isVisible;
+    if (e.isDelete) {
+      this.isLoading = false;
+      this.getListUsers();
     }
   }
 }

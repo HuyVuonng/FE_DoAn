@@ -43,7 +43,11 @@
     "call": "Gọi điện",
     "send": "Gửi",
     "more": "Đọc thêm",
-    "hide": "Ẩn bớt"
+    "hide": "Ẩn bớt",
+    "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
+    "confirmDeleteAccount": "Xác nhận xóa tài khoản",
+    "areUSureChangeStatusAccount": "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản ",
+    "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản "
   },
 
   "PopUpRegister": {
@@ -89,7 +93,7 @@
   },
   "Toast": {
     "createSuccess": "Tạo mới thành công",
-    "updateSuccess": "Sửa thành công",
+    "updateSuccess": "Cập nhật thành công",
     "deleteSuccess": "Xóa thành công",
     "DueDate": "DueDate phải >= ngày hiện tại",
     "AlerEmail": "Bạn không thể xác minh tài khoản thông qua email nếu bỏ trống",
@@ -99,7 +103,8 @@
     "changePasswordSuccess": "Đổi mật khẩu thành công",
     "reportSuccess": "Báo cáo thành công",
     "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
-    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng"
+    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng",
+    "oldPasswordIncorrect": "Mật khẩu cũ không đúng"
   },
   "item": {
     "yourTask": "Công việc của bạn",
@@ -165,6 +170,7 @@
     "personalInformation": "Thông tin cá nhân",
     "statusBlock": "Khoá",
     "statusActive": "Hoạt động",
+    "statusInActive": "Dừng hoạt động",
     "status": "Trạng thái",
     "activeDate": "Ngày kích hoạt",
     "changePassword": "Đổi mật khẩu",
@@ -173,7 +179,9 @@
     "dateOfBirth": "Ngày sinh",
     "phoneNumber": "Số điện thoại",
     "address": "Địa chỉ",
-    "areYouSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản này?"
+    "areYouSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản này?",
+    "createDate": "Ngày tạo",
+    "notActivated": "Chưa kích hoạt"
   },
   "managerPostPage": {
     "postedArticles": "Các bài viết đã đăng"

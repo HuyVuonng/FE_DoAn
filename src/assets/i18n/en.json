@@ -96,10 +96,15 @@
     "AlerPhoneNumber": "You cannot verify your account via phone number if left blank",
     "notify": "Notification",
     "confirmDelete": "Confirm Delete",
+    "confirmChangeStatus": "Confirm Change Status",
+    "confirmDeleteAccount": "Confirm Delete Account",
+    "areUSureChangeStatusAccount": "Are you sure you want to change status account ",
+    "areUSureDeleteAccount": "Are you sure you want to delete account ",
     "changePasswordSuccess": "Change Password Success",
     "reportSuccess": "Report Success",
     "pleaseSelectResionReport": "Please Select Resion Report",
-    "emailOrPasswordIsIncorrect": "Email or Password is incorrect"
+    "emailOrPasswordIsIncorrect": "Email or Password is incorrect",
+    "oldPasswordIncorrect": "Old Password is incorrect"
   },
 
   "item": {
@@ -166,6 +171,7 @@
     "personalInformation": "Personal Information",
     "statusBlock": "Block",
     "statusActive": "Active",
+    "statusInActive": "Inactive",
     "status": "Status",
     "activeDate": "Active Date",
     "changePassword": "Change Password",
@@ -174,7 +180,9 @@
     "dateOfBirth": "Date of Birth",
     "phoneNumber": "Phone Number",
     "address": "Address",
-    "areYouSureDeleteAccount": "Are you sure to delete this account?"
+    "areYouSureDeleteAccount": "Are you sure to delete this account?",
+    "createDate": "Create date",
+    "notActivated": "Not activated"
   },
   "managerPostPage": {
     "postedArticles": "Posted articles"

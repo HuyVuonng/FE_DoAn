@@ -64,6 +64,7 @@ export class MainComponent implements OnInit {
   width = 280;
   language: string = 'vi';
   userName: string;
+  userInfor: any;
   _store = inject(Store);
   isLogin: boolean = localStorage.getItem('access_token') ? true : false;
   languageList = [
@@ -135,7 +136,7 @@ export class MainComponent implements OnInit {
     this.userName = JSON.parse(
       localStorage.getItem('id_token_claims_obj') || '{}',
     )?.name;
-    MainComponent.getData();
+    this.userInfor = JSON.parse(localStorage.getItem('user_infor') || '{}');
   }
 
   changeTab(index: number) {
@@ -183,14 +184,7 @@ export class MainComponent implements OnInit {
     this.visibleAddUnit = true;
     this.idUnit = '';
   }
-  public static data: any = [];
-  public static getData: any = () => {
-    // console.log('á');
-    MainComponent.data.push('a');
-  };
-  get staticData() {
-    return MainComponent.data;
-  }
+
   visiblePopUpChangeGroup: boolean = false;
   handleVisiblePopUpGroup(e: boolean) {
     this.visiblePopUpChangeGroup = e;

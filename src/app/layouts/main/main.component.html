@@ -26,7 +26,7 @@
                 <button *ngIf="!isLogin" [routerLink]="['/login']" routerLinkActive="router-link-active"
                   class="hover:text-primary">{{'Button.login' | translate}}</button>
                 <!-- <button *ngIf="!isLogin" class="hover:text-primary">{{'Button.register' | translate}}</button> -->
-                <i *ngIf="isLogin" [routerLink]="['/favoritePost/1']" routerLinkActive="router-link-active"
+                <i *ngIf="isLogin" [routerLink]="['/favoritePost', userInfor.id]" routerLinkActive="router-link-active"
                   class="fa-regular fa-heart hover:text-red-600 cursor-pointer text-[18px]"></i>
                 <button class="hover:text-primary" [routerLink]="['/postNews']"
                   routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
@@ -37,11 +37,11 @@
                     <li nz-menu-item [routerLink]="['/admin']" routerLinkActive="activeLink">
                       {{"Menu.adminManagement"| translate}}</li>
                     <li nz-menu-divider></li>
-                    <li nz-menu-item [routerLink]="['/userInfor',1]" routerLinkActive="activeLink">
+                    <li nz-menu-item [routerLink]="['/userInfor',userInfor.id]" routerLinkActive="activeLink">
                       {{"Menu.accountInfor"| translate}}</li>
-                    <li nz-menu-item [routerLink]="['/managerPost',1]" routerLinkActive="activeLink">
+                    <li nz-menu-item [routerLink]="['/managerPost',userInfor.id]" routerLinkActive="activeLink">
                       {{"Menu.postManagement"| translate}}</li>
-                    <li nz-menu-item [routerLink]="['/payHistory',1]" routerLinkActive="activeLink">
+                    <li nz-menu-item [routerLink]="['/payHistory',userInfor.id]" routerLinkActive="activeLink">
                       {{"Menu.payHistory"| translate}}</li>
                     <li nz-menu-divider></li>
                     <li nz-menu-item (click)="handleLogout()">{{"Menu.logout"| translate}}</li>

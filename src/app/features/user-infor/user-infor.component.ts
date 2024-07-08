@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,11 @@ import { CommonModule } from '@angular/common';
 import moment from 'moment';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { PopupChangePassComponent } from '../popup-change-pass/popup-change-pass.component';
+import { AuthService } from '../../core/api/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { updateUserInforModel } from '../../core/models/user';
+import { SnackbarService } from '../../core/services/snackbar.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 @Component({
   selector: 'app-user-infor',
   standalone: true,
@@ -30,21 +35,26 @@ import { PopupChangePassComponent } from '../popup-change-pass/popup-change-pass
     MatDatepickerModule,
     NzPopconfirmModule,
     PopupChangePassComponent,
+    NzButtonModule,
   ],
   templateUrl: './user-infor.component.html',
   styleUrl: './user-infor.component.scss',
 })
 export class UserInforComponent implements OnInit {
-  userInfor: any = JSON.parse(
-    localStorage.getItem('id_token_claims_obj') || '{}',
-  );
+  userInfor: any;
+  activeRoute = inject(ActivatedRoute);
+  idUser: any = this.activeRoute.snapshot.params['id'];
   statusActive: string;
-  statusBlock: string;
+  statusInactive: string;
   statusList: any;
+  updateSuccess: string;
+  isEditLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
+    private auth: AuthService,
+    private snackbar: SnackbarService,
   ) {}
   isEdit: boolean = false;
   isVisibleChangePass = false;
@@ -53,18 +63,24 @@ export class UserInforComponent implements OnInit {
   }
   ngOnInit(): void {
     this.translate
+      .get('Toast.updateSuccess')
+      .subscribe((value) => (this.updateSuccess = value));
+    this.translate
       .get('userInforPage.statusActive')
       .subscribe((value) => (this.statusActive = value));
     this.translate
-      .get('userInforPage.statusBlock')
-      .subscribe((value) => (this.statusBlock = value));
+      .get('userInforPage.statusInActive')
+      .subscribe((value) => (this.statusInactive = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.updateSuccess')
+        .subscribe((value) => (this.updateSuccess = value));
       this.translate
         .get('userInforPage.statusActive')
         .subscribe((value) => (this.statusActive = value));
       this.translate
-        .get('userInforPage.statusBlock')
-        .subscribe((value) => (this.statusBlock = value));
+        .get('userInforPage.statusInActive')
+        .subscribe((value) => (this.statusInactive = value));
     });
     this.statusList = [
       {
@@ -72,17 +88,21 @@ export class UserInforComponent implements OnInit {
         value: 1,
       },
       {
-        label: this.statusBlock,
-        value: 0,
+        label: this.statusInactive,
+        value: 2,
       },
     ];
+    this.getUserByID();
     this.formAccountInfor.controls['activeDate'].disable();
     this.formAccountInfor.disable();
     this.formUserInfor.disable();
   }
 
   public formAccountInfor: FormGroup = this.fb.group({
-    username: [null, Validators.required],
+    fullName: [null, Validators.required],
+    phoneNumber: [null, [phoneNumberValidator(), Validators.required]],
+
+    email: [null, [Validators.email, Validators.required]],
     statusAccount: [1, Validators.required],
     activeDate: [moment(), Validators.required],
   });
@@ -97,6 +117,8 @@ export class UserInforComponent implements OnInit {
     this.isEdit = true;
     this.formAccountInfor.enable();
     this.formUserInfor.enable();
+    this.formAccountInfor.controls['activeDate'].disable();
+    this.formAccountInfor.controls['email'].disable();
   }
   handelCanEdit() {
     this.isEdit = false;
@@ -108,4 +130,34 @@ export class UserInforComponent implements OnInit {
   }
   cancel() {}
   confirm() {}
+  handelUpdateUserInfor() {
+    this.isEditLoading = true;
+    const body: updateUserInforModel = {
+      ...this.userInfor,
+      fullName: this.formAccountInfor.get('fullName')?.value,
+      phoneNumber: this.formAccountInfor.get('phoneNumber')?.value,
+      id: this.idUser,
+      statusAccount: this.formAccountInfor.get('statusAccount')?.value,
+    };
+    this.auth.updateUser(body).subscribe((data) => {
+      this.snackbar.success(this.updateSuccess);
+      this.getUserByID();
+      this.formAccountInfor.disable();
+      this.isEdit = false;
+      this.isEditLoading = false;
+    });
+  }
+
+  getUserByID() {
+    this.auth.getAccountInforByID(this.idUser).subscribe((data) => {
+      this.userInfor = data;
+      this.formAccountInfor.patchValue({
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        statusAccount: data.statusAccount,
+        activeDate: moment(data.createDate),
+      });
+    });
+  }
 }

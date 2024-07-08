@@ -121,6 +121,7 @@ export class LoginComponent implements OnInit {
       (data) => {
         this.isLoginLoading = false;
         localStorage.setItem('access_token', '123');
+        localStorage.setItem('user_infor', JSON.stringify(data));
         this.router.navigate(['/']);
       },
       (error) => {

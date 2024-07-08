@@ -8,17 +8,56 @@
 
         <form [formGroup]="formAccountInfor" class="grid grid-cols-2 gap-x-9">
             <div class="col-span-1">
-                <label for="username">User Name <span class="text-red-600">*</span></label>
+                <label for="fullName">{{"userInforPage.fullName"|translate}}<span class="text-red-600">*</span></label>
                 <mat-form-field class="custom-input   w-full" appearance="outline">
 
-                    <input matInput formControlName="username" name="username" />
+                    <input matInput formControlName="fullName" name="fullName" />
                     <mat-error
-                        *ngIf="formAccountInfor.get('username')?.errors?.['required']&& (formAccountInfor.get('username')?.dirty || formAccountInfor.get('username')?.touched)"
+                        *ngIf="formAccountInfor.get('fullName')?.errors?.['required']&& (formAccountInfor.get('fullName')?.dirty || formAccountInfor.get('fullName')?.touched)"
                         class="text-red-600">
-                        {{'inputAler.required'|translate}}
+                        {{'PopUpRegister.noEmty'|translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
+
+
+
+
+            <div class="col-span-1">
+                <label for="email">Email<span class="text-red-600">*</span></label>
+                <mat-form-field class="custom-input   w-full" appearance="outline">
+
+                    <input matInput formControlName="email" name="email" />
+                    <mat-error
+                        *ngIf="formAccountInfor.get('email')?.errors?.['required']&& (formAccountInfor.get('email')?.dirty || formAccountInfor.get('email')?.touched)"
+                        class="text-red-600">
+                        {{'PopUpRegister.noEmty'|translate}}
+                    </mat-error>
+                    <mat-error
+                        *ngIf="formAccountInfor.get('email')?.errors?.['email']&& (formAccountInfor.get('email')?.dirty || formAccountInfor.get('email')?.touched)"
+                        class="text-red-600">
+                        {{'PopUpRegister.wrongEmail'|translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-span-1">
+                <label for="phoneNumber">{{"userInforPage.phoneNumber"|translate}}<span
+                        class="text-red-600">*</span></label>
+                <mat-form-field class="custom-input   w-full" appearance="outline">
+
+                    <input matInput formControlName="phoneNumber" name="phoneNumber" maxlength="10" />
+                    <mat-error
+                        *ngIf="formAccountInfor.get('phoneNumber')?.errors?.['required']&&(formAccountInfor.get('phoneNumber')?.dirty || formAccountInfor.get('phoneNumber')?.touched)"
+                        class="text-red-600">
+                        {{'PopUpRegister.noEmty'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="formAccountInfor.get('phoneNumber')?.errors?.['phoneNumberCheck']"
+                        class="text-red-600">
+                        {{'PopUpRegister.wrongPhoneNumber'|translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
             <div class="col-span-1">
                 <label for="statusAccount">{{'userInforPage.status'| translate}} <span
                         class="text-red-600">*</span></label>
@@ -32,120 +71,45 @@
                     <mat-error
                         *ngIf="formAccountInfor.get('statusAccount')?.errors?.['required']&& (formAccountInfor.get('statusAccount')?.dirty || formAccountInfor.get('statusAccount')?.touched)"
                         class="text-red-600">
-                        {{'inputAler.required'|translate}}
+                        {{'PopUpRegister.noEmty'|translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-span-1 flex flex-col">
-                <label for="activeDate">{{'userInforPage.activeDate'| translate}}<span
+                <label for="activeDate">{{'userInforPage.createDate'| translate}}<span
                         class="text-red-600">*</span></label>
                 <mat-form-field class="custom-input mr-1  col-span-1" appearance="outline">
                     <input formControlName="activeDate" matInput [matDatepicker]="pickerActiveDate" />
                     <mat-datepicker-toggle matIconSuffix [for]="pickerActiveDate"></mat-datepicker-toggle>
                     <mat-datepicker #pickerActiveDate></mat-datepicker>
-                    <mat-error> {{'inputAler.required'|translate}}</mat-error>
+                    <mat-error> {{'PopUpRegister.noEmty'|translate}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-span-1 flex gap-6 justify-end items-end translate-y-[-20px]">
                 <span class="cursor-pointer text-textColor font-medium text-[16px] underline"
                     (click)="handelOpenPopUpChangePass()">{{'userInforPage.changePassword'|translate}}</span>
-                <span class="cursor-pointer text-[#EE2E2E] font-medium text-[16px] underline" nz-popconfirm
+                <!-- <span class="cursor-pointer text-[#EE2E2E] font-medium text-[16px] underline" nz-popconfirm
                     [nzPopconfirmTitle]="'userInforPage.areYouSureDeleteAccount'|translate" (nzOnConfirm)="confirm()"
-                    (nzOnCancel)="cancel()" nz-button>{{'userInforPage.deleteAccount'|translate}}</span>
+                    (nzOnCancel)="cancel()" nz-button>{{'userInforPage.deleteAccount'|translate}}</span> -->
             </div>
         </form>
     </div>
 
-    <div class="mt-6">
-        <span class="text-[20px] font-semibold">{{"userInforPage.personalInformation"|translate}}</span>
 
-        <form [formGroup]="formUserInfor" class="grid grid-cols-2 gap-x-9">
-            <div class="col-span-1">
-                <label for="fullName">{{"userInforPage.fullName"|translate}}<span class="text-red-600">*</span></label>
-                <mat-form-field class="custom-input   w-full" appearance="outline">
-
-                    <input matInput formControlName="fullName" name="fullName" />
-                    <mat-error
-                        *ngIf="formUserInfor.get('fullName')?.errors?.['required']&& (formUserInfor.get('fullName')?.dirty || formUserInfor.get('fullName')?.touched)"
-                        class="text-red-600">
-                        {{'inputAler.required'|translate}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-
-            <div class="col-span-1 flex flex-col">
-                <label for="dateOfBirth">{{'userInforPage.dateOfBirth'| translate}}<span
-                        class="text-red-600">*</span></label>
-                <mat-form-field class="custom-input mr-1  col-span-1" appearance="outline">
-                    <input formControlName="dateOfBirth" matInput [matDatepicker]="pickerdateOfBirth" />
-                    <mat-datepicker-toggle matIconSuffix [for]="pickerdateOfBirth"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerdateOfBirth></mat-datepicker>
-                    <mat-error> {{'inputAler.required'|translate}}</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="col-span-1">
-                <label for="email">Email<span class="text-red-600">*</span></label>
-                <mat-form-field class="custom-input   w-full" appearance="outline">
-
-                    <input matInput formControlName="email" name="email" />
-                    <mat-error
-                        *ngIf="formUserInfor.get('email')?.errors?.['required']&& (formUserInfor.get('email')?.dirty || formUserInfor.get('email')?.touched)"
-                        class="text-red-600">
-                        {{'inputAler.required'|translate}}
-                    </mat-error>
-                    <mat-error
-                        *ngIf="formUserInfor.get('email')?.errors?.['email']&& (formUserInfor.get('email')?.dirty || formUserInfor.get('email')?.touched)"
-                        class="text-red-600">
-                        {{'inputAler.wrongEmail'|translate}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-span-1">
-                <label for="phoneNumber">{{"userInforPage.phoneNumber"|translate}}<span
-                        class="text-red-600">*</span></label>
-                <mat-form-field class="custom-input   w-full" appearance="outline">
-
-                    <input matInput formControlName="phoneNumber" name="phoneNumber" />
-                    <mat-error
-                        *ngIf="formUserInfor.get('phoneNumber')?.errors?.['required']&&(formUserInfor.get('phoneNumber')?.dirty || formUserInfor.get('phoneNumber')?.touched)"
-                        class="text-red-600">
-                        {{'inputAler.required'|translate}}
-                    </mat-error>
-                    <mat-error *ngIf="formUserInfor.get('phoneNumber')?.errors?.['phoneNumberCheck']"
-                        class="text-red-600">
-                        {{'inputAler.wrongPhoneNumber'|translate}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="col-span-2">
-                <label for="address">{{"userInforPage.address"|translate}}<span class="text-red-600">*</span></label>
-                <mat-form-field class="custom-input   w-full" appearance="outline">
-
-                    <input matInput formControlName="address" name="address" />
-                    <mat-error
-                        *ngIf="formUserInfor.get('address')?.errors?.['required']&& (formUserInfor.get('address')?.dirty || formUserInfor.get('address')?.touched)"
-                        class="text-red-600">
-                        {{'inputAler.required'|translate}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </form>
-    </div>
 
     <div class="flex justify-center pb-8">
         <button *ngIf="!isEdit" class="hover:opacity-85 bg-primary rounded-2xl text-white px-9 py-2"
             (click)="handelEditInfor()">{{'Button.edit'|translate}}</button>
         <div class="flex gap-6">
-            <button *ngIf="isEdit"
-                class="hover:opacity-85 bg-primary rounded-2xl text-white px-9 py-2">{{'Button.save'|translate}}</button>
+            <button *ngIf="isEdit" (click)="handelUpdateUserInfor()" nz-button nzType="primary"
+                class="!bg-primary text-white border-none hover:opacity-60 hover:bg-primary  hover:text-white  !rounded-2xl px-9"
+                [nzLoading]="isEditLoading">{{'Button.save'|translate}}</button>
             <button *ngIf="isEdit" class="hover:opacity-85 bg-[#8B8B8B] rounded-2xl text-white px-9 py-2"
                 (click)="handelCanEdit()">{{'Button.cancel'|translate}}</button>
         </div>
     </div>
 </div>
-<app-popup-change-pass *ngIf="isVisibleChangePass" [isVisiblePopUpChangePass]="isVisibleChangePass"
+<app-popup-change-pass *ngIf="isVisibleChangePass" [email]="userInfor.email"
+    [isVisiblePopUpChangePass]="isVisibleChangePass"
     (isVisiblePopUpOpen)="handleShowChangePassPopUp($event)"></app-popup-change-pass>

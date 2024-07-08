@@ -1,0 +1,42 @@
+<nz-modal [(nzVisible)]="isVisible" nzWidth="350px" nzCentered nzClosable="false" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <div class="p-[20px] bg-white">
+      <div class="flex items-center justify-center">
+        <div class="w-[18px] h-[18px] flex items-center justify-center rounded-[4px] border-[2px] border-[#EE2E2E]">
+          <i class="fa-solid fa-exclamation text-[#EE2E2E]"></i>
+        </div>
+        <div class="text-primary uppercase text-[16px] font-medium ml-[20px]">
+          {{title}}
+        </div>
+      </div>
+      <div class="text-center text-[14px] mt-[20px]">
+        {{content}}
+      </div>
+      <div class="flex items-center justify-center mt-[30px]">
+        <!-- <div (click)="handleCancel()"
+          class="w-[80px] h-[32px] flex items-center rounded-[6px] cursor-pointer justify-center border border-[#D8D8D8] text-[#505050] hover:opacity-70">
+          {{'Button.cancel'| translate}}
+        </div> -->
+
+        <!-- <ng-container *ngIf="loading; else elseTemplate">
+          <div
+            class="ml-[20px] w-[80px] h-[32px]  flex items-center rounded-[6px] cursor-pointer justify-center border border-[#D8D8D8] text-black hover:opacity-70">
+            <span class="mr-1 !text-black" nz-icon [nzType]="'sync'" [nzSpin]="true"></span>
+            {{'Button.save'| translate}}
+
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div (click)="handleOk()"
+            class="ml-[20px] w-[80px] h-[32px] bg-primary flex items-center rounded-[6px] cursor-pointer justify-center border border-[#D8D8D8] text-white hover:opacity-70">
+            {{'Button.save'| translate}}
+          </div>
+        </ng-template> -->
+
+
+      </div>
+    </div>
+
+  </ng-container>
+</nz-modal>

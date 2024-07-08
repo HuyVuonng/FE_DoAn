@@ -12,3 +12,19 @@ export interface logInModel {
   password: String;
   isKeepLogin?: true;
 }
+
+export interface changePassModel {
+  email: String;
+  oldPassword: String;
+  newPassword: String;
+  reNewPassword: String;
+}
+export interface updateUserInforModel {
+  id: Number;
+  fullName: String;
+  userAddress?: String;
+  phoneNumber: String;
+  statusAccount: Number;
+  roleId?: Number;
+  deleteFlag?: Boolean;
+}

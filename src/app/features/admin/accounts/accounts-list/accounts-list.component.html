@@ -52,11 +52,13 @@
             </ng-template>
             <ng-template #rows let-row let-index="index">
                 <td class="max-w-[75px] min-h-12 text-balance">{{ index+1 }}</td>
-                <td class="text-balance min-h-12 max-w-[450px] truncate">{{ row.account }}</td>
+                <td class="text-balance min-h-12 max-w-[450px] truncate">{{ row.email }}</td>
                 <td class="max-w-[450px] min-h-12 truncate">{{ row.fullName}}</td>
-                <td class="max-w-[150px] min-h-12" [class.text-green-600]="row.status===1"
-                    [class.text-yellow-600]="row.status===0" [class.text-red-600]="row.status===2">
-                    {{row.status===1? activelable :row.status===0?deactiveLable: row.status===2?blockLabel:""}}</td>
+                <td class="max-w-[150px] min-h-12" [class.text-green-600]="row.statusAccount===1"
+                    [class.text-yellow-600]="row.statusAccount===2" [class.text-red-600]="row.statusAccount===3"
+                    [class.text-gray-300]="row.statusAccount===0">
+                    {{row.statusAccount===1? activelable :row.statusAccount===2?deactiveLable:
+                    row.statusAccount===3?blockLabel:row.statusAccount===0? notActivatedLabel:""}}</td>
 
                 <td>
                     <div class="flex items-center justify-center min-h-12">
@@ -64,9 +66,14 @@
                             [nzDropdownMenu]="menu"></i>
                         <nz-dropdown-menu #menu="nzDropdownMenu">
                             <ul nz-menu>
-                                <li nz-menu-item>{{'AdminPage.accountsPage.block'| translate}}</li>
-                                <li nz-menu-item>{{'AdminPage.accountsPage.unBlock'| translate}}</li>
-                                <li nz-menu-item>{{'AdminPage.accountsPage.deleteAccount'| translate}}</li>
+                                <li *ngIf="row.statusAccount!==3" (click)="handelChangeStatusAccount(row,3)"
+                                    nz-menu-item>
+                                    {{'AdminPage.accountsPage.block'| translate}}</li>
+                                <li *ngIf="row.statusAccount===3" (click)="handelChangeStatusAccount(row,1)"
+                                    nz-menu-item>
+                                    {{'AdminPage.accountsPage.unBlock'| translate}}</li>
+                                <li (click)="handelDeleteAccount(row)" nz-menu-item>
+                                    {{'AdminPage.accountsPage.deleteAccount'| translate}}</li>
                             </ul>
                         </nz-dropdown-menu>
                     </div>
@@ -76,3 +83,5 @@
         </app-share-table>
     </div>
 </div>
+<app-popup-delete [isVisible]="visiblePopUp" (changeVisible)="changVisiblePopUp($event)"
+    [funnctionCall]="callConfirm.bind(this)" [param]="param" [title]="title" [content]="content"></app-popup-delete>

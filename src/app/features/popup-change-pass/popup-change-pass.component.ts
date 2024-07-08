@@ -24,6 +24,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { AuthService } from '../../core/api/auth.service';
+import { changePassModel } from '../../core/models/user';
 
 @Component({
   selector: 'app-popup-change-pass',
@@ -46,12 +48,15 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 })
 export class PopupChangePassComponent implements OnInit {
   isConfirmLoading = false;
+  @Input() email: string;
   @Input() isVisiblePopUpChangePass: boolean = false;
   @Output() isVisiblePopUpOpen = new EventEmitter<any>();
   notify: string;
   AlerPhoneNumber: string;
   AlerEmail: string;
   registerSuccess: string;
+  updateSuccess: string;
+  oldPasswordIncorrect: string;
   handleOk(): void {
     console.log('Button ok clicked!');
     this.isVisiblePopUpOpen.emit(false);
@@ -65,15 +70,21 @@ export class PopupChangePassComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
     private snackBar: SnackbarService,
+    private authService: AuthService,
   ) {}
 
   public form: FormGroup = this.fb.group({
     oldPassword: [null, [Validators.required, passWordValidator()]],
     password: [null, [Validators.required, passWordValidator()]],
     rePass: [null, Validators.required],
-    email: [null, [Validators.required, Validators.email]],
   });
   ngOnInit(): void {
+    this.translate
+      .get('Toast.oldPasswordIncorrect')
+      .subscribe((value) => (this.oldPasswordIncorrect = value));
+    this.translate
+      .get('Toast.updateSuccess')
+      .subscribe((value) => (this.updateSuccess = value));
     this.form
       .get('rePass')
       ?.addValidators(rePassValidator(this.form.get('password')?.value));
@@ -92,6 +103,12 @@ export class PopupChangePassComponent implements OnInit {
       .subscribe((value) => (this.registerSuccess = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
+        .get('Toast.oldPasswordIncorrect')
+        .subscribe((value) => (this.oldPasswordIncorrect = value));
+      this.translate
+        .get('Toast.updateSuccess')
+        .subscribe((value) => (this.updateSuccess = value));
+      this.translate
         .get('Toast.notify')
         .subscribe((value) => (this.notify = value));
       this.translate
@@ -106,20 +123,37 @@ export class PopupChangePassComponent implements OnInit {
     });
   }
   confirm(): void {
-    const body = {
+    this.isConfirmLoading = true;
+    const body: changePassModel = {
+      email: this.email,
       oldPassword: this.form.get('oldPassword')?.value,
-      password: this.form.get('password')?.value,
-      rePass: this.form.get('rePass')?.value,
+      newPassword: this.form.get('password')?.value,
+      reNewPassword: this.form.get('rePass')?.value,
     };
     if (this.form.invalid) {
       this.form.get('oldPassword')?.markAsTouched();
       this.form.get('password')?.markAsTouched();
       this.form.get('rePass')?.markAsTouched();
+      this.isConfirmLoading = false;
       return;
     }
-    console.log('Button ok clicked!');
-    this.isVisiblePopUpOpen.emit(false);
-    this.snackBar.success(this.registerSuccess);
+    this.authService.changePass(body).subscribe(
+      (data) => {
+        this.isConfirmLoading = false;
+
+        this.snackBar.success(this.updateSuccess);
+        this.isVisiblePopUpOpen.emit(false);
+      },
+      (err) => {
+        if (err.status === 400) {
+          this.isConfirmLoading = false;
+          this.snackBar.error(this.oldPasswordIncorrect);
+        } else {
+          this.isConfirmLoading = false;
+          this.snackBar.error('Error');
+        }
+      },
+    );
   }
 
   updateValidateRepass(e: any) {
