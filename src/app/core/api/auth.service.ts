@@ -21,7 +21,8 @@ export class AuthService {
 
   logout(): void {
     this.storageService.clearStorage();
-    this.router.navigate(['/login']);
+    window.location.reload();
+    this.router.navigate(['/']);
   }
   signIn(body: signInModel): Observable<any> {
     return this.http.post(this.apiUrl + '/user/create-user', body);

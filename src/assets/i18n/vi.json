@@ -84,7 +84,8 @@
     "noEmty": "Không bỏ trống trường này",
     "userNamePlaceholder": "Nhập User Name/Email/Số điện thoại",
     "activingAccount": "Đang kích hoạt tài khoản",
-    "accountActivated": "Tài khoản đã được kích hoạt"
+    "accountActivated": "Tài khoản đã được kích hoạt",
+    "activeFalse": "Kích hoạt không thành công"
   },
   "Toast": {
     "createSuccess": "Tạo mới thành công",
@@ -97,7 +98,8 @@
     "confirmDelete": "Xác nhận xóa",
     "changePasswordSuccess": "Đổi mật khẩu thành công",
     "reportSuccess": "Báo cáo thành công",
-    "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo"
+    "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
+    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng"
   },
   "item": {
     "yourTask": "Công việc của bạn",

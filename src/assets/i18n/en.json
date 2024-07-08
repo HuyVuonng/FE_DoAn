@@ -84,7 +84,8 @@
     "noEmty": "No Emty",
     "userNamePlaceholder": "User Name/Email/Phone Number",
     "activingAccount": "Account is activing",
-    "accountActivated": "Account activated"
+    "accountActivated": "Account activated",
+    "activeFalse": "Active False"
   },
   "Toast": {
     "createSuccess": "Create Success",
@@ -97,7 +98,8 @@
     "confirmDelete": "Confirm Delete",
     "changePasswordSuccess": "Change Password Success",
     "reportSuccess": "Report Success",
-    "pleaseSelectResionReport": "Please Select Resion Report"
+    "pleaseSelectResionReport": "Please Select Resion Report",
+    "emailOrPasswordIsIncorrect": "Email or Password is incorrect"
   },
 
   "item": {

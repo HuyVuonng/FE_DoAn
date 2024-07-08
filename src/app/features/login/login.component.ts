@@ -27,6 +27,9 @@ import { PopUpInsertOTPComponent } from '../forgot-pass-word/pop-up-insert-otp/p
 import { PopUpChangePassComponent } from '../forgot-pass-word/pop-up-change-pass/pop-up-change-pass.component';
 import { HttpHeaders } from '@angular/common/http';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+import { logInModel } from '../../core/models/user';
+import { error } from 'console';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +48,9 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
     ForgotPassWordComponent,
     PopUpInsertOTPComponent,
     PopUpChangePassComponent,
+    NzButtonModule,
   ],
+
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -55,6 +60,8 @@ export class LoginComponent implements OnInit {
     password: [null, Validators.required],
   });
   remember: boolean = false;
+  emailOrPasswordIsIncorrect: string;
+  isLoginLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -62,7 +69,6 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private translate: TranslateService,
-    private snackBar: SnackbarService,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -81,32 +87,53 @@ export class LoginComponent implements OnInit {
         'Noticed changes to access_token (most likely from another tab), updating isAuthenticated',
       );
     });
+
+    if (localStorage.getItem('access_token')) {
+      this.router.navigate(['/']);
+    }
+    this.translate
+      .get('Toast.emailOrPasswordIsIncorrect')
+      .subscribe((value) => (this.emailOrPasswordIsIncorrect = value));
+    this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.emailOrPasswordIsIncorrect')
+        .subscribe((value) => (this.emailOrPasswordIsIncorrect = value));
+    });
   }
   idIntervalLoginTrueAccount: any;
-  ngOnInit(): void {
-    // this.idIntervalLoginTrueAccount = setInterval(() => {
-    //   if (this.OAuthService.hasValidAccessToken()) {
-    //     clearInterval(this.idIntervalLoginTrueAccount);
-    //     this.router.navigate(['/']);
-    //   }
-    // }, 100);
-    // setTimeout(() => {
-    //   clearInterval(this.idIntervalLoginTrueAccount);
-    // }, 300000);
-  }
+  ngOnInit(): void {}
 
   language: string = 'vi';
   login() {
-    const body = {
-      username: this.formLogin.get('userName')?.value,
+    this.isLoginLoading = true;
+    const body: logInModel = {
+      email: this.formLogin.get('userName')?.value,
       password: this.formLogin.get('password')?.value,
-      rememberMe: true,
+      isKeepLogin: true,
     };
     if (this.formLogin.invalid) {
       this.formLogin.get('userName')?.markAsTouched();
       this.formLogin.get('password')?.markAsTouched();
+      this.isLoginLoading = false;
       return;
     }
+    this.auth.login(body).subscribe(
+      (data) => {
+        this.isLoginLoading = false;
+        localStorage.setItem('access_token', '123');
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        if (error.status === 200) {
+          this.isLoginLoading = false;
+          localStorage.setItem('access_token', '123');
+          this.router.navigate(['/']);
+        } else {
+          this._snackBar.error(this.emailOrPasswordIsIncorrect);
+          this.isLoginLoading = false;
+        }
+      },
+    );
   }
 
   hide: boolean = true;
@@ -157,5 +184,9 @@ export class LoginComponent implements OnInit {
     this.translate.use(this.language);
     this.cdr.detectChanges();
   }
-  loginWithTrueAccount() {}
+  handelLoginByEnter(e: any) {
+    if (e.keyCode === 13) {
+      this.login();
+    }
+  }
 }

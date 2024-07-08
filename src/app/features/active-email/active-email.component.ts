@@ -18,6 +18,7 @@ export class ActiveEmailComponent implements OnInit {
   message: string;
   activing: string;
   actived: string;
+  activeFalse: string;
   type: any = 'infor';
   isSpinning: boolean = true;
   email: string = this.activeRoute.snapshot.params['id'];
@@ -33,6 +34,9 @@ export class ActiveEmailComponent implements OnInit {
     this.translate
       .get('Login.accountActivated')
       .subscribe((value) => (this.actived = value));
+    this.translate
+      .get('Login.activeFalse')
+      .subscribe((value) => (this.activeFalse = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
         .get('Login.activingAccount')
@@ -40,6 +44,9 @@ export class ActiveEmailComponent implements OnInit {
       this.translate
         .get('Login.accountActivated')
         .subscribe((value) => (this.actived = value));
+      this.translate
+        .get('Login.activeFalse')
+        .subscribe((value) => (this.activeFalse = value));
     });
   }
   ngOnInit(): void {
@@ -71,6 +78,9 @@ export class ActiveEmailComponent implements OnInit {
           }, 2000);
         } else {
           this.isSpinning = false;
+          this.type = 'error';
+          this.message = this.activeFalse;
+
           this.snackbar.error(err.error);
         }
       },

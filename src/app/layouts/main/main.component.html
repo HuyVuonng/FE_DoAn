@@ -44,7 +44,7 @@
                     <li nz-menu-item [routerLink]="['/payHistory',1]" routerLinkActive="activeLink">
                       {{"Menu.payHistory"| translate}}</li>
                     <li nz-menu-divider></li>
-                    <li nz-menu-item>{{"Menu.logout"| translate}}</li>
+                    <li nz-menu-item (click)="handleLogout()">{{"Menu.logout"| translate}}</li>
                   </ul>
                 </nz-dropdown-menu>
               </div>

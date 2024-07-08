@@ -8,6 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { MainComponent } from '../../layouts/main/main.component';
+import { AuthService } from '../../core/api/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -37,6 +38,7 @@ export class AdminComponent {
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private i18n: NzI18nService,
+    private auth: AuthService,
   ) {
     if (
       MainComponent.getDeviceType() === 'mobile' ||
@@ -64,7 +66,9 @@ export class AdminComponent {
       this.language = 'en';
     }
   }
-  handleLogout() {}
+  handleLogout() {
+    this.auth.logout();
+  }
   changeLanguage(e: any) {
     this.language = e;
     this.translate.use(this.language);

@@ -142,7 +142,11 @@ export class ReportListComponent implements OnInit {
     });
   }
   searchByEnter(e: any) {
+    console.log('a');
+
     if (e.keyCode === 13) {
+      console.log('an');
+
       this.handelSearch();
     }
   }

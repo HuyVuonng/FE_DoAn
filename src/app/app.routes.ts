@@ -7,7 +7,8 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () =>
+      import('./features/login/login.component').then((m) => LoginComponent),
   },
   {
     path: 'admin',

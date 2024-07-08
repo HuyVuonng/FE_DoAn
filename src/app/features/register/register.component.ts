@@ -128,13 +128,14 @@ export class RegisterComponent implements OnInit {
     });
   }
   register(): void {
+    this.isConfirmLoading = true;
     const body: signInModel = {
       // username: this.form.get('username')?.value,
       fullName: this.form.get('fullName')?.value,
       phoneNumber: this.form.get('phoneNumber')?.value,
       password: this.form.get('password')?.value,
       email: this.form.get('email')?.value,
-      roleId: 0,
+      roleId: 1,
       statusAccount: 0,
       userAddress: 'Hà Nội',
     };
@@ -145,25 +146,26 @@ export class RegisterComponent implements OnInit {
       this.form.get('password')?.markAsTouched();
       this.form.get('rePass')?.markAsTouched();
       this.form.get('email')?.markAsTouched();
+      this.isConfirmLoading = false;
       return;
     }
     this.authService.signIn(body).subscribe(
       (data) => {
-        if (!data) {
-          return;
-        }
         this.isVisiblePopUpOpen.emit(false);
         this.snackBar.success(this.registerSuccess);
         this.handelSendMailActiveAccount();
+        this.isConfirmLoading = false;
       },
       (err) => {
         if (err.code === 200) {
           this.isVisiblePopUpOpen.emit(false);
           this.snackBar.success(this.registerSuccess);
           this.handelSendMailActiveAccount();
+          this.isConfirmLoading = false;
         } else {
           this.isVisiblePopUpOpen.emit(false);
           this.snackBar.error(err.error);
+          this.isConfirmLoading = false;
         }
       },
     );

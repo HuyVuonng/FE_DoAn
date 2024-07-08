@@ -14,7 +14,8 @@
                     <div class="flex flex-col">
                         <label for="userName" class="w-52">Email</label>
                         <mat-form-field class="custom-input" appearance="outline">
-                            <input formControlName="userName" name="userName" matInput placeholder="Email" />
+                            <input formControlName="userName" name="userName" matInput placeholder="Email"
+                                (keypress)="handelLoginByEnter($event)" />
                             <mat-error>{{'Login.noEmty'|translate}}</mat-error>
                         </mat-form-field>
                     </div>
@@ -22,7 +23,8 @@
                         <label for="password" class="w-52">{{'Login.password'|translate}}</label>
                         <mat-form-field class="custom-input relative" appearance="outline">
                             <input formControlName="password" name="password" matInput type="password"
-                                autocomplete="off" id="inputPass" placeholder="*********" />
+                                autocomplete="off" id="inputPass" placeholder="*********"
+                                (keypress)="handelLoginByEnter($event)" />
                             <i *ngIf="hide" class="fas fa-eye absolute right-0 top-[50%] translate-y-[-50%]"
                                 (click)="showPass($event)"></i>
                             <i *ngIf="!hide" class="fa-solid fa-eye-slash absolute right-0 top-[50%] translate-y-[-50%]"
@@ -36,8 +38,9 @@
                 </form>
                 <div class="flex gap-5 justify-center">
 
-                    <button class="bg-primary text-white w-[120px] rounded-[5px] h-[30px] hover:opacity-50"
-                        (click)="login()">{{'Login.login'|translate}}</button>
+                    <button nz-button nzType="primary"
+                        class="!bg-primary text-white border-none  rounded-lg hover:opacity-60 hover:bg-primary  hover:text-white"
+                        [nzLoading]="isLoginLoading" (click)="login()">{{'Login.login'|translate}}</button>
                 </div>
                 <div class="flex flex-col gap-y-5 mt-4 text-[16px] font-[500] text-[#1C274C]">
                     <!-- <div class="flex flex-col gap-2 items-center">
