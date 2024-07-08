@@ -31,7 +31,7 @@
         <div>
             <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" class="border-none">
                 <li nz-menu-item [routerLink]="['/admin/posts']" nzMatchRouter>
-                    <span nz-icon nzType="user"></span>
+                    <span nz-icon nzType="profile" nzTheme="outline"></span>
                     <span>{{'Menu.posts'| translate}}</span>
                 </li>
             </ul>
@@ -43,7 +43,7 @@
             </ul>
             <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" class="border-none">
                 <li nz-menu-item [routerLink]="['/admin/reports']" nzMatchRouter>
-                    <span nz-icon nzType="user"></span>
+                    <i class="fa-regular fa-flag mr-2"></i>
                     <span>{{'Menu.reports'| translate}}</span>
                 </li>
             </ul>

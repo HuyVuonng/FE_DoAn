@@ -206,7 +206,8 @@
       "status": "Trạng thái",
       "deleteAccount": "Xóa tài khoản",
       "block": "Chặn",
-      "unBlock": "Bỏ chặn"
+      "unBlock": "Bỏ chặn",
+      "createDate": "Ngày tạo"
     },
     "reportpage": {
       "listReports": "Danh sách báo cáo",

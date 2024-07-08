@@ -1,11 +1,4 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddressService } from '../../core/services/address.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
@@ -28,6 +21,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { Observable, Subscription, map } from 'rxjs';
+import { PostService } from '../../core/api/post.service';
 
 @Component({
   selector: 'app-home',
@@ -77,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private activeRoute: ActivatedRoute,
+    private postService: PostService,
   ) {
     this.translatelabelSelectInput();
   }
@@ -310,16 +304,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         value: 7,
       },
     ];
-    this.listType = [
-      {
-        label: this.labelAll,
-        value: 0,
-      },
-      {
-        label: 'Nhà trọ',
-        value: 1,
-      },
-    ];
+    this.listType = [];
+    this.listType.unshift({
+      hostelTypeName: this.labelAll,
+      id: 0,
+    });
+    this.postService.getListType().subscribe((data) => {
+      this.listType.push(...data);
+    });
+
     this.type?.subscribe((param) => {
       if (param) {
         this.form.patchValue({ type: Number(param) });

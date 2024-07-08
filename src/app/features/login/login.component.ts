@@ -128,11 +128,11 @@ export class LoginComponent implements OnInit {
     }
     this.auth.login(body).subscribe(
       (data) => {
-        this.isLoginLoading = false;
         if (data.statusAccount === 0) {
           this.handelSendMailActiveAccount(data);
           return;
         }
+        this.isLoginLoading = false;
         localStorage.setItem('access_token', '123');
         localStorage.setItem('user_infor', JSON.stringify(data));
         this.router.navigate(['/']);
@@ -213,12 +213,16 @@ export class LoginComponent implements OnInit {
     };
     this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(
       () => {
+        this.isLoginLoading = false;
         this._snackBar.success(this.checkMailActiveAccount);
       },
       (err) => {
         if (err.status === 200) {
+          this.isLoginLoading = false;
+
           this._snackBar.success(this.checkMailActiveAccount);
         } else {
+          this.isLoginLoading = false;
           this._snackBar.error('Err');
         }
       },

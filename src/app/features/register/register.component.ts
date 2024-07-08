@@ -135,7 +135,7 @@ export class RegisterComponent implements OnInit {
       phoneNumber: this.form.get('phoneNumber')?.value,
       password: this.form.get('password')?.value,
       email: this.form.get('email')?.value,
-      roleId: 1,
+      roleId: 3,
       statusAccount: 0,
       userAddress: 'Hà Nội',
     };

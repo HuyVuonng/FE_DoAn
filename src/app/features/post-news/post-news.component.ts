@@ -28,6 +28,8 @@ import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { MapComponent } from '../detail-hostel/map/map.component';
+import { AuthService } from '../../core/api/auth.service';
+import { PostService } from '../../core/api/post.service';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -90,11 +92,18 @@ export class PostNewsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
     private PayAndSendMailService: PayAndSendMailService,
+    private postService: PostService,
   ) {
     this.form.get('addressDetail')?.disable();
     this.translatelabelSelectInput();
   }
+  userInfor = JSON.parse(localStorage.getItem('user_infor') || '{}');
   ngOnInit(): void {
+    this.form.patchValue({
+      owner: this.userInfor?.fullName,
+      phoneNumber: this.userInfor?.phoneNumber,
+      zalo: this.userInfor?.phoneNumber,
+    });
     this.getListValue();
   }
   config: CurrencyMaskConfig = {
@@ -211,13 +220,9 @@ export class PostNewsComponent implements OnInit {
       this.form.get('ward')?.reset();
       this.form.get('ward')?.setValue(null);
     });
-
-    this.listType = [
-      {
-        label: 'Nhà trọ',
-        value: 1,
-      },
-    ];
+    this.postService.getListType().subscribe((data) => {
+      this.listType = data;
+    });
   }
 
   ChangeImage(e: any) {}

@@ -207,7 +207,8 @@
       "status": "Status",
       "deleteAccount": "Delete Account",
       "block": "Block",
-      "unBlock": "Unblock"
+      "unBlock": "Unblock",
+      "createDate": "Create Date"
     },
     "reportpage": {
       "listReports": "Reports List ",

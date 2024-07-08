@@ -6,7 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { AdminService } from '../../../../core/api/admin.service';
@@ -14,6 +14,7 @@ import { PopUpDeleteModule } from '../../../../shared/components/popup-delete/po
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../../core/api/auth.service';
 import { updateUserInforModel } from '../../../../core/models/user';
+import { AccountStatus } from '../../../../core/enums/acountStatusEnum';
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
@@ -29,6 +30,7 @@ import { updateUserInforModel } from '../../../../core/models/user';
     MatInputModule,
     NzDropDownModule,
     PopUpDeleteModule,
+    DatePipe,
   ],
   templateUrl: './accounts-list.component.html',
   styleUrl: './accounts-list.component.scss',
@@ -55,6 +57,7 @@ export class AccountsListComponent implements OnInit {
   contentDelete: string;
   titleChangeStatus: string;
   contentChangeStatus: string;
+  AccountStatusEnum = AccountStatus;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
@@ -114,19 +117,19 @@ export class AccountsListComponent implements OnInit {
       this.listStatus = [
         {
           label: this.notActivatedLabel,
-          value: 0,
+          value: AccountStatus.NoActive,
         },
         {
           label: this.activelable,
-          value: 1,
+          value: AccountStatus.Active,
         },
         {
           label: this.deactiveLable,
-          value: 2,
+          value: AccountStatus.InActive,
         },
         {
           label: this.blockLabel,
-          value: 3,
+          value: AccountStatus.Block,
         },
       ];
     });
@@ -135,19 +138,19 @@ export class AccountsListComponent implements OnInit {
     this.listStatus = [
       {
         label: this.notActivatedLabel,
-        value: 0,
+        value: AccountStatus.NoActive,
       },
       {
         label: this.activelable,
-        value: 1,
+        value: AccountStatus.Active,
       },
       {
         label: this.deactiveLable,
-        value: 2,
+        value: AccountStatus.InActive,
       },
       {
         label: this.blockLabel,
-        value: 3,
+        value: AccountStatus.Block,
       },
     ];
     this.getListUsers();

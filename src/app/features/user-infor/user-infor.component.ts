@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 import { updateUserInforModel } from '../../core/models/user';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { AccountStatus } from '../../core/enums/acountStatusEnum';
 @Component({
   selector: 'app-user-infor',
   standalone: true,
@@ -85,11 +86,11 @@ export class UserInforComponent implements OnInit {
     this.statusList = [
       {
         label: this.statusActive,
-        value: 1,
+        value: AccountStatus.Active,
       },
       {
         label: this.statusInactive,
-        value: 2,
+        value: AccountStatus.InActive,
       },
     ];
     this.getUserByID();

@@ -72,8 +72,8 @@
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'labelInput.type'| translate}}</mat-label>
                         <mat-select formControlName="type" (click)="viewMap=false">
-                            <mat-option *ngFor="let type of listType" [value]="type.value">
-                                {{ type.label }}
+                            <mat-option *ngFor="let type of listType" [value]="type.id">
+                                {{ type.hostelTypeName }}
                             </mat-option>
                         </mat-select>
                         <mat-error>{{'postPage.required'| translate}}</mat-error>
