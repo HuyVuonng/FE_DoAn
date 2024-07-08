@@ -211,8 +211,17 @@ export class LoginComponent implements OnInit {
       email: data.email,
       activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${data.email}`,
     };
-    this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(() => {
-      this._snackBar.success(this.checkMailActiveAccount);
-    });
+    this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(
+      () => {
+        this._snackBar.success(this.checkMailActiveAccount);
+      },
+      (err) => {
+        if (err.status === 200) {
+          this._snackBar.success(this.checkMailActiveAccount);
+        } else {
+          this._snackBar.error('Err');
+        }
+      },
+    );
   }
 }
