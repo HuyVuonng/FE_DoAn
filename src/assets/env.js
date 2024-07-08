@@ -3,5 +3,5 @@
 
   // Environment variables
   window["env"]["name"] = "production";
-  window["env"]["apiURL"] = "https://content-api-dev.eztek.net";
+  window["env"]["apiURL"] = "https://hostelbanking.somee.com/api";
 })(this);
