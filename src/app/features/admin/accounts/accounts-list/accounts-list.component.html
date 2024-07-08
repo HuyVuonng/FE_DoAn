@@ -66,14 +66,14 @@
                             [nzDropdownMenu]="menu"></i>
                         <nz-dropdown-menu #menu="nzDropdownMenu">
                             <ul nz-menu>
-                                <li *ngIf="row.statusAccount!==3" (click)="handelChangeStatusAccount(row,3)"
+                                <li *ngIf="row.statusAccount!==3" (click)="handelChangeStatusAccount(row,true)"
                                     nz-menu-item>
                                     {{'AdminPage.accountsPage.block'| translate}}</li>
-                                <li *ngIf="row.statusAccount===3" (click)="handelChangeStatusAccount(row,1)"
+                                <li *ngIf="row.statusAccount===3" (click)="handelChangeStatusAccount(row,false)"
                                     nz-menu-item>
                                     {{'AdminPage.accountsPage.unBlock'| translate}}</li>
-                                <li (click)="handelDeleteAccount(row)" nz-menu-item>
-                                    {{'AdminPage.accountsPage.deleteAccount'| translate}}</li>
+                                <!-- <li (click)="handelDeleteAccount(row)" nz-menu-item>
+                                    {{'AdminPage.accountsPage.deleteAccount'| translate}}</li> -->
                             </ul>
                         </nz-dropdown-menu>
                     </div>

@@ -186,18 +186,19 @@ export class AccountsListComponent implements OnInit {
     this.content = this.contentDelete + data.email + '?';
     const body: updateUserInforModel = {
       ...data,
-      deleteFlag: true,
+      deleteFlag: false,
     };
     this.param = body;
 
     this.handelOpenPopUpConfirm();
   }
-  handelChangeStatusAccount(data: any, status: number) {
+  handelChangeStatusAccount(data: any, status: boolean) {
     this.title = this.titleChangeStatus;
     this.content = this.contentChangeStatus + data.email + '?';
     const body: updateUserInforModel = {
       ...data,
-      statusAccount: status,
+      statusAccount: status ? 3 : 1,
+      deleteFlag: status,
     };
     this.param = body;
     this.handelOpenPopUpConfirm();

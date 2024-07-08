@@ -104,7 +104,8 @@
     "reportSuccess": "Báo cáo thành công",
     "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
     "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng",
-    "oldPasswordIncorrect": "Mật khẩu cũ không đúng"
+    "oldPasswordIncorrect": "Mật khẩu cũ không đúng",
+    "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản"
   },
   "item": {
     "yourTask": "Công việc của bạn",

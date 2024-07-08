@@ -30,6 +30,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { logInModel } from '../../core/models/user';
 import { error } from 'console';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 
 @Component({
   selector: 'app-login',
@@ -59,6 +60,7 @@ export class LoginComponent implements OnInit {
     userName: [null, Validators.required],
     password: [null, Validators.required],
   });
+  checkMailActiveAccount: string;
   remember: boolean = false;
   emailOrPasswordIsIncorrect: string;
   isLoginLoading: boolean = false;
@@ -69,6 +71,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private translate: TranslateService,
+    private PayAndSendMailService: PayAndSendMailService,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -92,9 +95,15 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.translate
+      .get('Toast.checkMailToActiveAccount')
+      .subscribe((value) => (this.checkMailActiveAccount = value));
+    this.translate
       .get('Toast.emailOrPasswordIsIncorrect')
       .subscribe((value) => (this.emailOrPasswordIsIncorrect = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.checkMailToActiveAccount')
+        .subscribe((value) => (this.checkMailActiveAccount = value));
       this.translate
         .get('Toast.emailOrPasswordIsIncorrect')
         .subscribe((value) => (this.emailOrPasswordIsIncorrect = value));
@@ -120,6 +129,10 @@ export class LoginComponent implements OnInit {
     this.auth.login(body).subscribe(
       (data) => {
         this.isLoginLoading = false;
+        if (data.statusAccount === 0) {
+          this.handelSendMailActiveAccount(data);
+          return;
+        }
         localStorage.setItem('access_token', '123');
         localStorage.setItem('user_infor', JSON.stringify(data));
         this.router.navigate(['/']);
@@ -189,5 +202,17 @@ export class LoginComponent implements OnInit {
     if (e.keyCode === 13) {
       this.login();
     }
+  }
+
+  handelSendMailActiveAccount(data: any) {
+    const nameCustomer = data.fullName;
+    const body = {
+      nameCustomer,
+      email: data.email,
+      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${data.email}`,
+    };
+    this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(() => {
+      this._snackBar.success(this.checkMailActiveAccount);
+    });
   }
 }

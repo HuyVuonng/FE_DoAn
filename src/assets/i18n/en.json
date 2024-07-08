@@ -104,7 +104,8 @@
     "reportSuccess": "Report Success",
     "pleaseSelectResionReport": "Please Select Resion Report",
     "emailOrPasswordIsIncorrect": "Email or Password is incorrect",
-    "oldPasswordIncorrect": "Old Password is incorrect"
+    "oldPasswordIncorrect": "Old Password is incorrect",
+    "checkMailToActiveAccount": "Please check your email to activate your account"
   },
 
   "item": {
