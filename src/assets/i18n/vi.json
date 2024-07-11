@@ -105,7 +105,9 @@
     "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
     "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng",
     "oldPasswordIncorrect": "Mật khẩu cũ không đúng",
-    "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản"
+    "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản",
+    "pending": "Chờ thanh toán",
+    "payed": "Đã thanh toán"
   },
   "item": {
     "yourTask": "Công việc của bạn",

@@ -2,20 +2,23 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemComponent } from '../../../core/components/item/item.component';
+import { PostService } from '../../../core/api/post.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home-list',
   standalone: true,
-  imports: [TranslateModule, ItemComponent],
+  imports: [TranslateModule, ItemComponent, CommonModule],
   templateUrl: './home-list.component.html',
   styleUrl: './home-list.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeListComponent {
+export class HomeListComponent implements OnInit {
   @ViewChild('swiper') swiper!: ElementRef<any>;
   ngAfterViewInit(): void {
     const swiper = {
@@ -43,5 +46,24 @@ export class HomeListComponent {
     };
     Object.assign(this.swiper.nativeElement, swiper);
     this.swiper.nativeElement.initialize();
+  }
+  constructor(private PostService: PostService) {}
+  ngOnInit(): void {
+    this.getMostViewtPost();
+  }
+
+  newestPostList: any;
+  getNewestPost() {
+    this.PostService.getNewestPost().subscribe((data) => {
+      this.newestPostList = data;
+    });
+  }
+
+  mostViewPostList: any;
+  getMostViewtPost() {
+    this.PostService.getMostViewPost().subscribe((data) => {
+      this.mostViewPostList = data;
+      this.getNewestPost();
+    });
   }
 }

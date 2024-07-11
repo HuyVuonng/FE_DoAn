@@ -26,4 +26,13 @@ export class PostService {
   searchByID(id: any): Observable<any> {
     return this.http.get(this.apiUrl + `/post/id=${id}`);
   }
+  getNewestPost(): Observable<any> {
+    return this.http.get(this.apiUrl + `/post/newest`);
+  }
+  getMostViewPost(): Observable<any> {
+    return this.http.get(this.apiUrl + `/post/mostView`);
+  }
+  deletePost(id: any): Observable<any> {
+    return this.http.delete(this.apiUrl + `/post/?id=${id}`);
+  }
 }

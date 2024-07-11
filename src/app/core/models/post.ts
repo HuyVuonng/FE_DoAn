@@ -27,5 +27,7 @@ export interface postSearchModel {
   ownerHouse?: String | null;
   hostelTypeId?: Number | null;
   accountId?: Number | null;
+  pageNumber?: Number;
+  pageSize?: Number;
   [key: string]: any;
 }

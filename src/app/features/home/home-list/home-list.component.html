@@ -3,33 +3,21 @@
     <h2 class="text-[14px] lg:text-[26px] font-medium block">{{"homePage.mostViewed" | translate}}</h2>
     <swiper-container class="swiper-container" slides-per-view="4" autoplay space-between=" 12" speed="500" loop="true"
         centerInsufficientSlides="true" wrapperClass="slide-Wrapper" #swiper>
-        <swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
+        <swiper-slide class="swiper-slide py-4" *ngFor="let item of mostViewPostList">
+            <app-item [data]="item"></app-item>
         </swiper-slide>
-        <swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide><swiper-slide class="swiper-slide py-4">
-            <app-item></app-item>
-        </swiper-slide>
+
     </swiper-container>
 </div>
 <div>
     <h2 class="text-[14px] lg:text-[26px] font-medium block">{{"homePage.newest" | translate}}</h2>
     <div class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
+        <app-item *ngFor="let post of newestPostList" [data]="post"></app-item>
+        <!-- <app-item></app-item>
         <app-item></app-item>
         <app-item></app-item>
         <app-item></app-item>
         <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
+        <app-item></app-item> -->
     </div>
 </div>
