@@ -20,7 +20,9 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { SharePaginationModule } from '../../../../shared/components/share-pagination/share-pagination.module';
 import { ItemComponent } from '../../../manager-post/item/item.component';
-
+import { PostService } from '../../../../core/api/post.service';
+import { postSearchModel } from '../../../../core/models/post';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-post-list',
   standalone: true,
@@ -34,6 +36,7 @@ import { ItemComponent } from '../../../manager-post/item/item.component';
     MatInputModule,
     ItemComponent,
     SharePaginationModule,
+    NzSpinModule,
   ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',
@@ -48,6 +51,7 @@ export class PostListComponent implements OnInit {
     owner: [null],
     title: [null],
   });
+  isSpinning: boolean = false;
   type: Observable<string | null>;
   district: Observable<string | null>;
   ward: Observable<string | null>;
@@ -73,6 +77,7 @@ export class PostListComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private postService: PostService,
   ) {
     this.translatelabelSelectInput();
   }
@@ -82,39 +87,15 @@ export class PostListComponent implements OnInit {
   pageIndex: number = 1;
   pageSize: number = 30;
   changePage(e: any) {
-    console.log(e);
+    this.body.pageNumber = e;
+    this.getListPost();
   }
   changePageSize(e: any) {
-    console.log(e);
+    this.body.pageSize = e;
+    this.getListPost();
   }
   ngOnInit(): void {
-    // this.device = MainComponent.getDeviceType();
-    // if (
-    //   MainComponent.getDeviceType() === 'mobile' ||
-    //   MainComponent.getDeviceType() === 'tablet'
-    // ) {
-    //   this.isShowSearch = false;
-    // }
-
-    this.type = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('type')),
-    );
-    this.district = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('district')),
-    );
-
-    this.ward = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('ward')),
-    );
-
-    this.acreage = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('acreage')),
-    );
-
-    this.priceRange = this.route.queryParamMap.pipe(
-      map((params: ParamMap) => params.get('priceRange')),
-    );
-
+    this.getListPost();
     this.getListValue();
   }
 
@@ -300,18 +281,17 @@ export class PostListComponent implements OnInit {
         value: 7,
       },
     ];
-    this.listType = [
-      {
-        label: this.labelAll,
-        value: 0,
-      },
-      {
-        label: 'Nhà trọ',
-        value: 1,
-      },
-    ];
+    this.listType = [];
+    this.listType.unshift({
+      hostelTypeName: this.labelAll,
+      id: 0,
+    });
+    this.postService.getListType().subscribe((data) => {
+      this.listType.push(...data.data);
+    });
   }
   resetSearch() {
+    this.body = {};
     this.form.patchValue({
       type: 0,
       district: 0,
@@ -321,11 +301,46 @@ export class PostListComponent implements OnInit {
       title: null,
       owner: null,
     });
+    this.getListPost();
   }
-  handelSearch() {}
+  handelSearch() {
+    this.body = {
+      pageNumber: 1,
+      pageSize: this.pageSize,
+      title: this.form.get('title')?.value,
+      ownerHouse: this.form.get('owner')?.value,
+      hostelTypeId: this.form.get('type')?.value,
+      acreage: this.form.get('acreage')?.value,
+      price: this.form.get('priceRange')?.value,
+      district: this.form.get('district')?.value,
+      ward: this.form.get('ward')?.value,
+    };
+    this.getListPost();
+  }
   searchByEnter(e: any) {
     if (e.keyCode === 13) {
       this.handelSearch();
     }
+  }
+  body: postSearchModel = {};
+  listData: any;
+  getListPost() {
+    this.isSpinning = true;
+    Object.keys(this.body).forEach((key) => {
+      if (
+        this.body[key] === null ||
+        this.body[key] === '' ||
+        this.body[key] === 0
+      ) {
+        delete this.body[key];
+      }
+    });
+    this.postService.searchPost(this.body).subscribe((data) => {
+      this.listData = data;
+      this.total = data.totalItem;
+      this.pageIndex = data.pageNumber;
+      this.pageSize = data.pageSize;
+      this.isSpinning = false;
+    });
   }
 }

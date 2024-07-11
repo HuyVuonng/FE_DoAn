@@ -6,11 +6,19 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { PostService } from '../../../core/api/post.service';
 import { postSearchModel } from '../../../core/models/post';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home-search',
   standalone: true,
-  imports: [ItemComponent, NzDropDownModule, NzPaginationModule],
+  imports: [
+    ItemComponent,
+    NzDropDownModule,
+    NzPaginationModule,
+    CommonModule,
+    TranslateModule,
+  ],
   templateUrl: './home-search.component.html',
   styleUrl: './home-search.component.scss',
 })
@@ -99,6 +107,18 @@ export class HomeSearchComponent implements OnInit {
     acreage: null,
     priceRange: null,
   };
+
+  changePage(e: any) {
+    this.body.pageNumber = e;
+    this.handelSearchPost();
+    console.log(event);
+  }
+  changePageSize(e: any) {
+    this.body.pageSize = e;
+    this.handelSearchPost();
+  }
+
+  dataSearch: any;
   handelSearchPost() {
     Object.keys(this.body).forEach((key) => {
       if (
@@ -110,7 +130,10 @@ export class HomeSearchComponent implements OnInit {
       }
     });
     this.postService.searchPost(this.body).subscribe((data) => {
-      console.log(data);
+      this.dataSearch = data;
+      if (!data.data) {
+        this.dataSearch.totalItem = 0;
+      }
     });
   }
 }

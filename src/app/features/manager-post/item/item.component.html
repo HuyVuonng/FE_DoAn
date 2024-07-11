@@ -14,6 +14,6 @@
         </div>
     </a>
 
-    <span *ngIf="data.paymentType===0" class="text-yellow-500 float-right">{{"Toast.pending"|translate}}</span>
-    <span *ngIf="data.paymentType===1" class="text-green-500 float-right">{{"Toast.payed"|translate}}</span>
+    <span *ngIf="data?.paymentType===0" class="text-yellow-500 float-right">{{"Toast.pending"|translate}}</span>
+    <span *ngIf="data?.paymentType===1" class="text-green-500 float-right">{{"Toast.payed"|translate}}</span>
 </div>

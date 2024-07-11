@@ -14,8 +14,8 @@
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'labelInput.type'| translate}}</mat-label>
             <mat-select formControlName="type">
-                <mat-option *ngFor="let type of listType" [value]="type.value">
-                    {{ type.label }}
+                <mat-option *ngFor="let type of listType" [value]="type.id">
+                    {{ type.hostelTypeName }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -69,15 +69,12 @@
     <div class="flex  mt-5">
         <p class="text-primary text-xl font-medium ">{{"AdminPage.postsPage.postList"|translate}}</p>
     </div>
-    <div *ngIf="total" class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-    </div>
+    <nz-spin [nzSpinning]="isSpinning">
+        <div *ngIf="total" class="grid lg:grid-cols-5 grid-cols-1 mt-3 gap-4">
+            <app-item *ngFor="let item of listData?.data" [data]="item"></app-item>
+
+        </div>
+    </nz-spin>
     <ng-container *ngIf="total">
         <div class="flex items-center flex-row-reverse justify-between mt-4">
             <app-share-pagination [pageIndex]="pageIndex" [pageSize]="pageSize" [total]="total"

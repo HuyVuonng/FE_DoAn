@@ -1,5 +1,5 @@
 <div class="flex justify-between">
-    <p>Tìm thấy 12 kết quả</p>
+    <p>Tìm thấy {{ dataSearch?.totalItem }} kết quả</p>
     <a nz-dropdown [nzDropdownMenu]="menu">
         Sắp xếp
         <span nz-icon nzType="down"></span>
@@ -15,18 +15,15 @@
     </ul>
 </nz-dropdown-menu>
 <div class="grid lg:grid-cols-5 grid-cols-1 mt-5 gap-4">
-    <app-item></app-item>
-    <app-item></app-item>
-    <app-item></app-item>
-    <app-item></app-item>
-    <app-item></app-item>
-    <app-item></app-item>
-    <app-item></app-item>
+    <app-item *ngFor="let item of dataSearch?.data" [data]="item"></app-item>
+
 </div>
 <div class="flex justify-end mt-4">
     <div class="w-fit">
-        <nz-pagination [nzPageIndex]="1" [nzTotal]="60" [nzSize]="'small'" [nzShowTotal]="totalTemplate"
-            nzShowSizeChanger></nz-pagination>
-        <ng-template #totalTemplate let-total>Tổng số kết quả: {{ total }}</ng-template>
+        <nz-pagination [nzPageIndex]="dataSearch?.pageNumber" [nzTotal]="dataSearch?.totalItem "
+            [nzPageSize]="dataSearch?.pageSize" [nzSize]="'small'" [nzShowTotal]="totalTemplate" nzShowSizeChanger
+            (nzPageSizeChange)="changePageSize($event)" (nzPageIndexChange)="changePage($event)"></nz-pagination>
+        <ng-template #totalTemplate let-total>{{'pagination.totalPages' | translate}} {{ dataSearch?.totalItem }}
+            {{'pagination.results' | translate}}</ng-template>
     </div>
 </div>
