@@ -95,7 +95,6 @@ export class PostListComponent implements OnInit {
     this.getListPost();
   }
   ngOnInit(): void {
-    this.getListPost();
     this.getListValue();
   }
 
@@ -288,6 +287,7 @@ export class PostListComponent implements OnInit {
     });
     this.postService.getListType().subscribe((data) => {
       this.listType.push(...data.data);
+      this.getListPost();
     });
   }
   resetSearch() {
