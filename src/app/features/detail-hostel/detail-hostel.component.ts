@@ -104,7 +104,7 @@ export class DetailHostelComponent implements OnInit {
   }
   onerror(e: any) {
     e.target.src =
-      'https://img.thuephongtro.com/images/thumb/2020/10/08/20201008070713-mavi4.jpg';
+      'https://img.thuephongtro.com/images/thumb/2021/11/06/20211106101731-oro4r.jpg';
     e.onerror = null;
   }
 
