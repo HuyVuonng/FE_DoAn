@@ -3,8 +3,8 @@
         (keydown.enter)="$event.preventDefault()">
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
-            <mat-label class="bg-white">{{'AdminPage.accountsPage.account' | translate}}</mat-label>
-            <input formControlName="account" matInput (keypress)="searchByEnter($event)" />
+            <mat-label class="bg-white">Email</mat-label>
+            <input formControlName="email" matInput (keypress)="searchByEnter($event)" />
         </mat-form-field>
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
@@ -14,7 +14,7 @@
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'AdminPage.accountsPage.status' | translate}}</mat-label>
-            <mat-select formControlName="status">
+            <mat-select formControlName="statusAccount">
                 <mat-option *ngFor="let status of listStatus" [value]="status.value">
                     {{ status.label }}
                 </mat-option>

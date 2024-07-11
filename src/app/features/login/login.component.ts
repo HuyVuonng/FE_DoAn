@@ -128,13 +128,13 @@ export class LoginComponent implements OnInit {
     }
     this.auth.login(body).subscribe(
       (data) => {
-        if (data.statusAccount === 0) {
+        if (data.infor.statusAccount === 0) {
           this.handelSendMailActiveAccount(data);
           return;
         }
         this.isLoginLoading = false;
-        localStorage.setItem('access_token', '123');
-        localStorage.setItem('user_infor', JSON.stringify(data));
+        localStorage.setItem('access_token', data.token);
+        localStorage.setItem('user_infor', JSON.stringify(data.infor));
         this.router.navigate(['/']);
       },
       (error) => {

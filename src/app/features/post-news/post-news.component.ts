@@ -30,6 +30,9 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 import { MapComponent } from '../detail-hostel/map/map.component';
 import { AuthService } from '../../core/api/auth.service';
 import { PostService } from '../../core/api/post.service';
+import { postModel } from '../../core/models/post';
+import { error } from 'console';
+import moment from 'moment';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -59,6 +62,7 @@ export class PostNewsComponent implements OnInit {
   isSpinningPay: boolean = false;
   viewMap: boolean = false;
   snackBar = inject(SnackbarService);
+  createSuccessMessage: string;
   public form: FormGroup = this.fb.group({
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
@@ -103,6 +107,14 @@ export class PostNewsComponent implements OnInit {
       owner: this.userInfor?.fullName,
       phoneNumber: this.userInfor?.phoneNumber,
       zalo: this.userInfor?.phoneNumber,
+    });
+    this.translate
+      .get('Toast.createSuccess')
+      .subscribe((value) => (this.createSuccessMessage = value));
+    this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.createSuccess')
+        .subscribe((value) => (this.createSuccessMessage = value));
     });
     this.getListValue();
   }
@@ -221,7 +233,7 @@ export class PostNewsComponent implements OnInit {
       this.form.get('ward')?.setValue(null);
     });
     this.postService.getListType().subscribe((data) => {
-      this.listType = data;
+      this.listType = data.data;
     });
   }
 
@@ -281,17 +293,43 @@ export class PostNewsComponent implements OnInit {
       this.form.get('title')?.markAsTouched();
       this.form.get('description')?.markAsTouched();
       this.form.get('linkImg')?.markAsTouched();
+      this.form.get('houseNumberStreet')?.markAsTouched();
       this.isSpinningPay = false;
 
       return;
     }
+    const body: postModel = {
+      accountId: JSON.parse(localStorage.getItem('user_infor') || '{}')?.id,
+      acreage: this.form.get('acreage')?.value,
+      zalo: this.form.get('zalo')?.value,
+      descriptionPost: this.form.get('description')?.value,
+      district: this.form.get('district')?.value,
+      hostelTypeId: this.form.get('type')?.value,
+      ownerHouse: this.form.get('owner')?.value,
+      paymentType: 0,
+      street: this.form.get('houseNumberStreet')?.value,
+      phoneNumber: this.form.get('phoneNumber')?.value,
+      price: this.form.get('price')?.value,
+      title: this.form.get('title')?.value,
+      ward: this.form.get('ward')?.value,
+      images: this.form.get('linkImg')?.value,
+    };
     sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
-    this.PayAndSendMailService.pay().subscribe(
-      (res) => {
-        this.isSpinningPay = false;
-        window.location.href = res.link;
+    this.postService.createPost(body).subscribe(
+      (data) => {
+        this.snackBar.success(this.createSuccessMessage);
+        this.PayAndSendMailService.pay().subscribe(
+          (res) => {
+            this.isSpinningPay = false;
+            window.location.href = res.link;
+          },
+          () => {
+            this.isSpinningPay = false;
+            this.snackBar.error('Error');
+          },
+        );
       },
-      () => {
+      (error) => {
         this.isSpinningPay = false;
         this.snackBar.error('Error');
       },

@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { Observable } from 'rxjs';
+import { postModel, postSearchModel } from '../models/post';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,14 @@ export class PostService {
 
   getListType(): Observable<any> {
     return this.http.post(this.apiUrl + '/HostelType/search', {});
+  }
+  createPost(body: postModel): Observable<any> {
+    return this.http.post(this.apiUrl + '/post/create', body);
+  }
+  searchPost(body: postSearchModel): Observable<any> {
+    return this.http.post(this.apiUrl + '/post/search', body);
+  }
+  searchByID(id: any): Observable<any> {
+    return this.http.get(this.apiUrl + `/post/id=${id}`);
   }
 }

@@ -34,7 +34,7 @@
                   nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomCenter" />
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                   <ul nz-menu>
-                    <li *ngIf="userInfor.roleId===1" nz-menu-item [routerLink]="['/admin']"
+                    <li *ngIf="userInfor?.roleId===1" nz-menu-item [routerLink]="['/admin']"
                       routerLinkActive="activeLink">
                       {{"Menu.adminManagement"| translate}}</li>
                     <li nz-menu-divider></li>

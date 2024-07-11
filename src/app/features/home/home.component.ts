@@ -310,7 +310,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 0,
     });
     this.postService.getListType().subscribe((data) => {
-      this.listType.push(...data);
+      this.listType.push(...data.data);
     });
 
     this.type?.subscribe((param) => {

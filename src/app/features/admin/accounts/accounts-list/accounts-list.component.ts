@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../../../core/api/auth.service';
 import { updateUserInforModel } from '../../../../core/models/user';
 import { AccountStatus } from '../../../../core/enums/acountStatusEnum';
+import { searchUser } from '../../../../core/models/admin';
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
@@ -49,9 +50,9 @@ export class AccountsListComponent implements OnInit {
   changePage($event: number) {}
   changePageSize($event: number) {}
   public form: FormGroup = this.fb.group({
-    account: [null],
+    email: [null],
     fullName: [null],
-    status: [null],
+    statusAccount: [null],
   });
   titleDelete: string;
   contentDelete: string;
@@ -157,29 +158,31 @@ export class AccountsListComponent implements OnInit {
   }
   resetSearch() {
     this.form.reset();
+    this.handelSearch();
   }
   handelSearch() {
-    const searchValue = { ...this.form.getRawValue() };
+    this.bodySearchUser = { ...this.form.getRawValue() };
+    console.log(this.form.getRawValue());
 
-    Object.keys(searchValue).forEach((key) => {
+    Object.keys(this.bodySearchUser).forEach((key) => {
       if (
-        searchValue[key] === null ||
-        searchValue[key] === '' ||
-        searchValue[key] === 0
+        this.bodySearchUser[key] === null ||
+        this.bodySearchUser[key] === ''
       ) {
-        delete searchValue[key];
+        delete this.bodySearchUser[key];
       }
     });
+    this.getListUsers();
   }
   searchByEnter(e: any) {
     if (e.keyCode === 13) {
       this.handelSearch();
     }
   }
-
+  bodySearchUser: searchUser = {};
   getListUsers() {
     this.isLoading = true;
-    this.adminService.getListUser().subscribe((data) => {
+    this.adminService.searchUser(this.bodySearchUser).subscribe((data) => {
       this.data = data;
       this.isLoading = false;
     });

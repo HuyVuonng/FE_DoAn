@@ -4,6 +4,8 @@ import { Observable, map } from 'rxjs';
 import { ItemComponent } from '../../../core/components/item/item.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { PostService } from '../../../core/api/post.service';
+import { postSearchModel } from '../../../core/models/post';
 
 @Component({
   selector: 'app-home-search',
@@ -19,7 +21,10 @@ export class HomeSearchComponent implements OnInit {
   acreage: Observable<string | null>;
   priceRange: Observable<string | null>;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService,
+  ) {}
   ngOnInit(): void {
     this.type = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('type')),
@@ -40,11 +45,22 @@ export class HomeSearchComponent implements OnInit {
       map((params: ParamMap) => params.get('priceRange')),
     );
 
-    // this.type.subscribe((param) => console.log(param));
-    // this.district.subscribe((param) => console.log(param));
-    // this.ward.subscribe((param) => console.log(param));
-    // this.acreage.subscribe((param) => console.log(param));
-    // this.priceRange.subscribe((param) => console.log(param));
+    this.type.subscribe((param) => {
+      this.body.hostelTypeId = Number(param);
+    });
+    this.district.subscribe((param) => {
+      this.body.district = param;
+    });
+    this.ward.subscribe((param) => {
+      this.body.ward = param;
+    });
+    this.acreage.subscribe((param) => {
+      this.body.acreage = Number(param);
+    });
+    this.priceRange.subscribe((param) => {
+      this.body.price = Number(param);
+      this.handelSearchPost();
+    });
   }
   handelSort(sort: number) {
     let body: any;
@@ -75,5 +91,26 @@ export class HomeSearchComponent implements OnInit {
         break;
     }
     console.log(body);
+  }
+  body: postSearchModel = {
+    hostelTypeId: null,
+    district: null,
+    ward: null,
+    acreage: null,
+    priceRange: null,
+  };
+  handelSearchPost() {
+    Object.keys(this.body).forEach((key) => {
+      if (
+        this.body[key] === null ||
+        this.body[key] === '' ||
+        this.body[key] === 0
+      ) {
+        delete this.body[key];
+      }
+    });
+    this.postService.searchPost(this.body).subscribe((data) => {
+      console.log(data);
+    });
   }
 }
