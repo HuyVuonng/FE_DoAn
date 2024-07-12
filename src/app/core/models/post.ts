@@ -1,4 +1,5 @@
 export interface postModel {
+  id?: number;
   title: String;
   price: Number;
   acreage: Number;
@@ -9,13 +10,15 @@ export interface postModel {
 
   phoneNumber: String;
   ownerHouse: String;
-
+  zalo: Number;
+  street: String;
   paymentType: Number;
   hostelTypeId: Number;
   accountId: Number;
 
   [key: string]: any;
 }
+
 export interface postSearchModel {
   id?: Number | null;
   title?: String | null;

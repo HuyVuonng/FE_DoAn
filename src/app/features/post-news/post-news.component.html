@@ -159,8 +159,10 @@
                     </div>
                 </form>
 
-                <button (click)="handelPostAndPay()"
+                <button *ngIf="!postID" (click)="handelPostAndPay()"
                     class="bg-primary text-white px-4 py-2 rounded-md mt-9 float-right hover:opacity-80">{{"postPage.createPost"|translate}}</button>
+                <button *ngIf="postID" (click)="handleUpdatePost()"
+                    class="bg-primary text-white px-4 py-2 rounded-md mt-9 float-right hover:opacity-80">{{"postPage.updatePost"|translate}}</button>
             </div>
         </div>
     </div>

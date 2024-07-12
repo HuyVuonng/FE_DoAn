@@ -35,4 +35,7 @@ export class PostService {
   deletePost(id: any): Observable<any> {
     return this.http.delete(this.apiUrl + `/post/?id=${id}`);
   }
+  updatePost(body: postModel): Observable<any> {
+    return this.http.put(this.apiUrl + `/post/update-post`, body);
+  }
 }

@@ -28,11 +28,10 @@ import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { MapComponent } from '../detail-hostel/map/map.component';
-import { AuthService } from '../../core/api/auth.service';
 import { PostService } from '../../core/api/post.service';
 import { postModel } from '../../core/models/post';
-import { error } from 'console';
 import moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -63,6 +62,7 @@ export class PostNewsComponent implements OnInit {
   viewMap: boolean = false;
   snackBar = inject(SnackbarService);
   createSuccessMessage: string;
+  updateSuccessMessage: string;
   public form: FormGroup = this.fb.group({
     owner: [null, Validators.required],
     phoneNumber: [null, [Validators.required, phoneNumberValidator()]],
@@ -89,6 +89,8 @@ export class PostNewsComponent implements OnInit {
   labelDeal: string;
   labelBelow20M2: string;
   labelOver100M2: string;
+  activeRoute = inject(ActivatedRoute);
+  postID: string = this.activeRoute.snapshot.params['id'];
   constructor(
     private addressService: AddressService,
     private translate: TranslateService,
@@ -111,11 +113,21 @@ export class PostNewsComponent implements OnInit {
     this.translate
       .get('Toast.createSuccess')
       .subscribe((value) => (this.createSuccessMessage = value));
+    this.translate
+      .get('Toast.updateSuccess')
+      .subscribe((value) => (this.updateSuccessMessage = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
         .get('Toast.createSuccess')
         .subscribe((value) => (this.createSuccessMessage = value));
+      this.translate
+        .get('Toast.updateSuccess')
+        .subscribe((value) => (this.updateSuccessMessage = value));
     });
+
+    if (this.postID) {
+      this.getPostById();
+    }
     this.getListValue();
   }
   config: CurrencyMaskConfig = {
@@ -374,5 +386,74 @@ export class PostNewsComponent implements OnInit {
       addressDetail: this.address,
     });
     this.changeAddress(this.address);
+  }
+  dataPost: any;
+  getPostById() {
+    this.postService.searchByID(this.postID).subscribe((data) => {
+      this.dataPost = data;
+      this.form.patchValue({
+        owner: data.ownerHouse,
+        phoneNumber: data.phoneNumber,
+        zalo: data.zalo,
+        type: data.hostelTypeId,
+        district: data.district,
+        houseNumberStreet: data.street,
+        ward: data.ward,
+        acreage: data.acreage,
+        price: data.price,
+        addressDetail: `${data.street}, ${data.ward}, ${data.district}, thành phố Hà Nội`,
+        title: data.title,
+        description: data.descriptionPost,
+        linkImg: data.images,
+      });
+      this.urlIMGArray = data.images;
+      this.sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=${this.form.get('addressDetail')?.value};t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
+
+      this.cdr.detectChanges();
+    });
+  }
+  handleUpdatePost() {
+    this.isSpinningPay = true;
+
+    if (this.form.invalid) {
+      // this.form.get('username')?.markAsTouched();
+      this.form.get('owner')?.markAsTouched();
+      this.form.get('phoneNumber')?.markAsTouched();
+      this.form.get('type')?.markAsTouched();
+      this.form.get('district')?.markAsTouched();
+      this.form.get('ward')?.markAsTouched();
+      this.form.get('acreage')?.markAsTouched();
+      this.form.get('price')?.markAsTouched();
+      this.form.get('addressDetail')?.markAsTouched();
+      this.form.get('title')?.markAsTouched();
+      this.form.get('description')?.markAsTouched();
+      this.form.get('linkImg')?.markAsTouched();
+      this.form.get('houseNumberStreet')?.markAsTouched();
+      this.isSpinningPay = false;
+
+      return;
+    }
+    const bodyUpdate: postModel = {
+      id: Number(this.postID),
+      accountId: JSON.parse(localStorage.getItem('user_infor') || '{}')?.id,
+      acreage: this.form.get('acreage')?.value,
+      zalo: this.form.get('zalo')?.value,
+      descriptionPost: this.form.get('description')?.value,
+      district: this.form.get('district')?.value,
+      hostelTypeId: this.form.get('type')?.value,
+      ownerHouse: this.form.get('owner')?.value,
+      paymentType: 0,
+      street: this.form.get('houseNumberStreet')?.value,
+      phoneNumber: this.form.get('phoneNumber')?.value,
+      price: this.form.get('price')?.value,
+      title: this.form.get('title')?.value,
+      ward: this.form.get('ward')?.value,
+      images: this.form.get('linkImg')?.value,
+    };
+    sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
+    this.postService.updatePost(bodyUpdate).subscribe((data) => {
+      this.snackBar.success(this.createSuccessMessage);
+      this.isSpinningPay = false;
+    });
   }
 }
