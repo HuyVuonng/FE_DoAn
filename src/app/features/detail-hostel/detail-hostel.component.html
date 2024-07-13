@@ -15,8 +15,8 @@
         <div class="mt-2">
 
 
-            <swiper-container class="swiper-container" slides-per-view="1" autoplay space-between=" 12" speed="500"
-                loop="true" centerInsufficientSlides="true" wrapperClass="slide-Wrapper"
+            <swiper-container pagination-dynamic-bullets="true" class="swiper-container" slides-per-view="1" autoplay
+                space-between=" 12" speed="500" loop="true" centerInsufficientSlides="true" wrapperClass="slide-Wrapper"
                 [pagination]="{ clickable: true }" #swiper>
 
                 <swiper-slide class="swiper-slide py-4" *ngFor="let item of data.images">
