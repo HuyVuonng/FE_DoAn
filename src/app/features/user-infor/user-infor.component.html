@@ -1,7 +1,7 @@
 <div class=" h-[100vh] w-full p-10">
     <div class="text-[36px] flex flex-col gap-3 items-center">
         <i class="text-[100px] fa-regular fa-circle-user"></i>
-        <span>{{userInfor.name}}</span>
+        <!-- <span>{{userInfor.name}}</span> -->
     </div>
     <div>
         <span class="text-[20px] font-semibold">{{"userInforPage.accountInfor"|translate}}</span>
@@ -56,6 +56,50 @@
                         {{'PopUpRegister.wrongPhoneNumber'|translate}}
                     </mat-error>
                 </mat-form-field>
+            </div>
+            <div class="col-span-1">
+                <label for="phoneNumber">{{'labelInput.district' | translate}}</label>
+                <mat-form-field class="custom-input w-full" appearance="outline">
+                    <mat-select formControlName="district" (selectionChange)="handelChangeDistrict($event)">
+                        <mat-option *ngFor="let district of listDistrict" [value]="district.value">
+                            {{ district.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="col-span-1">
+                <label for="phoneNumber">{{'labelInput.ward' | translate}}</label>
+                <mat-form-field class="custom-input w-full" appearance="outline">
+
+                    <mat-select formControlName="ward" (selectionChange)="handelChangeWard($event)">
+                        <mat-option *ngFor="let ward of listWard" [value]="ward.value">
+                            {{ ward.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="col-span-1">
+                <label for="phoneNumber">{{'labelInput.houseNumberStreet' | translate}}</label>
+                <mat-form-field class="custom-input w-full" appearance="outline">
+
+                    <input formControlName="houseNumberStreet" matInput (change)="handleChangeHouseNumberStreet()" />
+                    <mat-error>{{'postPage.required'| translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-span-1 ">
+                <label for="phoneNumber">{{'postPage.addressDetails' | translate}}</label>
+                <mat-form-field class="custom-input w-full" appearance="outline">
+
+
+                    <input formControlName="addressDetail" matInput />
+
+                </mat-form-field>
+                <!-- <span (click)="handleViewMap()" class="cursor-pointer">View in Map</span> -->
             </div>
 
             <div class="col-span-1">
