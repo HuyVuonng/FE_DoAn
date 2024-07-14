@@ -108,6 +108,10 @@ export class ForgotPassWordComponent {
       (err) => {
         if (err.status === 200) {
           this.snackBar.success(this.mess);
+          this.isVisiblePopUpOpen.emit({
+            thisPopUp: false,
+            nextPopUp: false,
+          });
         } else {
           this.snackBar.error('Error');
           this.isConfirmLoading = false;
