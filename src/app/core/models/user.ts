@@ -19,6 +19,13 @@ export interface changePassModel {
   newPassword: String;
   reNewPassword: String;
 }
+
+export interface forgotPassModel {
+  id: Number;
+  newPassword: String;
+  reNewPassword: String;
+}
+
 export interface updateUserInforModel {
   id: Number;
   fullName: String;

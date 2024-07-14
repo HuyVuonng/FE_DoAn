@@ -26,6 +26,7 @@ import { rePassValidator } from '../../shared/validate/check-repass.directive';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { SnackbarService } from '../../core/services/snackbar.service';
+import { AuthService } from '../../core/api/auth.service';
 
 @Component({
   selector: 'app-forgot-pass-word',
@@ -57,11 +58,7 @@ export class ForgotPassWordComponent {
       this.form.get('email')?.markAsTouched();
       return;
     }
-    this.isVisiblePopUpOpen.emit({
-      thisPopUp: false,
-      nextPopUp: false,
-    });
-    this.handelSendMailForgotPass();
+    this.getUserByEmail();
   }
   size: NzSelectSizeType = 'default';
   handleCancel(): void {
@@ -77,6 +74,7 @@ export class ForgotPassWordComponent {
     private PayAndSendMailService: PayAndSendMailService,
     private snackBar: SnackbarService,
     private translate: TranslateService,
+    private auth: AuthService,
   ) {
     this.translate
       .get('PopUpForgotPassword.forgotPassSendmail')
@@ -93,21 +91,42 @@ export class ForgotPassWordComponent {
     email: [null, [Validators.email, Validators.required]],
   });
   mess: string;
-  handelSendMailForgotPass() {
+  handelSendMailForgotPass(id: any) {
     const nameCustomer = this.form.get('fullName')?.value;
     const body = {
       email: this.form.get('email')?.value,
-      activeLink: `${window.location.protocol}//${window.location.host}/forgotPass/1`,
+      activeLink: `${window.location.protocol}//${window.location.host}/forgotPass/${id}`,
     };
     this.PayAndSendMailService.sendMailForgotPass(body).subscribe(
       () => {
         this.snackBar.success(this.mess);
+        this.isVisiblePopUpOpen.emit({
+          thisPopUp: false,
+          nextPopUp: false,
+        });
       },
       (err) => {
         if (err.status === 200) {
           this.snackBar.success(this.mess);
+        } else {
+          this.snackBar.error('Error');
+          this.isConfirmLoading = false;
         }
       },
     );
+  }
+
+  getUserByEmail() {
+    this.isConfirmLoading = true;
+    this.auth
+      .getAccountInforByEmail(this.form.get('email')?.value)
+      .subscribe((data) => {
+        if (!data) {
+          this.form.get('email')?.setErrors({ errApi: true });
+          this.isConfirmLoading = false;
+          return;
+        }
+        this.handelSendMailForgotPass(data.id);
+      });
   }
 }

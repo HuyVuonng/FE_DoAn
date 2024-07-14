@@ -58,6 +58,8 @@ export class DetailHostelComponent implements OnInit {
         .subscribe((value) => (this.deleteSuccess = value));
     });
   }
+  roleAccount = JSON.parse(localStorage.getItem('user_infor') || '{}')?.roleId;
+  idAccount = JSON.parse(localStorage.getItem('user_infor') || '{}')?.id;
   isManager: boolean = false;
   activeRoute = inject(ActivatedRoute);
   idPost: any = this.activeRoute.snapshot.params['id'];
@@ -100,6 +102,9 @@ export class DetailHostelComponent implements OnInit {
       this.sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=${data.street}, ${data.ward}, ${data.district}, thành phố Hà Nội;t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
       console.log(this.sourceMap);
       this.cdr.detectChanges();
+      if (this.roleAccount !== 1 && this.idAccount !== data.accountId) {
+        this.router.navigate(['/detail', data.id]);
+      }
     });
   }
   onerror(e: any) {

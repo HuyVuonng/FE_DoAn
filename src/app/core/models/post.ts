@@ -22,8 +22,8 @@ export interface postModel {
 export interface postSearchModel {
   id?: Number | null;
   title?: String | null;
-  price?: Number | null;
-  acreage?: Number | null;
+  PriceRange?: Number | null;
+  AcreageRange?: Number | null;
   district?: String | null;
   ward?: String | null;
   phoneNumber?: String | null;

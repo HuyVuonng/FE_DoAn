@@ -16,6 +16,7 @@ import { AuthService } from '../../../../core/api/auth.service';
 import { updateUserInforModel } from '../../../../core/models/user';
 import { AccountStatus } from '../../../../core/enums/acountStatusEnum';
 import { searchUser } from '../../../../core/models/admin';
+import { PopupChangepassComponent } from './popup-changepass/popup-changepass.component';
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
@@ -32,6 +33,7 @@ import { searchUser } from '../../../../core/models/admin';
     NzDropDownModule,
     PopUpDeleteModule,
     DatePipe,
+    PopupChangepassComponent,
   ],
   templateUrl: './accounts-list.component.html',
   styleUrl: './accounts-list.component.scss',
@@ -42,13 +44,22 @@ export class AccountsListComponent implements OnInit {
   public dataBackup: any = [];
   public isLoading: boolean = false;
   public totalCount: number = 90;
+  pageSize: number = 10;
+  pageIndex: number = 1;
   listStatus: any[] = [];
   activelable: string;
   deactiveLable: string;
   blockLabel: string;
   notActivatedLabel: string;
-  changePage($event: number) {}
-  changePageSize($event: number) {}
+  changePage($event: number) {
+    this.bodySearchUser.pageNumber = $event;
+    this.handelSearch();
+  }
+  changePageSize($event: number) {
+    this.bodySearchUser.pageSize = $event;
+
+    this.handelSearch();
+  }
   public form: FormGroup = this.fb.group({
     email: [null],
     fullName: [null],
@@ -161,8 +172,10 @@ export class AccountsListComponent implements OnInit {
     this.handelSearch();
   }
   handelSearch() {
-    this.bodySearchUser = { ...this.form.getRawValue() };
-    console.log(this.form.getRawValue());
+    this.bodySearchUser = {
+      ...this.bodySearchUser,
+      ...this.form.getRawValue(),
+    };
 
     Object.keys(this.bodySearchUser).forEach((key) => {
       if (
@@ -183,7 +196,10 @@ export class AccountsListComponent implements OnInit {
   getListUsers() {
     this.isLoading = true;
     this.adminService.searchUser(this.bodySearchUser).subscribe((data) => {
-      this.data = data;
+      this.data = data.data;
+      this.totalCount = data.totalItem;
+      this.pageIndex = data.pageNumber;
+      this.pageSize = data.pageSize;
       this.isLoading = false;
     });
   }
@@ -226,5 +242,14 @@ export class AccountsListComponent implements OnInit {
       this.isLoading = false;
       this.getListUsers();
     }
+  }
+  visiblePopUpChangePass: boolean = false;
+  idAccount: any;
+  handleOpenChangePassPopUp(data: any) {
+    this.idAccount = data.id;
+    this.visiblePopUpChangePass = true;
+  }
+  changVisiblePopUpChangePass(e: any) {
+    this.visiblePopUpChangePass = e;
   }
 }

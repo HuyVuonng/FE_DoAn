@@ -21,8 +21,8 @@ export class AuthAdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let role = localStorage.getItem('role');
-    if (!role || role !== 'admin') {
+    let role = JSON.parse(localStorage.getItem('user_infor') || '{}')?.roleId;
+    if (!role || role !== 1) {
       this.router.navigate(['/']);
       return false;
     }

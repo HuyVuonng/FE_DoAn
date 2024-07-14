@@ -16,7 +16,7 @@ export const routes: Routes = [
       import('./features/admin/admin.routing.module').then(
         (m) => m.AdminRoutingModule,
       ),
-    // canActivate: [AuthAdminGuard],
+    canActivate: [AuthAdminGuard],
   },
   {
     path: 'activeAccount/:id',

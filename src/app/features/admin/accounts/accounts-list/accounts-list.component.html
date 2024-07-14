@@ -39,8 +39,8 @@
             <p class="text-primary text-xl font-medium ">{{"AdminPage.accountList"|translate}}</p>
         </div>
 
-        <app-share-table [pageIndex]="1" [loaded]="!isLoading" [data]="data" [total]="totalCount" [pageSize]="30"
-            [maxHeight]="'calc(100vh - 320px)'" (pageIndexChange)="changePage($event)"
+        <app-share-table [pageIndex]="pageIndex" [loaded]="!isLoading" [data]="data" [total]="totalCount"
+            [pageSize]="pageSize" [maxHeight]="'calc(100vh - 320px)'" (pageIndexChange)="changePage($event)"
             (pageSizeChange)="changePageSize($event)">
             <ng-template #headers>
                 <th scope=" col" class="font-semibold text-center w-[80px]">{{'AdminPage.no'| translate}}</th>
@@ -70,6 +70,8 @@
                             [nzDropdownMenu]="menu"></i>
                         <nz-dropdown-menu #menu="nzDropdownMenu">
                             <ul nz-menu>
+                                <li (click)="handleOpenChangePassPopUp(row)" nz-menu-item>
+                                    {{'userInforPage.changePassword'| translate}}</li>
                                 <li *ngIf="row.statusAccount!==AccountStatusEnum.Block"
                                     (click)="handelChangeStatusAccount(row,true)" nz-menu-item>
                                     {{'AdminPage.accountsPage.block'| translate}}</li>
@@ -89,3 +91,5 @@
 </div>
 <app-popup-delete [isVisible]="visiblePopUp" (changeVisible)="changVisiblePopUp($event)"
     [funnctionCall]="callConfirm.bind(this)" [param]="param" [title]="title" [content]="content"></app-popup-delete>
+<app-popup-changepass [isVisiblePopUpChangePass]="visiblePopUpChangePass"
+    (isVisiblePopUpOpen)="changVisiblePopUpChangePass($event)" [id]="idAccount"></app-popup-changepass>

@@ -29,6 +29,11 @@
                                 class="text-red-600">
                                 {{'PopUpRegister.wrongEmail'|translate}}
                             </mat-error>
+                            <mat-error
+                                *ngIf="form.get('email')?.errors?.['errApi']&& (form.get('email')?.dirty || form.get('email')?.touched)"
+                                class="text-red-600">
+                                {{'Login.notExitEmail'|translate}}
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>

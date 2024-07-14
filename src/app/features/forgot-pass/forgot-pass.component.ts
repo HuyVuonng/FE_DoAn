@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,7 +13,9 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 import { passWordValidator } from '../../shared/validate/check-password.directive';
 import { rePassValidator } from '../../shared/validate/check-repass.directive';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../core/api/auth.service';
+import { forgotPassModel } from '../../core/models/user';
 
 @Component({
   selector: 'app-forgot-pass',
@@ -36,6 +38,7 @@ export class ForgotPassComponent {
     private translate: TranslateService,
     private snackBar: SnackbarService,
     private router: Router,
+    private auth: AuthService,
   ) {
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
@@ -45,6 +48,8 @@ export class ForgotPassComponent {
       this.language = 'en';
     }
   }
+  activeRoute = inject(ActivatedRoute);
+  idEmail: any = this.activeRoute.snapshot.params['id'];
   language: string = 'vi';
   mess: string;
   isForgotPassConfirmLoading: boolean = false;
@@ -70,6 +75,7 @@ export class ForgotPassComponent {
         .get('Toast.changePasswordSuccess')
         .subscribe((value) => (this.mess = value));
     });
+    this.getEmailByID();
   }
   changeLanguage(e: any) {
     this.language = e;
@@ -116,10 +122,22 @@ export class ForgotPassComponent {
 
       return;
     }
-    this.isForgotPassConfirmLoading = false;
-    this.snackBar.success(this.mess);
-    setTimeout(() => {
+    const body: forgotPassModel = {
+      id: this.idEmail,
+      newPassword: this.form.get('password')?.value,
+      reNewPassword: this.form.get('rePass')?.value,
+    };
+    this.auth.forgotPass(body).subscribe((data) => {
+      this.isForgotPassConfirmLoading = false;
+      this.snackBar.success(this.mess);
       this.router.navigate(['/login']);
-    }, 1000);
+    });
+  }
+  getEmailByID() {
+    this.auth.getAccountInforByID(this.idEmail).subscribe((data) => {
+      this.form.patchValue({
+        email: data.email,
+      });
+    });
   }
 }

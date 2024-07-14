@@ -43,7 +43,8 @@
     "call": "Call",
     "send": "Send",
     "more": "More",
-    "hide": "Hide"
+    "hide": "Hide",
+    "changePass": "Change Password"
   },
 
   "PopUpRegister": {
@@ -85,7 +86,8 @@
     "userNamePlaceholder": "User Name/Email/Phone Number",
     "activingAccount": "Account is activing",
     "accountActivated": "Account activated",
-    "activeFalse": "Active False"
+    "activeFalse": "Active False",
+    "notExitEmail": "This emali is not exits"
   },
   "Toast": {
     "createSuccess": "Create Success",

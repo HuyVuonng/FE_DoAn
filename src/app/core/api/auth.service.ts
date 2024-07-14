@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { StorageService } from '../services/storage.service';
 import {
   changePassModel,
+  forgotPassModel,
   logInModel,
   signInModel,
   updateUserInforModel,
@@ -43,7 +44,13 @@ export class AuthService {
   getAccountInforByID(id: string): Observable<any> {
     return this.http.get(this.apiUrl + `/user/get-user-by-id/${id}`);
   }
+  getAccountInforByEmail(email: string): Observable<any> {
+    return this.http.get(this.apiUrl + `/user/get-user-by-email/${email}`);
+  }
   updateUser(body: updateUserInforModel): Observable<any> {
     return this.http.put(this.apiUrl + '/user/update-user', body);
+  }
+  forgotPass(body: forgotPassModel): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/forgot-password', body);
   }
 }

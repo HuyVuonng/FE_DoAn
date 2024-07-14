@@ -47,7 +47,8 @@
     "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
     "confirmDeleteAccount": "Xác nhận xóa tài khoản",
     "areUSureChangeStatusAccount": "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản ",
-    "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản "
+    "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản ",
+    "changePass": "Đổi mật khẩu"
   },
 
   "PopUpRegister": {
@@ -89,7 +90,8 @@
     "userNamePlaceholder": "Nhập User Name/Email/Số điện thoại",
     "activingAccount": "Đang kích hoạt tài khoản",
     "accountActivated": "Tài khoản đã được kích hoạt",
-    "activeFalse": "Kích hoạt không thành công"
+    "activeFalse": "Kích hoạt không thành công",
+    "notExitEmail": "Email này không tồn tại"
   },
   "Toast": {
     "createSuccess": "Tạo mới thành công",

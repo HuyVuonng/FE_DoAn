@@ -63,10 +63,10 @@ export class HomeSearchComponent implements OnInit {
       this.body.ward = param;
     });
     this.acreage.subscribe((param) => {
-      this.body.acreage = Number(param);
+      this.body.AcreageRange = Number(param);
     });
     this.priceRange.subscribe((param) => {
-      this.body.price = Number(param);
+      this.body.PriceRange = Number(param);
       this.handelSearchPost();
     });
   }
