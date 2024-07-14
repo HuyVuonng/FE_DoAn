@@ -310,8 +310,8 @@ export class PostListComponent implements OnInit {
       title: this.form.get('title')?.value,
       ownerHouse: this.form.get('owner')?.value,
       hostelTypeId: this.form.get('type')?.value,
-      acreage: this.form.get('acreage')?.value,
-      price: this.form.get('priceRange')?.value,
+      AcreageRange: this.form.get('acreage')?.value,
+      PriceRange: this.form.get('priceRange')?.value,
       district: this.form.get('district')?.value,
       ward: this.form.get('ward')?.value,
     };
