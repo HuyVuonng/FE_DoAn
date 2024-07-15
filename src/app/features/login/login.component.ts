@@ -208,7 +208,7 @@ export class LoginComponent implements OnInit {
     const nameCustomer = data.fullName;
     const body = {
       nameCustomer,
-      email: data.email,
+      email: data.infor.email,
       activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${data.email}`,
     };
     this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(

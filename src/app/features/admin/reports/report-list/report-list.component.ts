@@ -100,7 +100,7 @@ export class ReportListComponent implements OnInit {
       annunciator: 'Nguyễn văn A',
       contentReports:
         'nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo',
-      status: -1,
+      status: 2,
     },
     {
       id: 2,

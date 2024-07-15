@@ -63,8 +63,8 @@
             </td>
 
             <td class="max-w-[150px] min-h-12" [class.text-green-500]="row.status===1"
-                [class.text-gray-500]="row.status===-1">
-                {{row.status===1?acceptReportTitle: row.status===-1?denyReportTitle:""}}
+                [class.text-gray-500]="row.status===2">
+                {{row.status===1?acceptReportTitle: row.status===2?denyReportTitle:""}}
             </td>
             <td>
                 <div class="flex items-center  min-h-12justify-center ">
