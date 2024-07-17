@@ -109,7 +109,9 @@
     "oldPasswordIncorrect": "Old Password is incorrect",
     "checkMailToActiveAccount": "Please check your email to activate your account",
     "pending": "Wait for pay",
-    "payed": "Paid"
+    "payed": "Paid",
+    "commentSucceeded": "Comment Succeeded",
+    "commentFalse": "Comment False"
   },
 
   "item": {

@@ -326,10 +326,10 @@ export class PostNewsComponent implements OnInit {
       ward: this.form.get('ward')?.value,
       images: this.form.get('linkImg')?.value,
     };
-    sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
     this.postService.createPost(body).subscribe(
       (data) => {
         this.snackBar.success(this.createSuccessMessage);
+        sessionStorage.setItem('dataPost', JSON.stringify(data));
         this.PayAndSendMailService.pay().subscribe(
           (res) => {
             this.isSpinningPay = false;
@@ -452,7 +452,7 @@ export class PostNewsComponent implements OnInit {
     };
     sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
     this.postService.updatePost(bodyUpdate).subscribe((data) => {
-      this.snackBar.success(this.createSuccessMessage);
+      this.snackBar.success(this.updateSuccessMessage);
       this.isSpinningPay = false;
     });
   }

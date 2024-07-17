@@ -3,7 +3,12 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { Observable } from 'rxjs';
-import { postModel, postSearchModel } from '../models/post';
+import {
+  commentModel,
+  payhistoryModel,
+  postModel,
+  postSearchModel,
+} from '../models/post';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +42,18 @@ export class PostService {
   }
   updatePost(body: postModel): Observable<any> {
     return this.http.put(this.apiUrl + `/post/update-post`, body);
+  }
+  createComment(body: commentModel): Observable<any> {
+    return this.http.post(this.apiUrl + `/comment/create`, body);
+  }
+  getComment(id: number): Observable<any> {
+    return this.http.post(this.apiUrl + `/comment/search`, {
+      postId: id,
+      pageNumber: 1,
+      pageSize: 100,
+    });
+  }
+  payPost(body: payhistoryModel): Observable<any> {
+    return this.http.post(this.apiUrl + `/pay-history/create`, body);
   }
 }

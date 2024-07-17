@@ -34,3 +34,18 @@ export interface postSearchModel {
   pageSize?: Number;
   [key: string]: any;
 }
+
+export interface commentModel {
+  content: String;
+  accountId: Number;
+  createDate: String;
+  postId: Number;
+}
+export interface payhistoryModel {
+  postId: Number;
+  accountId: Number;
+  payCode: String;
+  payDate: String;
+  type: Number;
+  price: Number;
+}

@@ -19,6 +19,8 @@ import { PopupReportComponent } from './popup-report/popup-report.component';
 import { PostService } from '../../core/api/post.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { Location } from '@angular/common';
+import { commentModel } from '../../core/models/post';
+import moment from 'moment';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -40,6 +42,8 @@ import { Location } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DetailHostelComponent implements OnInit {
+  commentSuccess: string;
+  commentFalse: string;
   constructor(
     public sanitizer: DomSanitizer,
     private router: Router,
@@ -52,10 +56,22 @@ export class DetailHostelComponent implements OnInit {
     this.translate
       .get('Toast.deleteSuccess')
       .subscribe((value) => (this.deleteSuccess = value));
+    this.translate
+      .get('Toast.commentSucceeded')
+      .subscribe((value) => (this.commentSuccess = value));
+    this.translate
+      .get('Toast.commentFalse')
+      .subscribe((value) => (this.commentFalse = value));
     this.translate.onLangChange.subscribe((e) => {
       this.translate
         .get('Toast.deleteSuccess')
         .subscribe((value) => (this.deleteSuccess = value));
+      this.translate
+        .get('Toast.commentSucceeded')
+        .subscribe((value) => (this.commentSuccess = value));
+      this.translate
+        .get('Toast.commentFalse')
+        .subscribe((value) => (this.commentFalse = value));
     });
   }
   roleAccount = JSON.parse(localStorage.getItem('user_infor') || '{}')?.roleId;
@@ -71,13 +87,30 @@ export class DetailHostelComponent implements OnInit {
     window.scrollTo(0, 0);
     this.getDetailPost();
   }
+  isLoaddingSendComment: boolean = false;
   telZalo: string = 'https://zalo.me/0903985085';
   tel: string = 'tel:0903985085';
   evaluation: string;
   sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='96 định công khoa công nghệ thông tin';t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
 
   handelSendEvaluation() {
-    console.log(this.evaluation);
+    this.isLoaddingSendComment = true;
+    const bodyComment: commentModel = {
+      accountId: this.idAccount,
+      content: this.evaluation,
+      createDate: moment().toISOString(),
+      postId: this.idPost,
+    };
+    this.PostService.createComment(bodyComment).subscribe(
+      (data) => {
+        this.snackbar.success(this.commentSuccess);
+        this.isLoaddingSendComment = false;
+      },
+      (err) => {
+        this.isLoaddingSendComment = false;
+        this.snackbar.error(this.commentFalse);
+      },
+    );
   }
   confirm() {}
 
@@ -100,11 +133,12 @@ export class DetailHostelComponent implements OnInit {
       this.telZalo = `https://zalo.me/${data.zalo}`;
       this.tel = `tel:${data.phoneNumber}`;
       this.sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=${data.street}, ${data.ward}, ${data.district}, thành phố Hà Nội;t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
-      console.log(this.sourceMap);
+
       this.cdr.detectChanges();
       if (this.roleAccount !== 1 && this.idAccount !== data.accountId) {
         this.router.navigate(['/detail', data.id]);
       }
+      this.getComment();
     });
   }
   onerror(e: any) {
@@ -117,6 +151,12 @@ export class DetailHostelComponent implements OnInit {
     this.PostService.deletePost(this.idPost).subscribe((data) => {
       this.snackbar.success(this.deleteSuccess);
       this._location.back();
+    });
+  }
+  dataComment: any;
+  getComment() {
+    this.PostService.getComment(this.idPost).subscribe((data) => {
+      this.dataComment = data.data;
     });
   }
 }

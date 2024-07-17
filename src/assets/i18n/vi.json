@@ -109,7 +109,9 @@
     "oldPasswordIncorrect": "Mật khẩu cũ không đúng",
     "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản",
     "pending": "Chờ thanh toán",
-    "payed": "Đã thanh toán"
+    "payed": "Đã thanh toán",
+    "commentSucceeded": "Bình luận thành công",
+    "commentFalse": "Bình luận thất bại"
   },
   "item": {
     "yourTask": "Công việc của bạn",

@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CommentComponent implements AfterViewInit {
   @ViewChild('comment') comment: ElementRef;
-  @Input() content: string;
+  @Input() content: any;
   more: string;
   hide: string;
   constructor(private translate: TranslateService) {

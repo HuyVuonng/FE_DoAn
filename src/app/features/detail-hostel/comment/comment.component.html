@@ -2,12 +2,12 @@
     <img src="https://thuephongtro.com/images/avatar/9bbc766c42ec4d178d88786b84b5c963.jpg" alt=""
         class="size-[30px] rounded-[50%]">
     <div>
-        <div class="flex gap-2 items-center"><span class="font-bold">Nguyễn văn A</span> <span
-                class="text-gray-500 text-[13px]">{{commentDate | date
+        <div class="flex gap-2 items-center"><span class="font-bold">{{content.accountName}}</span> <span
+                class="text-gray-500 text-[13px]">{{content.createDate | date
                 :'dd/MM/yyyy'}}</span>
         </div>
         <div>
-            <p #comment>{{content}}</p>
+            <p #comment>{{content?.content}}</p>
             <span *ngIf="showBtnShowMore" class="cursor-pointer font-semibold"
                 (click)="handelShowMore()">{{titleShowMore}}</span>
 
