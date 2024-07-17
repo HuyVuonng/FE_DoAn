@@ -31,6 +31,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../core/api/auth.service';
 import { AddressService } from '../../core/services/address.service';
 import { NzI18nService, en_US, vi_VN } from 'ng-zorro-antd/i18n';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-main',
@@ -99,7 +100,16 @@ export class MainComponent implements OnInit {
     private authService: AuthService,
     private i18n: NzI18nService,
     private route: Router,
+    private jwt: JwtHelperService,
   ) {
+    console.log(this.jwt.isTokenExpired(localStorage.getItem('access_token')));
+    if (
+      localStorage.getItem('access_token') &&
+      this.jwt.isTokenExpired(localStorage.getItem('access_token'))
+    ) {
+      localStorage.clear();
+      window.location.reload();
+    }
     if (navigator.language.includes('vi')) {
       this.translate.use('vi');
       this.language = 'vi';
