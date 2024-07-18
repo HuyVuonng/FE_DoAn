@@ -177,7 +177,7 @@ export class DetailHostelComponent implements OnInit {
     this.userService
       .getFavoriteByIDPostAndUserID(this.idPost)
       .subscribe((data) => {
-        if (data.length) {
+        if (data.data.length) {
           this.favorited = true;
         }
       });

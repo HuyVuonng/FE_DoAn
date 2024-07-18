@@ -4,6 +4,9 @@ import { ItemComponent } from '../../core/components/item/item.component';
 import { SharePaginationModule } from '../../shared/components/share-pagination/share-pagination.module';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../core/api/user.service';
+import { FormsModule } from '@angular/forms';
+import { PostService } from '../../core/api/post.service';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-favorite-post',
@@ -13,6 +16,8 @@ import { UserService } from '../../core/api/user.service';
     ItemComponent,
     SharePaginationModule,
     CommonModule,
+    FormsModule,
+    NzSpinModule,
   ],
   templateUrl: './favorite-post.component.html',
   styleUrl: './favorite-post.component.scss',
@@ -21,7 +26,11 @@ export class FavoritePostComponent implements OnInit {
   total: number = 100;
   pageIndex: number = 1;
   pageSize: number = 30;
-  constructor(private userService: UserService) {}
+  isSpinning: boolean = false;
+  constructor(
+    private userService: UserService,
+    private postService: PostService,
+  ) {}
   ngOnInit(): void {
     this.getFavorite();
   }
@@ -34,12 +43,23 @@ export class FavoritePostComponent implements OnInit {
     this.getFavorite();
     console.log(e);
   }
-
-  getFavorite() {
+  data: any = [];
+  async getFavorite() {
+    this.isSpinning = true;
+    this.data = [];
     this.userService
       .getFavoriteByID(this.pageIndex, this.pageSize)
       .subscribe((data) => {
         console.log(data);
+        this.pageIndex = data.pageNumber;
+        this.pageSize = data.pageSize;
+        this.total = data.totalItem;
+        data.data.forEach((item: any) => {
+          this.postService.searchByID(item.postId).subscribe((data) => {
+            this.data.push(data);
+          });
+        });
+        this.isSpinning = false;
       });
   }
 }

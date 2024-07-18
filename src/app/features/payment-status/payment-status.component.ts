@@ -3,12 +3,13 @@ import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
 import { PostService } from '../../core/api/post.service';
 import { payhistoryModel } from '../../core/models/post';
 import moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payment-status',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './payment-status.component.html',
   styleUrl: './payment-status.component.scss',
 })
@@ -20,18 +21,16 @@ export class PaymentStatusComponent implements OnInit {
     private PayAndSendMailService: PayAndSendMailService,
     private postService: PostService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     const sub = this.route.queryParams.subscribe((params) => {
-      console.log(params['vnp_Amount']);
       this.body.payCode = params['vnp_BankTranNo'];
       this.body.price = +params['vnp_Amount'] / 100;
       if (this.body.price === 50000) {
         this.body.type = 0;
       } else {
         this.body.type = 1;
-      }
-      console.log(params['vnp_BankTranNo']);
-      // sub.unsubscribe();
+      } // sub.unsubscribe();
     });
   }
   ngOnInit(): void {
@@ -51,8 +50,11 @@ export class PaymentStatusComponent implements OnInit {
       if (this.status === '00') {
         this.postService.payPost(this.body).subscribe((data) => {
           console.log('thành công');
+          this.handelSendMail();
+          setTimeout(() => {
+            this.router.navigate(['/managerPost', this.userInfor.id]);
+          }, 1000);
         });
-        this.handelSendMail();
       }
     });
   }
