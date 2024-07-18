@@ -239,7 +239,8 @@
     "createNewPost": "Create New Post",
     "editPost": "Edit Post",
     "payDate": "Pay Date",
-    "cost": "Cost"
+    "cost": "Cost",
+    "payCode": "Pay code"
   },
   "popupReport": {
     "report": "Report",

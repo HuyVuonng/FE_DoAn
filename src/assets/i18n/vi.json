@@ -238,7 +238,8 @@
     "createNewPost": "Tạo mới",
     "editPost": "Chỉnh sửa",
     "payDate": "Ngày thanh toán",
-    "cost": "Giá"
+    "cost": "Giá",
+    "payCode": "Mã thanh toán"
   },
   "popupReport": {
     "report": "Báo cáo",

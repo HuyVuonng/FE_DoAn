@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PaymentStatusComponent implements OnInit {
   status: any;
   dataPost: any = JSON.parse(sessionStorage.getItem('dataPost') || '{}');
-
+  userInfor: any = JSON.parse(localStorage.getItem('user_infor') || '{}');
   constructor(
     private PayAndSendMailService: PayAndSendMailService,
     private postService: PostService,
@@ -58,13 +58,11 @@ export class PaymentStatusComponent implements OnInit {
   }
 
   handelSendMail() {
-    const nameCustomer = JSON.parse(
-      sessionStorage.getItem('dataPost') || '{}',
-    )?.owner;
+    const nameCustomer = this.userInfor.fullName;
     const body = {
       nameCustomer,
-      email: 'quanghuyvuong2502@gmail.com',
-      managerlink: `${window.location.protocol}//${window.location.host}/managerPost/1`,
+      email: this.userInfor.fullName.email,
+      managerlink: `${window.location.protocol}//${window.location.host}/managerPost/${this.userInfor.id}`,
     };
     this.PayAndSendMailService.sendMail(body).subscribe(() => {});
   }

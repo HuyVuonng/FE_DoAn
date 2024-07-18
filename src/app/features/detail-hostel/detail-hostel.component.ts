@@ -21,6 +21,7 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 import { Location } from '@angular/common';
 import { commentModel } from '../../core/models/post';
 import moment from 'moment';
+import { UserService } from '../../core/api/user.service';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -52,6 +53,7 @@ export class DetailHostelComponent implements OnInit {
     private snackbar: SnackbarService,
     private translate: TranslateService,
     private _location: Location,
+    private userService: UserService,
   ) {
     this.translate
       .get('Toast.deleteSuccess')
@@ -157,6 +159,27 @@ export class DetailHostelComponent implements OnInit {
   getComment() {
     this.PostService.getComment(this.idPost).subscribe((data) => {
       this.dataComment = data.data;
+      this.getFavoriteByIDPost();
     });
+  }
+  favorited: boolean = false;
+  handleFavorite() {
+    if (!localStorage.getItem('access_token')) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.userService.addFavorite(Number(this.idPost)).subscribe((data) => {
+      this.favorited = !this.favorited;
+      this.cdr.detectChanges();
+    });
+  }
+  getFavoriteByIDPost() {
+    this.userService
+      .getFavoriteByIDPostAndUserID(this.idPost)
+      .subscribe((data) => {
+        if (data.length) {
+          this.favorited = true;
+        }
+      });
   }
 }

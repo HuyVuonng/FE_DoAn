@@ -36,24 +36,26 @@
         (pageSizeChange)="changePageSize($event)">
         <ng-template #headers>
             <th scope=" col" class="font-semibold text-center w-[50px]">{{'AdminPage.no'| translate}}</th>
+            <th scope=" col" class="font-semibold text-center">{{'payHistoryPage.payCode'| translate}}</th>
             <th scope=" col" class="font-semibold text-center">{{'payHistoryPage.postTitle'| translate}}</th>
-
             <th scope="col">{{'payHistoryPage.payDate'| translate}}</th>
             <th scope="col">{{'payHistoryPage.payType'| translate}}</th>
             <th scope="col" class="max-w-[150]">{{'payHistoryPage.cost'| translate}}</th>
         </ng-template>
         <ng-template #rows let-row let-index="index">
             <td class="max-w-[50px]  !h-12 text-balance ">{{ index+1 }}</td>
-            <td class=" max-w-[500px] w-[500px] !h-12 truncate hover:whitespace-normal">{{ row.title }}
+            <td class=" max-w-[100] w-[100] !h-12 truncate hover:whitespace-normal">{{ row.payCode }}
             </td>
-            <td class="w-[300px]  !h-12 ">{{ row.paydate | date :'dd/MM/yyyy'}}</td>
+            <td class=" max-w-[500px] w-[500px] !h-12 truncate hover:whitespace-normal">{{ row.postTitle }}
+            </td>
+            <td class="w-[200px]  !h-12 ">{{ row.payDate | date :'dd/MM/yyyy'}}</td>
 
-            <td class="max-w-[150px]  !h-12 " [class.text-green-500]="row.payType===0"
-                [class.text-yellow-500]="row.payType===1">
-                {{row.payType===0?createPostTitle:editPostTitle}}
+            <td class="max-w-[150px]  !h-12 " [class.text-green-500]="row.type===0"
+                [class.text-yellow-500]="row.type===1">
+                {{row.type===0?createPostTitle:editPostTitle}}
             </td>
             <td class="max-w-[150px] !h-12">
-                {{formatNumberWithDot(row.cost)}} đ
+                {{formatNumberWithDot(row.price)}} đ
             </td>
         </ng-template>
     </app-share-table>

@@ -1,7 +1,11 @@
 <div class="mt-4 flex lg:flex-row  flex-col gap-4">
     <div class="lg:w-8/12 bg-white rounded-md p-4 text-black">
         <div>
-            <h1 class="lg:text-[30px] tex-[18px] text-textColor font-semibold">{{data?.title}}</h1>
+            <div class="flex items-center justify-between">
+                <h1 class="lg:text-[30px] tex-[18px] text-textColor font-semibold">{{data?.title}}</h1>
+                <i (click)="handleFavorite()" class="fa-regular fa-heart hover:text-red-600 cursor-pointer text-[18px]"
+                    [class.text-red-600]="favorited"></i>
+            </div>
             <p><i class="fa-solid fa-location-dot mr-2"></i> <span>{{data?.street}}, {{data?.ward}}, {{data?.district}},
                     thành phố Hà Nội</span></p>
             <div class="flex justify-between mt-3">
@@ -19,7 +23,7 @@
                 space-between=" 12" speed="500" loop="true" centerInsufficientSlides="true" wrapperClass="slide-Wrapper"
                 [pagination]="{ clickable: true }" #swiper>
 
-                <swiper-slide class="swiper-slide py-4" *ngFor="let item of data.images">
+                <swiper-slide class="swiper-slide py-4" *ngFor="let item of data?.images">
                     <img class="w-full h-[500px] object-contain" [src]="item" (error)="onerror($event)" />
                 </swiper-slide>
 
@@ -29,7 +33,7 @@
         </div>
         <div class="mt-2">
             <h3 class="font-medium text-[24px]">{{"detailpage.descriptionInformation"|translate}}</h3>
-            <div [innerHtml]="data.descriptionPost"></div>
+            <div [innerHtml]="data?.descriptionPost"></div>
         </div>
 
         <div class="mt-2">
