@@ -205,11 +205,11 @@ export class LoginComponent implements OnInit {
   }
 
   handelSendMailActiveAccount(data: any) {
-    const nameCustomer = data.fullName;
+    const nameCustomer = data.infor.fullName;
     const body = {
       nameCustomer,
       email: data.infor.email,
-      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${data.email}`,
+      activeLink: `${window.location.protocol}//${window.location.host}/activeAccount/${data.infor.email}`,
     };
     this.PayAndSendMailService.sendMailActiveAccount(body).subscribe(
       () => {
