@@ -14,9 +14,9 @@ export class PayAndSendMailService {
 
   constructor(private http: HttpClient) {}
 
-  pay(): Observable<any> {
+  pay(price: any = 50000): Observable<any> {
     return this.http.post(this.apiUrl + '/create_payment_url', {
-      amount: 50000,
+      amount: price,
       orderDescription: 'Thanh toan phi dang bai ',
       orderType: 'other',
       redirect: `${window.location.protocol}//${window.location.host}/paymentStatus`,

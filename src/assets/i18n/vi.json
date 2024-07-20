@@ -159,7 +159,8 @@
     "owner": "Chủ nhà",
     "phoneNumber": "Số điện thoại",
     "createPost": "Đăng tin và thanh toán 50K",
-    "updatePost": "Cập nhật"
+    "updatePost": "Cập nhật",
+    "updatePostAndPay": "Cập nhật và thanh toán"
   },
   "homePage": {
     "mostViewed": "Được xem nhiều nhất",

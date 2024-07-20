@@ -160,7 +160,8 @@
     "owner": "Owner",
     "phoneNumber": "Phone Number",
     "createPost": "Create Post And Pay With 2$",
-    "updatePost": "Update Post"
+    "updatePost": "Update Post",
+    "updatePostAndPay": "Update Post And Pay"
   },
   "homePage": {
     "mostViewed": "Most Viewed",

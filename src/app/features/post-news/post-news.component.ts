@@ -31,7 +31,8 @@ import { MapComponent } from '../detail-hostel/map/map.component';
 import { PostService } from '../../core/api/post.service';
 import { postModel } from '../../core/models/post';
 import moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { statusPay } from '../../core/enums/statustPayOfPostEnum';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -99,6 +100,7 @@ export class PostNewsComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private PayAndSendMailService: PayAndSendMailService,
     private postService: PostService,
+    private router: Router,
   ) {
     this.form.get('addressDetail')?.disable();
     this.translatelabelSelectInput();
@@ -290,6 +292,7 @@ export class PostNewsComponent implements OnInit {
     }, 60000);
   }
   handelPostAndPay() {
+    debugger;
     this.isSpinningPay = true;
 
     if (this.form.invalid) {
@@ -408,7 +411,7 @@ export class PostNewsComponent implements OnInit {
       });
       this.urlIMGArray = data.images;
       this.sourceMap = `https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=${this.form.get('addressDetail')?.value};t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
-
+      this.getLastPayOfPost();
       this.cdr.detectChanges();
     });
   }
@@ -442,7 +445,7 @@ export class PostNewsComponent implements OnInit {
       district: this.form.get('district')?.value,
       hostelTypeId: this.form.get('type')?.value,
       ownerHouse: this.form.get('owner')?.value,
-      paymentType: 0,
+      paymentType: this.statusPay === 2 ? 1 : 0,
       street: this.form.get('houseNumberStreet')?.value,
       phoneNumber: this.form.get('phoneNumber')?.value,
       price: this.form.get('price')?.value,
@@ -452,8 +455,57 @@ export class PostNewsComponent implements OnInit {
     };
     sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
     this.postService.updatePost(bodyUpdate).subscribe((data) => {
-      this.snackBar.success(this.updateSuccessMessage);
-      this.isSpinningPay = false;
+      switch (this.statusPay) {
+        case 0:
+          this.PayAndSendMailService.pay().subscribe(
+            (res) => {
+              this.isSpinningPay = false;
+              window.location.href = res.link;
+            },
+            () => {
+              this.isSpinningPay = false;
+              this.snackBar.error('Error');
+            },
+          );
+          break;
+        case 1:
+          this.PayAndSendMailService.pay(25000).subscribe(
+            (res) => {
+              this.isSpinningPay = false;
+              window.location.href = res.link;
+            },
+            () => {
+              this.isSpinningPay = false;
+              this.snackBar.error('Error');
+            },
+          );
+          break;
+        case 2:
+          this.snackBar.success(this.updateSuccessMessage);
+
+          this.router.navigate(['/managerPost', this.userInfor.id]);
+          this.isSpinningPay = false;
+          break;
+        default:
+          break;
+      }
+    });
+  }
+  statusPay: any;
+  getLastPayOfPost() {
+    this.postService.getLastPayOfPost(Number(this.postID)).subscribe((data) => {
+      if (data && !data.length) {
+        this.statusPay = statusPay.NotpayYet;
+      } else if (
+        data &&
+        data.length &&
+        moment(data.payDate).add(5, 'days') < moment()
+      ) {
+        this.statusPay = statusPay.OutOFDate;
+      } else {
+        this.statusPay = statusPay.DontNeedPay;
+      }
+      console.log(this.statusPay);
     });
   }
 }

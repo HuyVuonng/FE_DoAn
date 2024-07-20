@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './payment-status.component.scss',
 })
 export class PaymentStatusComponent implements OnInit {
-  status: any;
+  status: any = null;
   dataPost: any = JSON.parse(sessionStorage.getItem('dataPost') || '{}');
   userInfor: any = JSON.parse(localStorage.getItem('user_infor') || '{}');
   constructor(
@@ -53,8 +53,12 @@ export class PaymentStatusComponent implements OnInit {
           this.handelSendMail();
           setTimeout(() => {
             this.router.navigate(['/managerPost', this.userInfor.id]);
-          }, 1000);
+          }, 2000);
         });
+      } else {
+        setTimeout(() => {
+          this.router.navigate(['/managerPost', this.userInfor.id]);
+        }, 2000);
       }
     });
   }

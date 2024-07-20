@@ -335,7 +335,7 @@ export class PostListComponent implements OnInit {
         delete this.body[key];
       }
     });
-    this.postService.searchPost(this.body).subscribe((data) => {
+    this.postService.searchPostManager(this.body).subscribe((data) => {
       this.listData = data;
       this.total = data.totalItem;
       this.pageIndex = data.pageNumber;

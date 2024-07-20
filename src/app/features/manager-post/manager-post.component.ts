@@ -27,7 +27,7 @@ export class ManagerPostComponent implements OnInit {
       pageNumber: 1,
       pageSize: 30,
     };
-    this.PostService.searchPost(body).subscribe((data) => {
+    this.PostService.searchPostManager(body).subscribe((data) => {
       this.data = data.data;
     });
   }

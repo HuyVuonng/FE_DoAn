@@ -28,6 +28,9 @@ export class PostService {
   searchPost(body: postSearchModel): Observable<any> {
     return this.http.post(this.apiUrl + '/post/search', body);
   }
+  searchPostManager(body: postSearchModel): Observable<any> {
+    return this.http.post(this.apiUrl + '/post/searchManager', body);
+  }
   searchByID(id: any): Observable<any> {
     return this.http.get(this.apiUrl + `/post/id=${id}`);
   }
@@ -55,5 +58,11 @@ export class PostService {
   }
   payPost(body: payhistoryModel): Observable<any> {
     return this.http.post(this.apiUrl + `/pay-history/create`, body);
+  }
+
+  getLastPayOfPost(id: number): Observable<any> {
+    return this.http.get(
+      this.apiUrl + `/pay-history/getLastPayOfPost?id=${id}`,
+    );
   }
 }
