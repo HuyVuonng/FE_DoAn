@@ -122,7 +122,7 @@
                         <nz-spin nzTip="Uploading..." [nzSpinning]="isSpinning">
                             <div class="flex items-center gap-x-3 flex-wrap mt-10 col-span-2">
                                 <div *ngIf="urlIMGArray.length < 1" class="size-[150px] ">
-                                    <label for="IMG"
+                                    <label for="IMG" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
                                         class="cursor-pointer w-full h-full border-[#D8D8D8] border-[1px] border-solid text-primary flex justify-center items-center uploadImg">
                                         <span>+Tải ảnh </span>
                                     </label>

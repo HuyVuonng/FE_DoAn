@@ -111,7 +111,8 @@
     "pending": "Chờ thanh toán",
     "payed": "Đã thanh toán",
     "commentSucceeded": "Bình luận thành công",
-    "commentFalse": "Bình luận thất bại"
+    "commentFalse": "Bình luận thất bại",
+    "notSupportDragDrop": "Trang web không hỗ trợ kéo thả"
   },
   "item": {
     "yourTask": "Công việc của bạn",

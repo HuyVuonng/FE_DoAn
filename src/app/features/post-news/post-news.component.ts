@@ -186,6 +186,9 @@ export class PostNewsComponent implements OnInit {
     this.translate
       .get('labelInput.over100M2')
       .subscribe((value) => (this.labelOver100M2 = value));
+    this.translate
+      .get('Toast.notSupportDragDrop')
+      .subscribe((value) => (this.notSupportDragDrop = value));
 
     this.translate.onLangChange.subscribe((e) => {
       this.translate
@@ -223,6 +226,9 @@ export class PostNewsComponent implements OnInit {
       this.translate
         .get('labelInput.over100M2')
         .subscribe((value) => (this.labelOver100M2 = value));
+      this.translate
+        .get('Toast.notSupportDragDrop')
+        .subscribe((value) => (this.notSupportDragDrop = value));
       this.getListValue();
     });
   }
@@ -507,5 +513,14 @@ export class PostNewsComponent implements OnInit {
       }
       console.log(this.statusPay);
     });
+  }
+  notSupportDragDrop: string;
+  onDrop(event: DragEvent) {
+    this.snackBar.warning(this.notSupportDragDrop);
+    event.preventDefault();
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
   }
 }

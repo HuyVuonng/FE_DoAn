@@ -111,7 +111,8 @@
     "pending": "Wait for pay",
     "payed": "Paid",
     "commentSucceeded": "Comment Succeeded",
-    "commentFalse": "Comment False"
+    "commentFalse": "Comment False",
+    "notSupportDragDrop": "The website does not support drag and drop"
   },
 
   "item": {
