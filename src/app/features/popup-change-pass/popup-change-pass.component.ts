@@ -57,6 +57,7 @@ export class PopupChangePassComponent implements OnInit {
   registerSuccess: string;
   updateSuccess: string;
   oldPasswordIncorrect: string;
+  oldPasswordSameNewPassword: string;
   handleOk(): void {
     console.log('Button ok clicked!');
     this.isVisiblePopUpOpen.emit(false);
@@ -78,10 +79,14 @@ export class PopupChangePassComponent implements OnInit {
     password: [null, [Validators.required, passWordValidator()]],
     rePass: [null, Validators.required],
   });
+
   ngOnInit(): void {
     this.translate
       .get('Toast.oldPasswordIncorrect')
       .subscribe((value) => (this.oldPasswordIncorrect = value));
+    this.translate
+      .get('Toast.oldPasswordSameNewPassword')
+      .subscribe((value) => (this.oldPasswordSameNewPassword = value));
     this.translate
       .get('Toast.updateSuccess')
       .subscribe((value) => (this.updateSuccess = value));
@@ -102,6 +107,9 @@ export class PopupChangePassComponent implements OnInit {
       .get('PopUpRegister.registerSuccess')
       .subscribe((value) => (this.registerSuccess = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.oldPasswordSameNewPassword')
+        .subscribe((value) => (this.oldPasswordSameNewPassword = value));
       this.translate
         .get('Toast.oldPasswordIncorrect')
         .subscribe((value) => (this.oldPasswordIncorrect = value));
@@ -147,7 +155,11 @@ export class PopupChangePassComponent implements OnInit {
       (err) => {
         if (err.status === 400) {
           this.isConfirmLoading = false;
-          this.snackBar.error(this.oldPasswordIncorrect);
+          if (err.error.includes('không đúng')) {
+            this.snackBar.error(this.oldPasswordIncorrect);
+          } else if (err.error.includes('không được trùng với mật khẩu cũ')) {
+            this.snackBar.error(this.oldPasswordSameNewPassword);
+          }
         } else {
           this.isConfirmLoading = false;
           this.snackBar.error('Error');
@@ -159,6 +171,11 @@ export class PopupChangePassComponent implements OnInit {
   updateValidateRepass(e: any) {
     this.form.get('rePass')?.clearValidators();
     this.form.get('rePass')?.addValidators(rePassValidator(e.target.value));
+    if (this.form.get('rePass')?.value !== e.target.value) {
+      this.form.get('rePass')?.setErrors({ rePassCheck: true });
+    } else {
+      this.form.get('rePass')?.setErrors(null);
+    }
   }
 
   hidePass: boolean = true;

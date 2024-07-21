@@ -123,6 +123,11 @@ export class PopupChangepassComponent implements OnInit {
   updateValidateRepass(e: any) {
     this.form.get('rePass')?.clearValidators();
     this.form.get('rePass')?.addValidators(rePassValidator(e.target.value));
+    if (this.form.get('rePass')?.value !== e.target.value) {
+      this.form.get('rePass')?.setErrors({ rePassCheck: true });
+    } else {
+      this.form.get('rePass')?.setErrors(null);
+    }
   }
   hidePass: boolean = true;
   hideRePass: boolean = true;

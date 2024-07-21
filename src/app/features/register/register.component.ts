@@ -162,8 +162,10 @@ export class RegisterComponent implements OnInit {
           this.snackBar.success(this.registerSuccess);
           this.handelSendMailActiveAccount();
           this.isConfirmLoading = false;
+        } else if (err.error.includes('Email đã tồn tại trên hệ thống')) {
+          this.form.get('email')?.setErrors({ apiError: true });
+          this.isConfirmLoading = false;
         } else {
-          this.isVisiblePopUpOpen.emit(false);
           this.snackBar.error(err.error);
           this.isConfirmLoading = false;
         }
@@ -173,7 +175,14 @@ export class RegisterComponent implements OnInit {
 
   updateValidateRepass(e: any) {
     this.form.get('rePass')?.clearValidators();
+    console.log(e.target.value);
+
     this.form.get('rePass')?.addValidators(rePassValidator(e.target.value));
+    if (this.form.get('rePass')?.value !== e.target.value) {
+      this.form.get('rePass')?.setErrors({ rePassCheck: true });
+    } else {
+      this.form.get('rePass')?.setErrors(null);
+    }
   }
   hidePass: boolean = true;
   hideRePass: boolean = true;

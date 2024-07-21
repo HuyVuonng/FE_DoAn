@@ -106,7 +106,6 @@ export class UserInforComponent implements OnInit {
   public formAccountInfor: FormGroup = this.fb.group({
     fullName: [null, Validators.required],
     phoneNumber: [null, [phoneNumberValidator(), Validators.required]],
-
     email: [null, [Validators.email, Validators.required]],
     statusAccount: [1, Validators.required],
     activeDate: [moment(), Validators.required],
@@ -206,6 +205,11 @@ export class UserInforComponent implements OnInit {
       statusAccount: this.formAccountInfor.get('statusAccount')?.value,
       userAddress: this.formAccountInfor.get('addressDetail')?.value,
     };
+    if (this.formAccountInfor.invalid) {
+      this.formAccountInfor.markAllAsTouched();
+      this.isEditLoading = false;
+      return;
+    }
     this.auth.updateUser(body).subscribe((data) => {
       this.snackbar.success(this.updateSuccess);
       this.getUserByID();

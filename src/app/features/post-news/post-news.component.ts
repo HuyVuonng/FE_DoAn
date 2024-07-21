@@ -275,6 +275,9 @@ export class PostNewsComponent implements OnInit {
 
   deleteIMG = (file: any) => {
     this.urlIMGArray = this.urlIMGArray.filter((f: any) => f !== file);
+    this.form.patchValue({
+      linkImg: this.urlIMGArray,
+    });
   };
   showMap: boolean = false;
   handelShowMap() {
@@ -459,7 +462,7 @@ export class PostNewsComponent implements OnInit {
       ward: this.form.get('ward')?.value,
       images: this.form.get('linkImg')?.value,
     };
-    sessionStorage.setItem('dataPost', JSON.stringify(this.form.getRawValue()));
+    sessionStorage.setItem('dataPost', JSON.stringify(bodyUpdate));
     this.postService.updatePost(bodyUpdate).subscribe((data) => {
       switch (this.statusPay) {
         case 0:

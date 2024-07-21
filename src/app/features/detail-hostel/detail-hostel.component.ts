@@ -205,7 +205,7 @@ export class DetailHostelComponent implements OnInit {
       pageNumber: 1,
     };
     this.PostService.searchPost(body).subscribe((data) => {
-      this.dataSuggess = data.data.filter(
+      this.dataSuggess = data.data?.filter(
         (item: any) => item.id === this.idPost,
       );
     });

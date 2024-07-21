@@ -128,8 +128,11 @@ export class PayHistoryComponent implements OnInit {
     this.form.reset();
     this.pageIndex = 1;
     this.pageSize = 30;
-    this.body.pageNumber = this.pageIndex;
-    this.body.pageSize = this.pageSize;
+
+    this.body = {
+      pageNumber: this.pageIndex,
+      pageSize: this.pageSize,
+    };
     this.getPayHistory();
   }
   handelSearch() {

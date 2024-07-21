@@ -1,15 +1,17 @@
-<div
-    class="w-[90%]  lg:w-[700px] mt-14 shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)] h-[300px] m-auto rounded-lg ">
-    <div *ngIf="status!==null&&status==='00'" class="flex justify-center items-center flex-col gap-4 w-full h-full">
-        <i class="fa-solid fa-circle-check text-[80px]  text-green-600"></i>
-        <h2 class="font-medium lg:text-[32px] text-[26px]">Thanh toán thành công</h2>
-        <span>Bài đăng của bạn sẽ được cập nhật trên hệ thống</span>
-    </div>
+<nz-spin [nzSpinning]="isLoading">
+    <div
+        class="w-[90%]  lg:w-[700px] mt-14 shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)] h-[300px] m-auto rounded-lg ">
+        <div *ngIf="status!==null&&status==='00'" class="flex justify-center items-center flex-col gap-4 w-full h-full">
+            <i class="fa-solid fa-circle-check text-[80px]  text-green-600"></i>
+            <h2 class="font-medium lg:text-[32px] text-[26px]">Thanh toán thành công</h2>
+            <span>Bài đăng của bạn sẽ được cập nhật trên hệ thống</span>
+        </div>
 
-    <div *ngIf="status!==null&&status!=='00'"
-        class="flex justify-center items-center flex-col gap-4 w-full h-full px-2">
-        <i class="fa-solid fa-circle-xmark text-[80px]  text-red-600"></i>
-        <h2 class="font-medium lg:text-[32px] text-[26px]">Thanh toán thất bại</h2>
-        <span class="text-center">Vui lòng thanh toán lại để bài đăng được cập nhật lên hệ thống</span>
+        <div *ngIf="status!==null&&status!=='00'"
+            class="flex justify-center items-center flex-col gap-4 w-full h-full px-2">
+            <i class="fa-solid fa-circle-xmark text-[80px]  text-red-600"></i>
+            <h2 class="font-medium lg:text-[32px] text-[26px]">Thanh toán thất bại</h2>
+            <span class="text-center">Vui lòng thanh toán lại để bài đăng được cập nhật lên hệ thống</span>
+        </div>
     </div>
-</div>
+</nz-spin>

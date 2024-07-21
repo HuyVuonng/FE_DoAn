@@ -5,11 +5,11 @@ import { payhistoryModel } from '../../core/models/post';
 import moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-payment-status',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NzSpinModule],
   templateUrl: './payment-status.component.html',
   styleUrl: './payment-status.component.scss',
 })
@@ -17,6 +17,7 @@ export class PaymentStatusComponent implements OnInit {
   status: any = null;
   dataPost: any = JSON.parse(sessionStorage.getItem('dataPost') || '{}');
   userInfor: any = JSON.parse(localStorage.getItem('user_infor') || '{}');
+  isLoading: boolean = false;
   constructor(
     private PayAndSendMailService: PayAndSendMailService,
     private postService: PostService,
@@ -45,11 +46,13 @@ export class PaymentStatusComponent implements OnInit {
     type: 0,
   };
   checkStatus() {
+    this.isLoading = true;
     this.PayAndSendMailService.checkStatusPay().subscribe((res) => {
       this.status = res.RspCode;
+      this.isLoading = false;
+
       if (this.status === '00') {
         this.postService.payPost(this.body).subscribe((data) => {
-          console.log('thành công');
           this.handelSendMail();
           setTimeout(() => {
             this.router.navigate(['/managerPost', this.userInfor.id]);
@@ -67,7 +70,7 @@ export class PaymentStatusComponent implements OnInit {
     const nameCustomer = this.userInfor.fullName;
     const body = {
       nameCustomer,
-      email: this.userInfor.fullName.email,
+      email: this.userInfor.email,
       managerlink: `${window.location.protocol}//${window.location.host}/managerPost/${this.userInfor.id}`,
     };
     this.PayAndSendMailService.sendMail(body).subscribe(() => {});

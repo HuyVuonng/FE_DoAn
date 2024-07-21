@@ -14,7 +14,7 @@
               <!-- <i class="fa-regular fa-bell icon mr-[15px]"></i>
 
               <div class="flex items-center space-x-2 justify-center rounded-full w-10 h-10 relative">
-                <img src="assets/img/avatar.png" class="rounded-full w-10 h-10" alt="" />
+                <img src="assets/img/avaDefault.png" class="rounded-full w-10 h-10" alt="" />
                 <div class="rounded-full w-2 h-2 bg-green-600 absolute bottom-0 right-0  translate-y-[-50%]">
                 </div>
               </div>
@@ -30,7 +30,7 @@
                   class="fa-regular fa-heart hover:text-red-600 cursor-pointer text-[18px]"></i>
                 <button class="hover:text-primary" [routerLink]="['/postNews']"
                   routerLinkActive="activeLink">{{'Button.post' | translate}}</button>
-                <img *ngIf="isLogin" src="assets/img/avatar.png" class="rounded-full size-10 cursor-pointer" alt=""
+                <img *ngIf="isLogin" src="assets/img/avaDefault.png" class="rounded-full size-10 cursor-pointer" alt=""
                   nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomCenter" />
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                   <ul nz-menu>

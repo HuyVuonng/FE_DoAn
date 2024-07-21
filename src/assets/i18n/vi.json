@@ -44,10 +44,6 @@
     "send": "Gửi",
     "more": "Đọc thêm",
     "hide": "Ẩn bớt",
-    "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
-    "confirmDeleteAccount": "Xác nhận xóa tài khoản",
-    "areUSureChangeStatusAccount": "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản ",
-    "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản ",
     "changePass": "Đổi mật khẩu"
   },
 
@@ -63,7 +59,8 @@
     "wrongPhoneNumber": "Sai số điện thoại",
     "wrongEmail": "Sai định dạng email",
     "requiredPassword": "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường,số, ký tự đặc biệt và dài ít nhất 8 ký tự",
-    "registerSuccess": "Đăng ký thành công, vui lòng kiểm tra mail để kích hoạt tài khoản"
+    "registerSuccess": "Đăng ký thành công, vui lòng kiểm tra mail để kích hoạt tài khoản",
+    "emailAlreadyExited": "Email đã tồn tại"
   },
   "PopUpForgotPassword": {
     "forgotPassword": "Quên mật khẩu",
@@ -105,14 +102,19 @@
     "changePasswordSuccess": "Đổi mật khẩu thành công",
     "reportSuccess": "Báo cáo thành công",
     "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
-    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng",
+    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng hoặc tài khoản của bạn đã bị chặn",
     "oldPasswordIncorrect": "Mật khẩu cũ không đúng",
     "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản",
     "pending": "Chờ thanh toán",
     "payed": "Đã thanh toán",
     "commentSucceeded": "Bình luận thành công",
     "commentFalse": "Bình luận thất bại",
-    "notSupportDragDrop": "Trang web không hỗ trợ kéo thả"
+    "notSupportDragDrop": "Trang web không hỗ trợ kéo thả",
+    "oldPasswordSameNewPassword": " Mật khẩu mới không được trùng với mật khẩu cũ",
+    "areUSureChangeStatusAccount": "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản ",
+    "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản ",
+    "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
+    "confirmDeleteAccount": "Xác nhận xóa tài khoản"
   },
   "item": {
     "yourTask": "Công việc của bạn",
