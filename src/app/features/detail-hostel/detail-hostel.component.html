@@ -3,8 +3,11 @@
         <div>
             <div class="flex items-center justify-between">
                 <h1 class="lg:text-[30px] tex-[18px] text-textColor font-semibold">{{data?.title}}</h1>
-                <i (click)="handleFavorite()" class="fa-regular fa-heart hover:text-red-600 cursor-pointer text-[18px]"
+                <i *ngIf="!favorited" (click)="handleFavorite()"
+                    class="fa-regular fa-heart hover:text-red-600 cursor-pointer text-[18px]"
                     [class.text-red-600]="favorited"></i>
+                <i *ngIf="favorited" (click)="handleFavorite()"
+                    class="fa-solid fa-heart text-red-600 cursor-pointer  text-[18px]"></i>
             </div>
             <p><i class="fa-solid fa-location-dot mr-2"></i> <span>{{data?.street}}, {{data?.ward}}, {{data?.district}},
                     thành phố Hà Nội</span></p>
@@ -107,6 +110,11 @@
                             class="fa-solid fa-phone"></i>{{"Button.call"|translate}}</a>
                 </div>
             </div>
+        </div>
+
+        <div *ngIf="dataSuggess?.length" class="bg-white  rounded-md mt-4 px-2">
+            <h1 class="text-[18px] mb-3">{{"detailpage.suggest"|translate}}</h1>
+            <app-suggest-item *ngFor="let data of dataSuggess" [data]="data"></app-suggest-item>
         </div>
 
     </div>

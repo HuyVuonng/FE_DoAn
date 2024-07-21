@@ -27,6 +27,14 @@ export class UserService {
     };
     return this.http.post(this.apiUrl + '/favorite/create', body);
   }
+  updateFavorite(postId: any, deleteFlag: boolean): Observable<any> {
+    const body = {
+      postId,
+      accountId: this.userInfor.id,
+      deleteFlag: deleteFlag,
+    };
+    return this.http.put(this.apiUrl + '/favorite/update', body);
+  }
 
   getFavoriteByID(pageNumber: number, pageSize: number): Observable<any> {
     const body = {

@@ -19,9 +19,10 @@ import { PopupReportComponent } from './popup-report/popup-report.component';
 import { PostService } from '../../core/api/post.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { Location } from '@angular/common';
-import { commentModel } from '../../core/models/post';
+import { commentModel, postSearchModel } from '../../core/models/post';
 import moment from 'moment';
 import { UserService } from '../../core/api/user.service';
+import { SuggestItemComponent } from './suggest-item/suggest-item.component';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -37,6 +38,7 @@ import { UserService } from '../../core/api/user.service';
     CommentComponent,
     PopupReportComponent,
     DatePipe,
+    SuggestItemComponent,
   ],
   templateUrl: './detail-hostel.component.html',
   styleUrl: './detail-hostel.component.scss',
@@ -168,18 +170,44 @@ export class DetailHostelComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.userService.addFavorite(Number(this.idPost)).subscribe((data) => {
-      this.favorited = !this.favorited;
-      this.cdr.detectChanges();
-    });
+
+    if (!this.dataFavorite?.length) {
+      this.userService.addFavorite(Number(this.idPost)).subscribe((data) => {
+        this.favorited = !this.favorited;
+        this.cdr.detectChanges();
+      });
+    } else {
+      this.userService
+        .updateFavorite(Number(this.idPost), this.favorited)
+        .subscribe((data) => {
+          this.favorited = !this.favorited;
+          this.cdr.detectChanges();
+        });
+    }
   }
+  dataFavorite: any = [];
   getFavoriteByIDPost() {
     this.userService
       .getFavoriteByIDPostAndUserID(this.idPost)
       .subscribe((data) => {
-        if (data.data.length) {
-          this.favorited = true;
+        this.dataFavorite = data.data;
+        if (data.data?.length) {
+          this.favorited = !data.data.deleteFlag;
         }
+        this.getPostSugess();
       });
+  }
+  dataSuggess: any;
+  getPostSugess() {
+    const body: postSearchModel = {
+      ward: this.data.ward,
+      pageSize: 20,
+      pageNumber: 1,
+    };
+    this.PostService.searchPost(body).subscribe((data) => {
+      this.dataSuggess = data.data.filter(
+        (item: any) => item.id === this.idPost,
+      );
+    });
   }
 }

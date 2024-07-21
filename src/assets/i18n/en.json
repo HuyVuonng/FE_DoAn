@@ -173,7 +173,8 @@
     "locationInMap": "Location In Map",
     "evaluationAndReporting": "Evaluation and reporting",
     "joiningDate": "Joining date",
-    "areYouSureToReport": "Are you sure you want to report it?"
+    "areYouSureToReport": "Are you sure you want to report it?",
+    "suggest": "Suggest"
   },
   "userInforPage": {
     "accountInfor": "Account Information",

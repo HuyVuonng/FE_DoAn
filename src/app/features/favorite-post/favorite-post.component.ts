@@ -50,15 +50,15 @@ export class FavoritePostComponent implements OnInit {
     this.userService
       .getFavoriteByID(this.pageIndex, this.pageSize)
       .subscribe((data) => {
-        console.log(data);
         this.pageIndex = data.pageNumber;
         this.pageSize = data.pageSize;
         this.total = data.totalItem;
-        data.data.forEach((item: any) => {
-          this.postService.searchByID(item.postId).subscribe((data) => {
-            this.data.push(data);
+        if (data?.data) {
+          data.data.forEach((item: any) => {
+            this.data.push(item.post);
           });
-        });
+        }
+
         this.isSpinning = false;
       });
   }
