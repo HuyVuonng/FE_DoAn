@@ -4,7 +4,7 @@
         (keydown.enter)="$event.preventDefault()">
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'payHistoryPage.postTitle' | translate}}</mat-label>
-            <input formControlName="title" matInput (keypress)="searchByEnter($event)" />
+            <input formControlName="postTitle" matInput (keypress)="searchByEnter($event)" />
         </mat-form-field>
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'payHistoryPage.payType' | translate}}</mat-label>

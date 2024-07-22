@@ -78,7 +78,7 @@ export class PayHistoryComponent implements OnInit {
     this.getPayHistory();
   }
   public form: FormGroup = this.fb.group({
-    title: [null],
+    postTitle: [null],
     type: [null],
   });
   searchByEnter(e: any) {
@@ -88,22 +88,7 @@ export class PayHistoryComponent implements OnInit {
   }
   payTypeList: any;
 
-  data: any = [
-    {
-      title:
-        'nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo',
-      paydate: new Date(),
-      payType: 1,
-      cost: 25000,
-    },
-    {
-      title:
-        'nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo nhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảonhà sai sự  thật, lừa đảo',
-      paydate: new Date(),
-      payType: 0,
-      cost: 50000,
-    },
-  ];
+  data: any = [];
   formatNumberWithDot(value: any): string {
     if (value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -142,8 +127,8 @@ export class PayHistoryComponent implements OnInit {
     ) {
       this.body.type = this.form.get('type')?.value;
     }
-    if (this.form.get('title')?.value) {
-      this.body.title = this.form.get('title')?.value;
+    if (this.form.get('postTitle')?.value) {
+      this.body.postTitle = this.form.get('postTitle')?.value;
     }
     this.body.pageNumber = this.pageIndex;
     this.body.pageSize = this.pageSize;
@@ -151,8 +136,10 @@ export class PayHistoryComponent implements OnInit {
   }
 
   getPayHistory() {
+    this.isLoading = true;
     this.userService.getPayHistory2(this.body).subscribe((data) => {
-      console.log(data);
+      this.isLoading = false;
+
       this.data = data.data;
       this.pageIndex = data.pageNumber;
       this.pageSize = data.pageSize;

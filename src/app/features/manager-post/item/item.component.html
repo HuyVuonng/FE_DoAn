@@ -4,7 +4,7 @@
         <img loading="lazy" class="h-[200px] w-full object-cover" [src]="data?.images[0]" alt=""
             (error)="onerror($event)" />
         <div class="px-3 py-1 pb-4 flex flex-col gap-2">
-            <p class="font-semibold text-base ">{{data?.title}}</p>
+            <p class="font-semibold text-base line-clamp-2 h-[48px]">{{data?.title}}</p>
             <p class="text-green-600"><i class="fa-solid fa-money-bill mr-2"></i>{{data?.price.toLocaleString()}}đ/tháng
             </p>
             <p class="text-yellow-500"><i class="fa-solid fa-expand mr-2"></i>{{data?.acreage}}m<sup>2</sup></p>

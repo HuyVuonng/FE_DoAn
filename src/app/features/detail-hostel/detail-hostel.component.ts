@@ -3,6 +3,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -12,7 +13,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Event,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { MapComponent } from './map/map.component';
 import { CommentComponent } from './comment/comment.component';
 import { PopupReportComponent } from './popup-report/popup-report.component';
@@ -23,6 +31,7 @@ import { commentModel, postSearchModel } from '../../core/models/post';
 import moment from 'moment';
 import { UserService } from '../../core/api/user.service';
 import { SuggestItemComponent } from './suggest-item/suggest-item.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-detail-hostel',
   standalone: true,
@@ -44,7 +53,7 @@ import { SuggestItemComponent } from './suggest-item/suggest-item.component';
   styleUrl: './detail-hostel.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DetailHostelComponent implements OnInit {
+export class DetailHostelComponent implements OnInit, OnDestroy {
   commentSuccess: string;
   commentFalse: string;
   constructor(
@@ -78,17 +87,29 @@ export class DetailHostelComponent implements OnInit {
         .subscribe((value) => (this.commentFalse = value));
     });
   }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   roleAccount = JSON.parse(localStorage.getItem('user_infor') || '{}')?.roleId;
   idAccount = JSON.parse(localStorage.getItem('user_infor') || '{}')?.id;
   isManager: boolean = false;
   activeRoute = inject(ActivatedRoute);
   idPost: any = this.activeRoute.snapshot.params['id'];
   deleteSuccess: string;
+  subscription: Subscription;
   ngOnInit(): void {
     if (this.router.url.includes('detail/manager')) {
       this.isManager = true;
     }
     window.scrollTo(0, 0);
+    this.subscription = this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.idPost = this.activeRoute.snapshot.params['id'];
+        window.scrollTo(0, 0);
+
+        this.getDetailPost();
+      }
+    });
     this.getDetailPost();
   }
   isLoaddingSendComment: boolean = false;
@@ -109,6 +130,7 @@ export class DetailHostelComponent implements OnInit {
       (data) => {
         this.snackbar.success(this.commentSuccess);
         this.isLoaddingSendComment = false;
+        this.getDetailPost();
       },
       (err) => {
         this.isLoaddingSendComment = false;
@@ -206,7 +228,7 @@ export class DetailHostelComponent implements OnInit {
     };
     this.PostService.searchPost(body).subscribe((data) => {
       this.dataSuggess = data.data?.filter(
-        (item: any) => item.id === this.idPost,
+        (item: any) => item.id !== Number(this.idPost),
       );
     });
   }

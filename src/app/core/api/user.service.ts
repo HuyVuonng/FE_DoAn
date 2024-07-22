@@ -23,7 +23,6 @@ export class UserService {
     const body = {
       postId,
       accountId: this.userInfor.id,
-      deleteFlag: true,
     };
     return this.http.post(this.apiUrl + '/favorite/create', body);
   }
