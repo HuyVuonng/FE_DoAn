@@ -145,17 +145,18 @@ export class PayHistoryComponent implements OnInit {
     if (this.form.get('title')?.value) {
       this.body.title = this.form.get('title')?.value;
     }
-    this.pageIndex = 1;
-    this.pageSize = 30;
     this.body.pageNumber = this.pageIndex;
     this.body.pageSize = this.pageSize;
     this.getPayHistory();
   }
 
   getPayHistory() {
-    this.userService.getPayHistory(this.body).subscribe((data) => {
+    this.userService.getPayHistory2(this.body).subscribe((data) => {
       console.log(data);
-      this.data = data;
+      this.data = data.data;
+      this.pageIndex = data.pageNumber;
+      this.pageSize = data.pageSize;
+      this.totalCount = data.totalItem;
     });
   }
 }

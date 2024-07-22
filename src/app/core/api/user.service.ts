@@ -55,4 +55,11 @@ export class UserService {
     body.accountId = this.userInfor.id;
     return this.http.post(this.apiUrl + '/pay-history/search', body);
   }
+  getPayHistory2(body: any): Observable<any> {
+    body.accountId = this.userInfor.id;
+    return this.http.post(
+      this.apiUrl + '/pay-history/search-pay-history-by-post-title',
+      body,
+    );
+  }
 }

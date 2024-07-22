@@ -110,22 +110,28 @@ export class PostNewsComponent implements OnInit {
   userInfor = JSON.parse(localStorage.getItem('user_infor') || '{}');
   ngOnInit(): void {
     this.auth.getAccountInforByID(this.userInfor?.id).subscribe((data) => {
-      const address = data.userAddress.split(', ');
-      const houseAndStreet = [...address];
-      houseAndStreet.splice(-3);
-
       this.userInfor = data;
       this.form.patchValue({
         owner: this.userInfor?.fullName,
         phoneNumber: this.userInfor?.phoneNumber,
         zalo: this.userInfor?.phoneNumber,
-        district: address[address.length - 2],
-        houseNumberStreet: houseAndStreet.join(', '),
-        ward: address[address.length - 3],
-        addressDetail: data.userAddress,
       });
-      if (data.userAddress.includes(',')) {
-        this.changeAddress(data.userAddress);
+
+      if (this.postID) {
+        this.getPostById();
+      } else {
+        const address = this.userInfor.userAddress.split(', ');
+        const houseAndStreet = [...address];
+        houseAndStreet.splice(-3);
+        this.form.patchValue({
+          district: address[address.length - 2],
+          houseNumberStreet: houseAndStreet.join(', '),
+          ward: address[address.length - 3],
+          addressDetail: this.userInfor.userAddress,
+        });
+        if (data.userAddress.includes(',')) {
+          this.changeAddress(data.userAddress);
+        }
       }
     });
 
@@ -144,9 +150,6 @@ export class PostNewsComponent implements OnInit {
         .subscribe((value) => (this.updateSuccessMessage = value));
     });
 
-    if (this.postID) {
-      this.getPostById();
-    }
     this.getListValue();
   }
   config: CurrencyMaskConfig = {
