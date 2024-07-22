@@ -33,6 +33,7 @@ import { postModel } from '../../core/models/post';
 import moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { statusPay } from '../../core/enums/statustPayOfPostEnum';
+import { AuthService } from '../../core/api/auth.service';
 @Component({
   selector: 'app-post-news',
   standalone: true,
@@ -101,17 +102,33 @@ export class PostNewsComponent implements OnInit {
     private PayAndSendMailService: PayAndSendMailService,
     private postService: PostService,
     private router: Router,
+    private auth: AuthService,
   ) {
     this.form.get('addressDetail')?.disable();
     this.translatelabelSelectInput();
   }
   userInfor = JSON.parse(localStorage.getItem('user_infor') || '{}');
   ngOnInit(): void {
-    this.form.patchValue({
-      owner: this.userInfor?.fullName,
-      phoneNumber: this.userInfor?.phoneNumber,
-      zalo: this.userInfor?.phoneNumber,
+    this.auth.getAccountInforByID(this.userInfor?.id).subscribe((data) => {
+      const address = data.userAddress.split(', ');
+      const houseAndStreet = [...address];
+      houseAndStreet.splice(-3);
+
+      this.userInfor = data;
+      this.form.patchValue({
+        owner: this.userInfor?.fullName,
+        phoneNumber: this.userInfor?.phoneNumber,
+        zalo: this.userInfor?.phoneNumber,
+        district: address[address.length - 2],
+        houseNumberStreet: houseAndStreet.join(', '),
+        ward: address[address.length - 3],
+        addressDetail: data.userAddress,
+      });
+      if (data.userAddress.includes(',')) {
+        this.changeAddress(data.userAddress);
+      }
     });
+
     this.translate
       .get('Toast.createSuccess')
       .subscribe((value) => (this.createSuccessMessage = value));

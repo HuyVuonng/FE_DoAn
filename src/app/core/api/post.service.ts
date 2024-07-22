@@ -41,7 +41,7 @@ export class PostService {
     return this.http.get(this.apiUrl + `/post/mostView`);
   }
   deletePost(id: any): Observable<any> {
-    return this.http.delete(this.apiUrl + `/post/?id=${id}`);
+    return this.http.delete(this.apiUrl + `/post?id=${id}`);
   }
   updatePost(body: postModel): Observable<any> {
     return this.http.put(this.apiUrl + `/post/update-post`, body);

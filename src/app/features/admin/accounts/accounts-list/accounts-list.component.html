@@ -73,10 +73,10 @@
                                 <li (click)="handleOpenChangePassPopUp(row)" nz-menu-item>
                                     {{'userInforPage.changePassword'| translate}}</li>
                                 <li *ngIf="row.statusAccount!==AccountStatusEnum.Block"
-                                    (click)="handelChangeStatusAccount(row,true)" nz-menu-item>
+                                    (click)="handelChangeStatusAccount(row,AccountStatusEnum.Block)" nz-menu-item>
                                     {{'AdminPage.accountsPage.block'| translate}}</li>
                                 <li *ngIf="row.statusAccount===AccountStatusEnum.Block"
-                                    (click)="handelChangeStatusAccount(row,false)" nz-menu-item>
+                                    (click)="handelChangeStatusAccount(row,AccountStatusEnum.Active)" nz-menu-item>
                                     {{'AdminPage.accountsPage.unBlock'| translate}}</li>
                                 <!-- <li (click)="handelDeleteAccount(row)" nz-menu-item>
                                     {{'AdminPage.accountsPage.deleteAccount'| translate}}</li> -->

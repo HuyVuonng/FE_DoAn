@@ -106,7 +106,7 @@
     "changePasswordSuccess": "Change Password Success",
     "reportSuccess": "Report Success",
     "pleaseSelectResionReport": "Please Select Resion Report",
-    "emailOrPasswordIsIncorrect": "Email or Password is incorrect or your account has been block ",
+    "emailOrPasswordIsIncorrect": "Email or Password is incorrect",
     "oldPasswordIncorrect": "Old Password is incorrect",
     "checkMailToActiveAccount": "Please check your email to activate your account",
     "pending": "Wait for pay",
@@ -114,7 +114,8 @@
     "commentSucceeded": "Comment Succeeded",
     "commentFalse": "Comment False",
     "notSupportDragDrop": "The website does not support drag and drop",
-    "oldPasswordSameNewPassword": "The new password must not match the old password"
+    "oldPasswordSameNewPassword": "The new password must not match the old password",
+    "accountHasBeenBlock": "Your account has been blocked"
   },
 
   "item": {
@@ -164,7 +165,9 @@
     "phoneNumber": "Phone Number",
     "createPost": "Create Post And Pay With 2$",
     "updatePost": "Update Post",
-    "updatePostAndPay": "Update Post And Pay"
+    "updatePostAndPay": "Update Post And Pay",
+    "uploadImg": "+Upload Image",
+    "ImageAboutHostel": "Image About Hostel"
   },
   "homePage": {
     "mostViewed": "Most Viewed",

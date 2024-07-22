@@ -214,13 +214,12 @@ export class AccountsListComponent implements OnInit {
 
     this.handelOpenPopUpConfirm();
   }
-  handelChangeStatusAccount(data: any, status: boolean) {
+  handelChangeStatusAccount(data: any, status: any) {
     this.title = this.titleChangeStatus;
     this.content = this.contentChangeStatus + data.email + '?';
     const body: updateUserInforModel = {
       ...data,
-      statusAccount: status ? 3 : 1,
-      deleteFlag: status,
+      statusAccount: status,
     };
     this.param = body;
     this.handelOpenPopUpConfirm();

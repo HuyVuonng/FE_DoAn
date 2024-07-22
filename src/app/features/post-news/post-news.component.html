@@ -4,7 +4,7 @@
         <h1 class="text-[20px] font-medium">{{'postPage.post'| translate}}</h1>
         <div class="mt-6 pb-10">
             <div>
-                <form [formGroup]="form" class="grid grid-cols-2 mt-3 gap-3">
+                <form [formGroup]="form" class="grid grid-cols-2 mt-3 gap-3 auto-rows-auto text-black">
                     <mat-form-field class="custom-input col-span-1" appearance="outline">
                         <mat-label class="bg-white">{{'postPage.owner' | translate}}</mat-label>
                         <input formControlName="owner" matInput (click)="viewMap=false" />
@@ -118,13 +118,14 @@
                         </span>
                     </div>
 
-                    <div class="col-span-2">
+                    <div class="col-span-2 mt-8 mb-2">
+                        <span class="text-[14px]">{{"postPage.ImageAboutHostel" | translate}}</span>
                         <nz-spin nzTip="Uploading..." [nzSpinning]="isSpinning">
-                            <div class="flex items-center gap-x-3 flex-wrap mt-10 col-span-2">
+                            <div class="flex items-center gap-x-3 flex-wrap  col-span-2">
                                 <div *ngIf="urlIMGArray.length < 1" class="size-[150px] ">
                                     <label for="IMG" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
                                         class="cursor-pointer w-full h-full border-[#D8D8D8] border-[1px] border-solid text-primary flex justify-center items-center uploadImg">
-                                        <span>+Tải ảnh </span>
+                                        <span>{{"postPage.uploadImg" | translate}}</span>
                                     </label>
                                 </div>
 

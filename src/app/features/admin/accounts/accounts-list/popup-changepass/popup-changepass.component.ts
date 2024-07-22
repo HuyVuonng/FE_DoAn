@@ -181,10 +181,21 @@ export class PopupChangepassComponent implements OnInit {
       newPassword: this.form.get('password')?.value,
       reNewPassword: this.form.get('rePass')?.value,
     };
-    this.authService.forgotPass(body).subscribe((data) => {
-      this.snackBar.success(this.updateSuccess);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       this.isConfirmLoading = false;
-      this.isVisiblePopUpOpen.emit(false);
-    });
+      return;
+    }
+    this.authService.forgotPass(body).subscribe(
+      (data) => {
+        this.snackBar.success(this.updateSuccess);
+        this.isConfirmLoading = false;
+        this.isVisiblePopUpOpen.emit(false);
+      },
+      (err) => {
+        this.snackBar.error(err.error);
+        this.isConfirmLoading = false;
+      },
+    );
   }
 }

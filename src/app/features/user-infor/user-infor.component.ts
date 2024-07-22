@@ -164,10 +164,10 @@ export class UserInforComponent implements OnInit {
   address: string;
   handelChangeWard(e: any) {
     this.address =
-      `${this.formAccountInfor.get('houseNumberStreet')?.value !== null ? this.formAccountInfor.get('houseNumberStreet')?.value + ', ' : ''}` +
+      `${this.formAccountInfor.get('houseNumberStreet')?.value ? `${this.formAccountInfor.get('houseNumberStreet')?.value}, ` : ''}` +
       e.value +
       ', ' +
-      `${this.formAccountInfor.get('district')?.value !== null ? this.formAccountInfor.get('district')?.value + ', ' : ''} ` +
+      `${this.formAccountInfor.get('district')?.value ? `${this.formAccountInfor.get('district')?.value}, ` : ''} ` +
       'thành phố Hà Nội';
     this.formAccountInfor.patchValue({
       addressDetail: this.address,
@@ -175,8 +175,8 @@ export class UserInforComponent implements OnInit {
   }
   handelChangeDistrict(e: any) {
     this.address =
-      `${this.formAccountInfor.get('houseNumberStreet')?.value !== null ? this.formAccountInfor.get('houseNumberStreet')?.value + ', ' : ''}` +
-      `${this.formAccountInfor.get('ward')?.value !== null ? this.formAccountInfor.get('ward')?.value + ', ' : ''}` +
+      `${this.formAccountInfor.get('houseNumberStreet')?.value ? `${this.formAccountInfor.get('houseNumberStreet')?.value},` : ''}` +
+      `${this.formAccountInfor.get('ward')?.value ? `${this.formAccountInfor.get('ward')?.value}, ` : ''}` +
       e.value +
       ', thành phố Hà Nội';
     this.formAccountInfor.patchValue({

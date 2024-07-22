@@ -31,6 +31,7 @@ import { logInModel } from '../../core/models/user';
 import { error } from 'console';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { PayAndSendMailService } from '../../core/api/PayAndSendMailServices';
+import { AccountStatus } from '../../core/enums/acountStatusEnum';
 
 @Component({
   selector: 'app-login',
@@ -64,6 +65,7 @@ export class LoginComponent implements OnInit {
   remember: boolean = false;
   emailOrPasswordIsIncorrect: string;
   isLoginLoading: boolean = false;
+  emailHasBeenBlock: string;
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -98,9 +100,15 @@ export class LoginComponent implements OnInit {
       .get('Toast.checkMailToActiveAccount')
       .subscribe((value) => (this.checkMailActiveAccount = value));
     this.translate
+      .get('Toast.accountHasBeenBlock')
+      .subscribe((value) => (this.emailHasBeenBlock = value));
+    this.translate
       .get('Toast.emailOrPasswordIsIncorrect')
       .subscribe((value) => (this.emailOrPasswordIsIncorrect = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.accountHasBeenBlock')
+        .subscribe((value) => (this.emailHasBeenBlock = value));
       this.translate
         .get('Toast.checkMailToActiveAccount')
         .subscribe((value) => (this.checkMailActiveAccount = value));
@@ -128,8 +136,12 @@ export class LoginComponent implements OnInit {
     }
     this.auth.login(body).subscribe(
       (data) => {
-        if (data.infor.statusAccount === 0) {
+        if (data.infor.statusAccount === AccountStatus.NoActive) {
           this.handelSendMailActiveAccount(data);
+          return;
+        } else if (data.infor.statusAccount === AccountStatus.Block) {
+          this._snackBar.error(this.emailHasBeenBlock);
+          this.isLoginLoading = false;
           return;
         }
         this.isLoginLoading = false;

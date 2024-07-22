@@ -102,7 +102,7 @@
     "changePasswordSuccess": "Đổi mật khẩu thành công",
     "reportSuccess": "Báo cáo thành công",
     "pleaseSelectResionReport": "Vui lòng chọn lý do báo cáo",
-    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng hoặc tài khoản của bạn đã bị chặn",
+    "emailOrPasswordIsIncorrect": "Email hoặc mật khẩu không đúng ",
     "oldPasswordIncorrect": "Mật khẩu cũ không đúng",
     "checkMailToActiveAccount": "Vui lòng kiểm tra email để kích hoạt tài khoản",
     "pending": "Chờ thanh toán",
@@ -114,7 +114,8 @@
     "areUSureChangeStatusAccount": "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản ",
     "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản ",
     "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
-    "confirmDeleteAccount": "Xác nhận xóa tài khoản"
+    "confirmDeleteAccount": "Xác nhận xóa tài khoản",
+    "accountHasBeenBlock": "Tài khoản của bạn đã bị khóa"
   },
   "item": {
     "yourTask": "Công việc của bạn",
@@ -163,7 +164,9 @@
     "phoneNumber": "Số điện thoại",
     "createPost": "Đăng tin và thanh toán 50K",
     "updatePost": "Cập nhật",
-    "updatePostAndPay": "Cập nhật và thanh toán"
+    "updatePostAndPay": "Cập nhật và thanh toán",
+    "uploadImg": "+Tải ảnh",
+    "ImageAboutHostel": "Ảnh về nhà trọ"
   },
   "homePage": {
     "mostViewed": "Được xem nhiều nhất",

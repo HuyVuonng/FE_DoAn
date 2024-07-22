@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
-  API_URL: 'https://localhost:7204/api',
+  API_URL: 'https://hostelbanking.somee.com/api',
+  // API_URL: 'https://localhost:7204/api',
+
   name: 'dev',
   firebaseConfig: {
     apiKey: 'AIzaSyCZet-Z0nObrxeOwDjgvWAMXpo3gQJ8zLI',
