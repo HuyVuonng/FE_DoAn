@@ -11,6 +11,7 @@ import {
   signInModel,
   updateUserInforModel,
 } from '../models/user';
+import { searchUser } from '../models/admin';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +53,11 @@ export class AuthService {
   }
   forgotPass(body: forgotPassModel): Observable<any> {
     return this.http.post(this.apiUrl + '/user/forgot-password', body);
+  }
+  getListUser(): Observable<any> {
+    return this.http.get(this.apiUrl + '/user/get-users');
+  }
+  searchUser(body: searchUser): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/search-user-by-admin', body);
   }
 }

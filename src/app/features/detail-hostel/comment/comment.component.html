@@ -1,9 +1,24 @@
-<div class="flex gap-3  mt-5">
+<div class="flex gap-3  mt-5 w-full">
     <img src="assets/img/avaDefault.png" alt="" class="size-[30px] rounded-[50%]">
-    <div>
-        <div class="flex gap-2 items-center"><span class="font-bold">{{content.accountName}}</span> <span
-                class="text-gray-500 text-[13px]">{{content.createDate | date
-                :'dd/MM/yyyy'}}</span>
+    <div class="w-full">
+        <div class="flex justify-between">
+            <div class="flex gap-2 items-center"><span class="font-bold">{{content.accountName}}</span> <span
+                    class="text-gray-500 text-[13px]">{{content.createDate | date
+                    :'dd/MM/yyyy'}}</span>
+            </div>
+            <i *ngIf="showOption" class="fa-solid fa-ellipsis-vertical cursor-pointer" nz-dropdown nzTrigger="click"
+                [nzDropdownMenu]="menu"></i>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <!-- <li nz-menu-item>{{'Button.edit' | translate}}</li> -->
+                    <li nz-menu-item nz-popconfirm nzPopconfirmTitle="{{'Toast.confirmDelete'|translate}} "
+                        (nzOnConfirm)="handleDeleteComment(content?.id)" nzPopconfirmPlacement=" right"
+                        nzCancelText="{{'Button.cancel'|translate}}" nzOkText="{{'Button.confirm'|translate}}">
+                        {{'Button.delete' | translate}}</li>
+                </ul>
+            </nz-dropdown-menu>
+
+
         </div>
         <div>
             <p #comment>{{content?.content}}</p>

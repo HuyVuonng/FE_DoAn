@@ -16,6 +16,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { ActivatedRoute } from '@angular/router';
 import { SnackbarService } from '../../../core/services/snackbar.service';
+import { ReportService } from '../../../core/api/report.service';
 @Component({
   selector: 'app-popup-report',
   standalone: true,
@@ -37,7 +38,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 })
 export class PopupReportComponent {
   isConfirmLoading = false;
-  radioValue: string = 'A';
+  radioValue: string = 'Địa chỉ không đúng';
   @Input() isVisiblePopUpReport: boolean = false;
   @Output() isVisiblePopUpOpen = new EventEmitter<any>();
 
@@ -53,6 +54,7 @@ export class PopupReportComponent {
     private translate: TranslateService,
     private snackBar: SnackbarService,
     private fb: FormBuilder,
+    private reportService: ReportService,
   ) {
     this.translate
       .get('Toast.reportSuccess')
@@ -74,6 +76,7 @@ export class PopupReportComponent {
     this.isVisiblePopUpOpen.emit(false);
   }
   handelReport() {
+    let valueReport;
     this.isConfirmLoading = true;
     if (!this.radioValue) {
       this.snackBar.error(this.selectResionReport);
@@ -87,15 +90,27 @@ export class PopupReportComponent {
         this.isConfirmLoading = false;
         return;
       }
-      console.log(this.rpForm.get('rpOther')?.value);
+      valueReport = this.rpForm.get('rpOther')?.value;
       this.isVisiblePopUpOpen.emit(false);
       this.isConfirmLoading = false;
-      this.snackBar.success(this.reportSuccess);
+      // this.snackBar.success(this.reportSuccess);
     } else {
       console.log(this.radioValue);
+      valueReport = this.radioValue;
       this.isConfirmLoading = false;
       this.isVisiblePopUpOpen.emit(false);
-      this.snackBar.success(this.reportSuccess);
+      // this.snackBar.success(this.reportSuccess);
     }
+    const bodyCreateReport = {
+      detail: valueReport,
+      reportStatus: 0,
+      postId: Number(this.Id),
+      accountId: Number(
+        JSON.parse(localStorage.getItem('user_infor') || '{}')?.id,
+      ),
+    };
+    this.reportService.createReport(bodyCreateReport).subscribe((data) => {
+      this.snackBar.success(this.reportSuccess);
+    });
   }
 }

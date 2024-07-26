@@ -65,4 +65,7 @@ export class PostService {
       this.apiUrl + `/pay-history/getLastPayOfPost?id=${id}`,
     );
   }
+  deleteComment(id: number): Observable<any> {
+    return this.http.delete(this.apiUrl + `/comment?id=${id}`);
+  }
 }

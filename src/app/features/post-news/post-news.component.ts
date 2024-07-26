@@ -321,7 +321,6 @@ export class PostNewsComponent implements OnInit {
     }, 60000);
   }
   handelPostAndPay() {
-    debugger;
     this.isSpinningPay = true;
 
     if (this.form.invalid) {
