@@ -235,8 +235,7 @@ export class ReportListComponent implements OnInit {
   handleChangeStatus(data: any, status: number) {
     const body = {
       reportStatus: status,
-      postId: data.postId,
-      accountId: data.accountId,
+      id: data.id,
     };
     this.reportService.updateReport(body).subscribe(
       (data) => {
