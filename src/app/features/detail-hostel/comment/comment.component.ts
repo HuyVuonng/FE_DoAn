@@ -3,7 +3,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -28,6 +30,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 export class CommentComponent implements AfterViewInit {
   @ViewChild('comment') comment: ElementRef;
   @Input() content: any;
+  @Output() getNewComment: EventEmitter<any> = new EventEmitter<boolean>();
   more: string;
   hide: string;
   deleteSuccess: string;
@@ -92,7 +95,12 @@ export class CommentComponent implements AfterViewInit {
         this.snackBar.success(this.deleteSuccess);
       },
       (err) => {
-        this.snackBar.error(err.error);
+        if (err.status === 200) {
+          this.snackBar.success(this.deleteSuccess);
+          this.getNewComment.emit(true);
+        } else {
+          this.snackBar.error(err.error);
+        }
       },
     );
   }

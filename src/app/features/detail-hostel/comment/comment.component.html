@@ -11,14 +11,13 @@
             <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu>
                     <!-- <li nz-menu-item>{{'Button.edit' | translate}}</li> -->
+
                     <li nz-menu-item nz-popconfirm nzPopconfirmTitle="{{'Toast.confirmDelete'|translate}} "
-                        (nzOnConfirm)="handleDeleteComment(content?.id)" nzPopconfirmPlacement=" right"
+                        (nzOnConfirm)="handleDeleteComment(content?.id)" nzPopconfirmPlacement="right"
                         nzCancelText="{{'Button.cancel'|translate}}" nzOkText="{{'Button.confirm'|translate}}">
                         {{'Button.delete' | translate}}</li>
                 </ul>
             </nz-dropdown-menu>
-
-
         </div>
         <div>
             <p #comment>{{content?.content}}</p>

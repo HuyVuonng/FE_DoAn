@@ -130,7 +130,8 @@ export class DetailHostelComponent implements OnInit, OnDestroy {
       (data) => {
         this.snackbar.success(this.commentSuccess);
         this.isLoaddingSendComment = false;
-        this.getDetailPost();
+        this.evaluation = '';
+        this.getComment();
       },
       (err) => {
         this.isLoaddingSendComment = false;
@@ -231,5 +232,11 @@ export class DetailHostelComponent implements OnInit, OnDestroy {
         (item: any) => item.id !== Number(this.idPost),
       );
     });
+  }
+  handleGetNewComment(e: any) {
+    console.log(e);
+    if (e) {
+      this.getComment();
+    }
   }
 }

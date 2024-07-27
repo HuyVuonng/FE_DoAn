@@ -58,7 +58,8 @@
                     [nzLoading]="isLoaddingSendComment" (click)="handelSendEvaluation()">{{"Button.send"|translate}}
                 </button>
             </div>
-            <app-comment *ngFor="let comment of dataComment" [content]="comment"></app-comment>
+            <app-comment (getNewComment)="handleGetNewComment($event)" *ngFor="let comment of dataComment"
+                [content]="comment"></app-comment>
 
             <!-- <app-comment [content]="'Nhớ hồi xưa, thời mà con người không bị chi phối bởi chiếc điện
             thoại,
