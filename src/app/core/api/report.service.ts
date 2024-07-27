@@ -21,6 +21,12 @@ export class ReportService {
   searchReport(body: any): Observable<any> {
     return this.http.post(this.apiUrl + `/report/search`, body);
   }
+  searchReportByPostTitle(body: any): Observable<any> {
+    return this.http.post(
+      this.apiUrl + `/report/search-report-by-post-title`,
+      body,
+    );
+  }
 
   updateReport(body: any): Observable<any> {
     return this.http.put(this.apiUrl + `/report/update`, body);

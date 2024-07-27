@@ -235,7 +235,8 @@
       "annunciator": "Người báo cáo",
       "contentReports": "Nội dung báo cáo",
       "reportAt": "Ngày báo cáo",
-      "deleteReport": "Xóa báo cáo"
+      "deleteReport": "Xóa báo cáo",
+      "pending": "Chờ xử lý"
     },
     "postsPage": {
       "postList": "Danh sách các bài đăng"

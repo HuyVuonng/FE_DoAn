@@ -12,7 +12,7 @@
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'AdminPage.reportpage.status' | translate}}</mat-label>
-            <mat-select formControlName="statusProcess">
+            <mat-select formControlName="reportStatus">
                 <mat-option *ngFor="let status of listStatus" [value]="status.value">
                     {{ status.label }}
                 </mat-option>

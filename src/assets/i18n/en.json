@@ -236,7 +236,8 @@
       "annunciator": "Annunciator",
       "contentReports": "Content Reports",
       "reportAt": "Report At",
-      "deleteReport": "Delete Report"
+      "deleteReport": "Delete Report",
+      "pending": "Pending"
     },
     "postsPage": {
       "postList": "Posts List"

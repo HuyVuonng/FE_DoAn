@@ -109,8 +109,13 @@ export class PopupReportComponent {
         JSON.parse(localStorage.getItem('user_infor') || '{}')?.id,
       ),
     };
-    this.reportService.createReport(bodyCreateReport).subscribe((data) => {
-      this.snackBar.success(this.reportSuccess);
-    });
+    this.reportService.createReport(bodyCreateReport).subscribe(
+      (data) => {
+        this.snackBar.success(this.reportSuccess);
+      },
+      (err) => {
+        this.snackBar.error(err.error);
+      },
+    );
   }
 }

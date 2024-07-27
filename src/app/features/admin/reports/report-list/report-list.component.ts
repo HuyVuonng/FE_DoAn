@@ -38,7 +38,7 @@ export class ReportListComponent implements OnInit {
   pageSize: number = 30;
   public form: FormGroup = this.fb.group({
     postTitle: [null],
-    statusProcess: [null],
+    reportStatus: [null],
   });
   noProcessTitle: string;
   processedTitle: string;
@@ -46,6 +46,7 @@ export class ReportListComponent implements OnInit {
   denyReportTitle: string;
   updateSuccess: string;
   deleteSuccess: string;
+  pending: string;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
@@ -62,6 +63,9 @@ export class ReportListComponent implements OnInit {
       .get('AdminPage.reportpage.noProcessor')
       .subscribe((value) => (this.noProcessTitle = value));
     this.translate
+      .get('AdminPage.reportpage.pending')
+      .subscribe((value) => (this.pending = value));
+    this.translate
       .get('AdminPage.reportpage.processed')
       .subscribe((value) => (this.processedTitle = value));
     this.translate
@@ -71,6 +75,9 @@ export class ReportListComponent implements OnInit {
       .get('AdminPage.reportpage.acceptReport')
       .subscribe((value) => (this.acceptReportTitle = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('AdminPage.reportpage.pending')
+        .subscribe((value) => (this.pending = value));
       this.translate
         .get('Toast.deleteSuccess')
         .subscribe((value) => (this.deleteSuccess = value));
@@ -91,12 +98,17 @@ export class ReportListComponent implements OnInit {
         .subscribe((value) => (this.acceptReportTitle = value));
       this.listStatus = [
         {
-          label: this.processedTitle,
-          value: 1,
+          label: this.pending,
+          value: 0,
         },
         {
-          label: this.noProcessTitle,
-          value: 0,
+          label: this.acceptReportTitle,
+          value: 1,
+        },
+
+        {
+          label: this.denyReportTitle,
+          value: 2,
         },
       ];
     });
@@ -104,12 +116,17 @@ export class ReportListComponent implements OnInit {
   ngOnInit(): void {
     this.listStatus = [
       {
-        label: this.processedTitle,
-        value: 1,
+        label: this.pending,
+        value: 0,
       },
       {
-        label: this.noProcessTitle,
-        value: 0,
+        label: this.acceptReportTitle,
+        value: 1,
+      },
+
+      {
+        label: this.denyReportTitle,
+        value: 2,
       },
     ];
     this.getReport();
@@ -167,16 +184,19 @@ export class ReportListComponent implements OnInit {
   }
   handelSearch() {
     const searchValue = { ...this.form.getRawValue() };
-
     Object.keys(searchValue).forEach((key) => {
-      if (
-        searchValue[key] === null ||
-        searchValue[key] === '' ||
-        searchValue[key] === 0
-      ) {
+      if (searchValue[key] === null || searchValue[key] === '') {
         delete searchValue[key];
       }
     });
+    this.isLoading = true;
+    this.body = {
+      ...this.body,
+      ...searchValue,
+      pageNumber: 1,
+      pageSize: 30,
+    };
+    this.getReport();
   }
   searchByEnter(e: any) {
     console.log('a');
@@ -198,7 +218,7 @@ export class ReportListComponent implements OnInit {
   };
   getReport() {
     this.isLoading = true;
-    this.reportService.searchReport(this.body).subscribe(
+    this.reportService.searchReportByPostTitle(this.body).subscribe(
       (data) => {
         this.data = data.data;
         this.pageIndex = data.pageNumber;
