@@ -79,7 +79,10 @@
                                 {{'AdminPage.reportpage.acceptReport'| translate}}</li>
                             <li (click)="handleChangeStatus(row,2)" nz-menu-item>{{'AdminPage.reportpage.denyReport'|
                                 translate}}</li>
-                            <li (click)="handleDelete(row.id)" nz-menu-item>{{'AdminPage.reportpage.deleteReport'|
+                            <li nz-menu-item nz-popconfirm nzPopconfirmTitle="{{'Toast.confirmDelete'|translate}} "
+                                (nzOnConfirm)="handleDelete(row.id)" nzPopconfirmPlacement="right"
+                                nzCancelText="{{'Button.cancel'|translate}}" nzOkText="{{'Button.confirm'|translate}}">
+                                {{'AdminPage.reportpage.deleteReport'|
                                 translate}}</li>
                         </ul>
                     </nz-dropdown-menu>

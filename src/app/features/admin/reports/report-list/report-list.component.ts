@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ReportService } from '../../../../core/api/report.service';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-report-list',
@@ -27,6 +28,7 @@ import { SnackbarService } from '../../../../core/services/snackbar.service';
     MatInputModule,
     NzDropDownModule,
     DatePipe,
+    NzPopconfirmModule,
   ],
   templateUrl: './report-list.component.html',
   styleUrl: './report-list.component.scss',
