@@ -234,7 +234,9 @@
       "acceptReport": "Accept Report",
       "denyReport": "Deny Report",
       "annunciator": "Annunciator",
-      "contentReports": "Content Reports"
+      "contentReports": "Content Reports",
+      "reportAt": "Report At",
+      "deleteReport": "Delete Report"
     },
     "postsPage": {
       "postList": "Posts List"

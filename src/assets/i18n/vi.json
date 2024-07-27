@@ -233,7 +233,9 @@
       "acceptReport": "Chấp nhận báo cáo",
       "denyReport": "Từ chối báo cáo",
       "annunciator": "Người báo cáo",
-      "contentReports": "Nội dung báo cáo"
+      "contentReports": "Nội dung báo cáo",
+      "reportAt": "Ngày báo cáo",
+      "deleteReport": "Xóa báo cáo"
     },
     "postsPage": {
       "postList": "Danh sách các bài đăng"

@@ -6,9 +6,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { ReportService } from '../../../../core/api/report.service';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-report-list',
@@ -24,6 +26,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     CommonModule,
     MatInputModule,
     NzDropDownModule,
+    DatePipe,
   ],
   templateUrl: './report-list.component.html',
   styleUrl: './report-list.component.scss',
@@ -31,18 +34,30 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 export class ReportListComponent implements OnInit {
   isSpinning: boolean = false;
   listStatus: any[] = [];
+  pageIndex: number = 1;
+  pageSize: number = 30;
   public form: FormGroup = this.fb.group({
-    title: [null],
-    status: [null],
+    postTitle: [null],
+    statusProcess: [null],
   });
   noProcessTitle: string;
   processedTitle: string;
   acceptReportTitle: string;
   denyReportTitle: string;
+  updateSuccess: string;
+  deleteSuccess: string;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
+    private reportService: ReportService,
+    private snackbar: SnackbarService,
   ) {
+    this.translate
+      .get('Toast.updateSuccess')
+      .subscribe((value) => (this.updateSuccess = value));
+    this.translate
+      .get('Toast.deleteSuccess')
+      .subscribe((value) => (this.deleteSuccess = value));
     this.translate
       .get('AdminPage.reportpage.noProcessor')
       .subscribe((value) => (this.noProcessTitle = value));
@@ -56,6 +71,12 @@ export class ReportListComponent implements OnInit {
       .get('AdminPage.reportpage.acceptReport')
       .subscribe((value) => (this.acceptReportTitle = value));
     this.translate.onLangChange.subscribe((e) => {
+      this.translate
+        .get('Toast.deleteSuccess')
+        .subscribe((value) => (this.deleteSuccess = value));
+      this.translate
+        .get('Toast.updateSuccess')
+        .subscribe((value) => (this.updateSuccess = value));
       this.translate
         .get('AdminPage.reportpage.noProcessor')
         .subscribe((value) => (this.noProcessTitle = value));
@@ -91,6 +112,7 @@ export class ReportListComponent implements OnInit {
         value: 0,
       },
     ];
+    this.getReport();
   }
 
   public data: any = [
@@ -123,10 +145,25 @@ export class ReportListComponent implements OnInit {
   public isLoading: boolean = false;
   public totalCount: number = 90;
 
-  changePage($event: number) {}
-  changePageSize($event: number) {}
+  changePage($event: number) {
+    this.pageIndex = $event;
+    this.body.pageNumber = this.pageIndex;
+    this.getReport();
+  }
+  changePageSize($event: number) {
+    this.pageSize = $event;
+    this.body.pageSize = this.pageSize;
+    this.getReport();
+  }
   resetSearch() {
     this.form.reset();
+    this.pageIndex = 1;
+    this.pageSize = 30;
+    this.body = {
+      pageNumber: this.pageIndex,
+      pageSize: this.pageSize,
+    };
+    this.getReport();
   }
   handelSearch() {
     const searchValue = { ...this.form.getRawValue() };
@@ -151,6 +188,55 @@ export class ReportListComponent implements OnInit {
     }
   }
   handelViewPostReport(id: string) {
+    console.log(id);
+
     window.open(`detail/${id}`, '_blank');
+  }
+  body: any = {
+    pageNumber: this.pageIndex,
+    pageSize: this.pageSize,
+  };
+  getReport() {
+    this.isLoading = true;
+    this.reportService.searchReport(this.body).subscribe(
+      (data) => {
+        this.data = data.data;
+        this.pageIndex = data.pageNumber;
+        this.pageSize = data.pageSize;
+        this.totalCount = data.totalItem;
+        this.isLoading = false;
+      },
+      () => {
+        this.snackbar.error('Error');
+        this.isLoading = false;
+      },
+    );
+  }
+  handleChangeStatus(data: any, status: number) {
+    const body = {
+      reportStatus: status,
+      postId: data.postId,
+      accountId: data.accountId,
+    };
+    this.reportService.updateReport(body).subscribe(
+      (data) => {
+        this.snackbar.success(this.updateSuccess);
+        this.getReport();
+      },
+      () => {
+        this.snackbar.error('Error');
+      },
+    );
+  }
+  handleDelete(id: number) {
+    this.reportService.deleteReport(id).subscribe(
+      (data) => {
+        this.snackbar.success(this.deleteSuccess);
+        this.getReport();
+      },
+      () => {
+        this.snackbar.error('Error');
+      },
+    );
   }
 }

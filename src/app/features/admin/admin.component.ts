@@ -33,7 +33,7 @@ export class AdminComponent {
   language: string = 'vi';
   isReverseArrow = false;
   showCollapsedIcon: boolean = false;
-  width = 280;
+  width = 220;
   constructor(
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,

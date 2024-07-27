@@ -5,14 +5,14 @@
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'AdminPage.reportpage.postReport' | translate}}</mat-label>
-            <input formControlName="title" matInput (keypress)="searchByEnter($event)" />
+            <input formControlName="postTitle" matInput (keypress)="searchByEnter($event)" />
         </mat-form-field>
 
 
 
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'AdminPage.reportpage.status' | translate}}</mat-label>
-            <mat-select formControlName="status">
+            <mat-select formControlName="statusProcess">
                 <mat-option *ngFor="let status of listStatus" [value]="status.value">
                     {{ status.label }}
                 </mat-option>
@@ -36,8 +36,8 @@
         <p class="text-primary text-xl font-medium ">{{"AdminPage.reportpage.listReports"|translate}}</p>
     </div>
 
-    <app-share-table [pageIndex]="1" [loaded]="!isLoading" [data]="data" [total]="totalCount" [pageSize]="30"
-        [maxHeight]="'calc(100vh - 320px)'" (pageIndexChange)="changePage($event)"
+    <app-share-table [pageIndex]="pageIndex" [loaded]="!isLoading" [data]="data" [total]="totalCount"
+        [pageSize]="pageSize" [maxHeight]="'calc(100vh - 320px)'" (pageIndexChange)="changePage($event)"
         (pageSizeChange)="changePageSize($event)">
         <ng-template #headers>
             <th scope=" col" class="font-semibold text-center w-[50px]">{{'AdminPage.no'| translate}}</th>
@@ -45,35 +45,42 @@
 
             <th scope="col" class="max-w-[315px]">{{'AdminPage.reportpage.annunciator'| translate}}</th>
             <th scope="col" class="max-w-[400px]">{{'AdminPage.reportpage.contentReports'| translate}}</th>
+            <th scope="col" class="max-w-[300]">{{'AdminPage.reportpage.reportAt'| translate}}</th>
             <th scope="col" class="max-w-[150]">{{'AdminPage.reportpage.status'| translate}}</th>
             <th scope="col" class="max-w-[150]">{{'AdminPage.reportpage.statusAccept'| translate}}</th>
             <th scope="col" class="w-[50px] !text-center">{{'AdminPage.accountsPage.action'| translate}}</th>
         </ng-template>
         <ng-template #rows let-row let-index="index">
-            <td class="max-w-[50px]  min-h-12text-balance ">{{ index+1 }}</td>
+            <td class="max-w-[50px]  min-h-12 text-balance ">{{ index+1 }}</td>
             <td class=" max-w-[300px] min-h-12 truncate cursor-pointer hover:underline text-blue-600"
-                (click)="handelViewPostReport(row.id)">{{ row.postReport }}
+                (click)="handelViewPostReport(row.postId)">{{ row.postTitle }}
             </td>
-            <td class="max-w-[315px]  min-h-12 ">{{ row.annunciator}}</td>
-            <td class="max-w-[400px]  min-h-12  line-clamp-3 leading-7 hover:line-clamp-none">{{ row.contentReports}}
+            <td class="max-w-[315px]  min-h-12 ">{{ row.accountName}}</td>
+            <td class="max-w-[400px]  min-h-12  line-clamp-3 leading-[3rem] hover:line-clamp-none">{{ row.detail}}
             </td>
-            <td class="max-w-[150px]  min-h-12!text-center" [class.text-green-500]="row.status"
-                [class.text-gray-500]="!row.status">
-                {{row.status?processedTitle:noProcessTitle}}
+            <td class="max-w-[300]">{{row.createDate|date:"dd/MM/yyyy"}}</td>
+
+            <td class="max-w-[150px]  min-h-12!text-center" [class.text-green-500]="row.reportStatus"
+                [class.text-gray-500]="!row.reportStatus">
+                {{row.reportStatus?processedTitle:noProcessTitle}}
             </td>
 
-            <td class="max-w-[150px] min-h-12" [class.text-green-500]="row.status===1"
-                [class.text-gray-500]="row.status===2">
-                {{row.status===1?acceptReportTitle: row.status===2?denyReportTitle:""}}
+            <td class="max-w-[150px] min-h-12" [class.text-green-500]="row.reportStatus===1"
+                [class.text-gray-500]="row.reportStatus===2">
+                {{row.reportStatus===1?acceptReportTitle: row.reportStatus===2?denyReportTitle:""}}
             </td>
             <td>
-                <div class="flex items-center  min-h-12justify-center ">
+                <div class="flex items-center  min-h-12 justify-center ">
                     <i class="fa-solid fa-ellipsis cursor-pointer" nz-dropdown nzTrigger="click"
                         [nzDropdownMenu]="menu"></i>
                     <nz-dropdown-menu #menu="nzDropdownMenu">
                         <ul nz-menu>
-                            <li nz-menu-item>{{'AdminPage.reportpage.acceptReport'| translate}}</li>
-                            <li nz-menu-item>{{'AdminPage.reportpage.denyReport'| translate}}</li>
+                            <li (click)="handleChangeStatus(row,1)" nz-menu-item>
+                                {{'AdminPage.reportpage.acceptReport'| translate}}</li>
+                            <li (click)="handleChangeStatus(row,2)" nz-menu-item>{{'AdminPage.reportpage.denyReport'|
+                                translate}}</li>
+                            <li (click)="handleDelete(row.id)" nz-menu-item>{{'AdminPage.reportpage.deleteReport'|
+                                translate}}</li>
                         </ul>
                     </nz-dropdown-menu>
                 </div>
