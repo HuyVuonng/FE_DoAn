@@ -527,13 +527,12 @@ export class PostNewsComponent implements OnInit {
       } else if (
         data &&
         data?.length &&
-        moment(data.payDate).add(5, 'days') < moment()
+        moment(data[0].payDate).add(5, 'days') < moment()
       ) {
         this.statusPay = statusPay.OutOFDate;
       } else {
         this.statusPay = statusPay.DontNeedPay;
       }
-      console.log(this.statusPay);
     });
   }
   notSupportDragDrop: string;
