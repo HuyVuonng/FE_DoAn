@@ -192,6 +192,8 @@ export class DetailHostelComponent implements OnInit, OnDestroy {
       this.dataComment = data.data;
       if (this.idAccount) {
         this.getFavoriteByIDPost();
+      } else {
+        this.getPostSugess();
       }
     });
   }
