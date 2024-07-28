@@ -1,5 +1,5 @@
 <div [routerLink]="['/detail', data?.id]"
-    class="flex gap-2 cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:translate-y-[-8px] transition-all">
+    class="flex gap-2 cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] px-1 items-center hover:translate-y-[-8px] transition-all">
     <img loading="lazy" class="size-[100px] object-cover" [src]="data?.images[0]" alt="" (error)="onerror($event)" />
     <div class="px-3 py-1 pb-4 flex flex-col gap-2">
         <p class="font-semibold text-base line-clamp-2">{{data?.title}}</p>
