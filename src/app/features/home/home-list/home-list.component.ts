@@ -44,8 +44,8 @@ export class HomeListComponent implements OnInit {
         },
       },
     };
-    Object.assign(this.swiper.nativeElement, swiper);
-    this.swiper.nativeElement.initialize();
+    Object.assign(this.swiper?.nativeElement, swiper);
+    this.swiper?.nativeElement.initialize();
   }
   constructor(private PostService: PostService) {}
   ngOnInit(): void {

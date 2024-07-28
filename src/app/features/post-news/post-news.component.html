@@ -122,7 +122,7 @@
                         <span class="text-[14px]">{{"postPage.ImageAboutHostel" | translate}}</span>
                         <nz-spin nzTip="Uploading..." [nzSpinning]="isSpinning">
                             <div class="flex items-center gap-x-3 flex-wrap  col-span-2">
-                                <div *ngIf="urlIMGArray.length < 1" class="size-[150px] ">
+                                <div *ngIf="urlIMGArray?.length < 1" class="size-[150px] ">
                                     <label for="IMG" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
                                         class="cursor-pointer w-full h-full border-[#D8D8D8] border-[1px] border-solid text-primary flex justify-center items-center uploadImg">
                                         <span>{{"postPage.uploadImg" | translate}}</span>
@@ -130,8 +130,8 @@
                                 </div>
 
 
-                                <div class="flex items-center gap-3 flex-wrap" [class.w-full]="urlIMGArray.length===6"
-                                    [class.justify-center]="urlIMGArray.length===6">
+                                <div class="flex items-center gap-3 flex-wrap" [class.w-full]="urlIMGArray?.length===6"
+                                    [class.justify-center]="urlIMGArray?.length===6">
                                     <div *ngFor="let imgUrl of urlIMGArray;let indexOfelement=index;">
                                         <div class="size-[150px] relative m-auto">
                                             <i class="fa-regular fa-circle-xmark absolute top-0 right-0 text-red-600 cursor-pointer removeImg"
@@ -144,7 +144,7 @@
                                 <input type="file" class="hidden" name="IMG" id="IMG" (change)="onSelectIMG($event)"
                                     accept="image/png, image/jpeg" />
 
-                                <label *ngIf="urlIMGArray.length > 0 && urlIMGArray.length < 6 " for="IMG"
+                                <label *ngIf="urlIMGArray?.length > 0 && urlIMGArray?.length < 6 " for="IMG"
                                     class="cursor-pointer items-center justify-center flex w-[25px] h-[25px] text-primary rounded-[50%] border-solid border-primary border-2 uploadImg">
                                     <i class="fa-solid fa-plus"></i>
                                 </label>

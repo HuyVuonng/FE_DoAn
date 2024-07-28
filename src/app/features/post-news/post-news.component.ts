@@ -380,7 +380,7 @@ export class PostNewsComponent implements OnInit {
   }
   countTitle: number = 0;
   handelPressTitle(e: any) {
-    this.countTitle = e.target.value.length;
+    this.countTitle = e.target.value?.length;
   }
 
   address: string;
@@ -522,11 +522,11 @@ export class PostNewsComponent implements OnInit {
   statusPay: any;
   getLastPayOfPost() {
     this.postService.getLastPayOfPost(Number(this.postID)).subscribe((data) => {
-      if (data && !data.length) {
+      if (data && !data?.length) {
         this.statusPay = statusPay.NotpayYet;
       } else if (
         data &&
-        data.length &&
+        data?.length &&
         moment(data.payDate).add(5, 'days') < moment()
       ) {
         this.statusPay = statusPay.OutOFDate;

@@ -175,10 +175,16 @@ export class DetailHostelComponent implements OnInit, OnDestroy {
   }
 
   deletePost() {
-    this.PostService.deletePost(this.idPost).subscribe((data) => {
-      this.snackbar.success(this.deleteSuccess);
-      this._location.back();
-    });
+    this.PostService.deletePost(this.idPost).subscribe(
+      (data) => {
+        this.snackbar.success(this.deleteSuccess);
+        this._location.back();
+      },
+      (err) => {
+        this.snackbar.success(this.deleteSuccess);
+        this._location.back();
+      },
+    );
   }
   dataComment: any;
   getComment() {
