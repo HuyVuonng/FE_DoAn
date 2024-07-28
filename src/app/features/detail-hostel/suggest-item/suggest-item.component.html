@@ -1,14 +1,15 @@
 <div [routerLink]="['/detail', data?.id]"
-    class="flex gap-2 cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] px-1 items-center hover:translate-y-[-8px] transition-all">
+    class="flex gap-2 cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] px-1 mt-2 items-center hover:translate-y-[-8px] transition-all">
     <img loading="lazy" class="size-[100px] object-cover" [src]="data?.images[0]" alt="" (error)="onerror($event)" />
-    <div class="px-3 py-1 pb-4 flex flex-col gap-2">
-        <p class="font-semibold text-base line-clamp-2">{{data?.title}}</p>
+    <div class=" py-1 pb-4 flex flex-col gap-2">
+        <p class="font-semibold text-base line-clamp-2 w-[calc(100%-20%)]">{{data?.title}}</p>
         <div class="flex gap-5">
             <p class="text-green-600"><i class="fa-solid fa-money-bill mr-2"></i>{{data?.price.toLocaleString()}}đ/tháng
             </p>
             <p class="text-yellow-500"><i class="fa-solid fa-expand mr-2"></i>{{data?.acreage}}m<sup>2</sup></p>
         </div>
-        <p class="text-gray-400  max-w-full w-full truncate"><i class="fa-solid fa-location-dot mr-2"></i>
+        <p class="text-gray-400  max-w-[calc(100%-20%)] w-[calc(100%-20%)] truncate"><i
+                class="fa-solid fa-location-dot mr-2"></i>
             <span>{{data?.ward}},{{data?.district}}</span>
         </p>
     </div>
