@@ -46,6 +46,7 @@ import {
   tabTaskIcon,
   taskIcon,
 } from './shared/components/iconAntd/iconAddOnAntd.component';
+import { Meta } from '@angular/platform-browser';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -91,6 +92,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private iconService: NzIconService,
     private cdr: ChangeDetectorRef,
+    private meta: Meta,
   ) {
     this.translate.setDefaultLang('vi');
     this.translate.use(localStorage.getItem('lang') || 'vi');
@@ -108,6 +110,9 @@ export class AppComponent implements OnInit {
       this.translate.use('en');
       this.language = 'en';
     }
+    this.meta.addTags([
+      { name: 'Ngân hàng nhà trọ', content: 'Ngân hàng nhà trọ' },
+    ]);
   }
   ngOnInit(): void {
     // this.i18n.setLocale(vi_VN);
