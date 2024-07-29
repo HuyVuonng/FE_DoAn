@@ -61,12 +61,12 @@
             <td class="max-w-[300]">{{row.createDate|date:"dd/MM/yyyy"}}</td>
 
             <td class="max-w-[150px]  min-h-12!text-center" [class.text-green-500]="row.reportStatus"
-                [class.text-gray-500]="!row.reportStatus">
+                [class.text-yellow-500]="!row.reportStatus">
                 {{row.reportStatus?processedTitle:noProcessTitle}}
             </td>
 
             <td class="max-w-[150px] min-h-12" [class.text-green-500]="row.reportStatus===1"
-                [class.text-gray-500]="row.reportStatus===2">
+                [class.text-red-500]="row.reportStatus===2">
                 {{row.reportStatus===1?acceptReportTitle: row.reportStatus===2?denyReportTitle:""}}
             </td>
             <td>
