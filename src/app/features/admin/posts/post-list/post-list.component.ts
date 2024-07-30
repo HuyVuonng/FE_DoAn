@@ -307,8 +307,8 @@ export class PostListComponent implements OnInit {
     this.body = {
       pageNumber: 1,
       pageSize: this.pageSize,
-      title: this.form.get('title')?.value,
-      ownerHouse: this.form.get('owner')?.value,
+      title: this.form.get('title')?.value?.trim(),
+      ownerHouse: this.form.get('owner')?.value?.trim(),
       hostelTypeId: this.form.get('type')?.value,
       AcreageRange: this.form.get('acreage')?.value,
       PriceRange: this.form.get('priceRange')?.value,

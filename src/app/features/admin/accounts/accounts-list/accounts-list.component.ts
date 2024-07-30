@@ -17,6 +17,7 @@ import { updateUserInforModel } from '../../../../core/models/user';
 import { AccountStatus } from '../../../../core/enums/acountStatusEnum';
 import { searchUser } from '../../../../core/models/admin';
 import { PopupChangepassComponent } from './popup-changepass/popup-changepass.component';
+
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
@@ -183,6 +184,8 @@ export class AccountsListComponent implements OnInit {
         this.bodySearchUser[key] === ''
       ) {
         delete this.bodySearchUser[key];
+      } else {
+        this.bodySearchUser[key] = this.bodySearchUser[key]?.trim();
       }
     });
     this.getListUsers();

@@ -189,6 +189,8 @@ export class ReportListComponent implements OnInit {
     Object.keys(searchValue).forEach((key) => {
       if (searchValue[key] === null || searchValue[key] === '') {
         delete searchValue[key];
+      } else {
+        searchValue[key] = searchValue[key]?.trim();
       }
     });
     this.isLoading = true;

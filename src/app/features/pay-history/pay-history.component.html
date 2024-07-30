@@ -1,7 +1,6 @@
 <div class="p-3">
 
-    <form [formGroup]="form" class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[1fr_300px_200px]"
-        (keydown.enter)="$event.preventDefault()">
+    <form [formGroup]="form" class="grid grid-cols-1 mt-3 gap-3 lg:grid-cols-[1fr_300px_200px]">
         <mat-form-field class="custom-input col-span-1" appearance="outline">
             <mat-label class="bg-white">{{'payHistoryPage.postTitle' | translate}}</mat-label>
             <input formControlName="postTitle" matInput (keypress)="searchByEnter($event)" />

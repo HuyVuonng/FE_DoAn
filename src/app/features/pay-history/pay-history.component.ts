@@ -128,7 +128,7 @@ export class PayHistoryComponent implements OnInit {
       this.body.type = this.form.get('type')?.value;
     }
     if (this.form.get('postTitle')?.value) {
-      this.body.postTitle = this.form.get('postTitle')?.value;
+      this.body.postTitle = this.form.get('postTitle')?.value.trim();
     }
     this.body.pageNumber = this.pageIndex;
     this.body.pageSize = this.pageSize;

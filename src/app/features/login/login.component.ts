@@ -154,6 +154,9 @@ export class LoginComponent implements OnInit {
           this.isLoginLoading = false;
           localStorage.setItem('access_token', '123');
           this.router.navigate(['/']);
+        } else if (error.status === 400 && error.error.includes('đã bị khóa')) {
+          this._snackBar.error(this.emailHasBeenBlock);
+          this.isLoginLoading = false;
         } else {
           this._snackBar.error(this.emailOrPasswordIsIncorrect);
           this.isLoginLoading = false;
