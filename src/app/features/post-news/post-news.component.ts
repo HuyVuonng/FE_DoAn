@@ -153,12 +153,12 @@ export class PostNewsComponent implements OnInit {
     this.getListValue();
   }
   config: CurrencyMaskConfig = {
-    align: 'left',
+    align: 'right',
     allowNegative: false,
     decimal: ',',
     precision: 0,
-    prefix: 'VND ',
-    suffix: '',
+    prefix: '',
+    suffix: ' VND',
     thousands: '.',
   };
   configAcreage: CurrencyMaskConfig = {

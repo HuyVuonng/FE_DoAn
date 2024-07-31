@@ -149,7 +149,8 @@
     "active": "Active",
     "deactivate": "Deactivate",
     "type": "Type",
-    "houseNumberStreet": "House number, street"
+    "houseNumberStreet": "House number, street",
+    "apply": "Apply"
   },
   "sloganText": "Rooms for Rent, Cheap Rooms for Rent, Owner",
   "postPage": {
@@ -241,6 +242,14 @@
     },
     "postsPage": {
       "postList": "Posts List"
+    },
+    "configPage": {
+      "config": "Config",
+      "newPostFee": "New Post Fee",
+      "updatePostFee": "Update Post Fee",
+      "quantityPostedForDiscount": "Quantity posted for discount",
+      "percentageDiscountAfterEvery": "Percentage discount after every ",
+      "post": "post"
     }
   },
   "payHistoryPage": {

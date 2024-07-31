@@ -39,6 +39,14 @@ const routes: Routes = [
         // title: 'Unit',
       },
       {
+        path: 'config',
+        loadComponent: () =>
+          import('../../features/admin/config/config.component').then(
+            (m) => m.ConfigComponent,
+          ),
+        // title: 'Unit',
+      },
+      {
         path: '**',
         redirectTo: '/',
       },

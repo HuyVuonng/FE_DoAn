@@ -1,0 +1,46 @@
+<nz-spin [nzSpinning]="isLoading">
+    <div class="p-3 ">
+        <form [formGroup]="form" class="flex-1 grid grid-cols-1 mt-3 gap-3 lg:grid-cols-2">
+
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+                <mat-label class="bg-white">{{'AdminPage.configPage.newPostFee' | translate}}</mat-label>
+                <input currencyMask [options]="config" formControlName="newPostFee" matInput />
+                <mat-error>{{'postPage.required'| translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+                <mat-label class="bg-white">{{'AdminPage.configPage.updatePostFee' | translate}}</mat-label>
+                <input currencyMask [options]="config" formControlName="updatePostFee" matInput />
+                <mat-error>{{'postPage.required'| translate}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+                <mat-label class="bg-white">{{'AdminPage.configPage.quantityPostedForDiscount' | translate}}</mat-label>
+                <input currencyMask [options]="configNumberOfPost" formControlName="quantityPostedForDiscount"
+                    matInput />
+                <mat-error>{{'postPage.required'| translate}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="custom-input col-span-1" appearance="outline">
+                <mat-label class="bg-white">{{'AdminPage.configPage.percentageDiscountAfterEvery' | translate}}
+                    {{form.get('quantityPostedForDiscount')?.value}} {{'AdminPage.configPage.post' |
+                    translate}}</mat-label>
+                <input currencyMask [options]="configPercent" formControlName="percentageDiscount" matInput />
+                <mat-error>{{'postPage.required'| translate}}</mat-error>
+            </mat-form-field>
+
+
+            <div class="flex gap-2 col-span-2 justify-self-end ">
+                <div class="bg-primary text-white rounded-xl w-[80px] cursor-pointer h-fit flex lg:flex-col  gap-1 items-center py-2 justify-center px-2 hover:opacity-70"
+                    (click)="handelApply()">
+                    <span class="text-center"> {{'labelInput.apply'|translate}}</span>
+                </div>
+                <div class="bg-red-500 text-white rounded-xl cursor-pointer h-fit flex lg:flex-col gap-1 items-center py-2 w-[80px] justify-center px-2 hover:opacity-70"
+                    (click)="resetData()">
+                    <span class="text-center"> {{'labelInput.reset'|translate}}</span>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</nz-spin>

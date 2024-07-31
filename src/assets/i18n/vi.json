@@ -148,7 +148,8 @@
     "active": "Hoạt động",
     "deactivate": "Ngừng hoạt động",
     "type": "Loại",
-    "houseNumberStreet": "Đường, số nhà"
+    "houseNumberStreet": "Đường, số nhà",
+    "apply": "Áp dụng"
   },
   "sloganText": "Cho Thuê Phòng Trọ, Thuê Nhà Trọ Giá Rẻ, Chính Chủ",
   "postPage": {
@@ -240,6 +241,14 @@
     },
     "postsPage": {
       "postList": "Danh sách các bài đăng"
+    },
+    "configPage": {
+      "config": "Cấu hình",
+      "newPostFee": "Phí đăng mới",
+      "updatePostFee": "Phí cập nhật",
+      "quantityPostedForDiscount": "Số lượng bài đã đăng để giảm giá",
+      "percentageDiscountAfterEvery": "Phần trăm giảm giá sau mỗi ",
+      "post": "bài đăng"
     }
   },
   "payHistoryPage": {
