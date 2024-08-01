@@ -164,7 +164,7 @@
     "description": "Description",
     "owner": "Owner",
     "phoneNumber": "Phone Number",
-    "createPost": "Create Post And Pay With 2$",
+    "createPost": "Create Post And Pay",
     "updatePost": "Update Post",
     "updatePostAndPay": "Update Post And Pay",
     "uploadImg": "+Upload Image",
