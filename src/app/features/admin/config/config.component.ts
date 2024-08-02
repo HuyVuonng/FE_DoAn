@@ -12,6 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { DiscountService } from '../../../core/api/discount.service';
 
 @Component({
   selector: 'app-config',
@@ -37,6 +38,7 @@ export class ConfigComponent {
     private fb: FormBuilder,
     private translate: TranslateService,
     private snackbar: SnackbarService,
+    private discountService: DiscountService,
   ) {
     this.translate
       .get('AdminPage.configPage.post')
@@ -54,15 +56,17 @@ export class ConfigComponent {
         .subscribe((value) => (this.updateSuccessMessage = value));
       this.configNumberOfPost.suffix = ` ${this.post}`;
     });
+
+    this.getDiscountConfig();
   }
   public form: FormGroup = this.fb.group({
-    percentageDiscount: [5, Validators.required],
-    quantityPostedForDiscount: [10, Validators.required],
-    updatePostFee: [25000, Validators.required],
-    newPostFee: [50000, Validators.required],
+    percentSale: [5, Validators.required],
+    countPostToSale: [10, Validators.required],
+    updatedPrice: [25000, Validators.required],
+    createdPrice: [50000, Validators.required],
   });
   config: CurrencyMaskConfig = {
-    align: 'right',
+    align: 'left',
     allowNegative: false,
     decimal: ',',
     precision: 0,
@@ -71,7 +75,7 @@ export class ConfigComponent {
     thousands: '.',
   };
   configPercent: CurrencyMaskConfig = {
-    align: 'right',
+    align: 'left',
     allowNegative: false,
     decimal: ',',
     precision: 0,
@@ -80,7 +84,7 @@ export class ConfigComponent {
     thousands: '.',
   };
   configNumberOfPost: CurrencyMaskConfig = {
-    align: 'right',
+    align: 'left',
     allowNegative: false,
     decimal: ',',
     precision: 0,
@@ -88,7 +92,12 @@ export class ConfigComponent {
     suffix: '',
     thousands: '.',
   };
-  resetData() {}
+  dataDefault: any;
+  resetData() {
+    console.log(this.dataDefault);
+
+    this.form.patchValue(this.dataDefault);
+  }
   handelApply() {
     this.isLoading = true;
     if (this.form.invalid) {
@@ -96,5 +105,18 @@ export class ConfigComponent {
       this.isLoading = false;
       return;
     }
+    this.discountService
+      .setConfigDiscount(this.form.getRawValue())
+      .subscribe((data) => {
+        this.snackbar.success(this.updateSuccessMessage);
+        this.isLoading = false;
+        this.dataDefault = data;
+      });
+  }
+  getDiscountConfig() {
+    this.discountService.getDiscountConfig().subscribe((data) => {
+      this.form.patchValue(data);
+      this.dataDefault = data;
+    });
   }
 }

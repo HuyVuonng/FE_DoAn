@@ -312,7 +312,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.postService.getListType().subscribe((data) => {
       this.listType.push(...data.data);
     });
-
     this.type?.subscribe((param) => {
       if (param) {
         this.form.patchValue({ type: Number(param) });

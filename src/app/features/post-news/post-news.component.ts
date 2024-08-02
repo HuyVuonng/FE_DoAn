@@ -93,6 +93,13 @@ export class PostNewsComponent implements OnInit {
   labelOver100M2: string;
   activeRoute = inject(ActivatedRoute);
   postID: string = this.activeRoute.snapshot.params['id'];
+  fee: any = JSON.parse(
+    sessionStorage.getItem('fee') ||
+      `{
+  "createdPrice": 50000,
+  "updatedPrice": 25000
+}`,
+  );
   constructor(
     private addressService: AddressService,
     private translate: TranslateService,
@@ -361,7 +368,7 @@ export class PostNewsComponent implements OnInit {
       (data) => {
         this.snackBar.success(this.createSuccessMessage);
         sessionStorage.setItem('dataPost', JSON.stringify(data));
-        this.PayAndSendMailService.pay().subscribe(
+        this.PayAndSendMailService.pay(this.fee.createdPrice).subscribe(
           (res) => {
             this.isSpinningPay = false;
             window.location.href = res.link;
@@ -485,7 +492,7 @@ export class PostNewsComponent implements OnInit {
     this.postService.updatePost(bodyUpdate).subscribe((data) => {
       switch (this.statusPay) {
         case 0:
-          this.PayAndSendMailService.pay().subscribe(
+          this.PayAndSendMailService.pay(this.fee.createdPrice).subscribe(
             (res) => {
               this.isSpinningPay = false;
               window.location.href = res.link;
@@ -497,7 +504,7 @@ export class PostNewsComponent implements OnInit {
           );
           break;
         case 1:
-          this.PayAndSendMailService.pay(25000).subscribe(
+          this.PayAndSendMailService.pay(this.fee.updatedPrice).subscribe(
             (res) => {
               this.isSpinningPay = false;
               window.location.href = res.link;

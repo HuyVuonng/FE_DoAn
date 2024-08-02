@@ -16,6 +16,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 export class PaymentStatusComponent implements OnInit {
   status: any = null;
   dataPost: any = JSON.parse(sessionStorage.getItem('dataPost') || '{}');
+  fee: any = JSON.parse(sessionStorage.getItem('fee') || '{}');
   userInfor: any = JSON.parse(localStorage.getItem('user_infor') || '{}');
   isLoading: boolean = false;
   constructor(
@@ -27,7 +28,7 @@ export class PaymentStatusComponent implements OnInit {
     const sub = this.route.queryParams.subscribe((params) => {
       this.body.payCode = params['vnp_BankTranNo'];
       this.body.price = +params['vnp_Amount'] / 100;
-      if (this.body.price === 50000) {
+      if (this.body.price === this.fee.createdPrice) {
         this.body.type = 0;
       } else {
         this.body.type = 1;

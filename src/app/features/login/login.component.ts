@@ -147,6 +147,7 @@ export class LoginComponent implements OnInit {
         this.isLoginLoading = false;
         localStorage.setItem('access_token', data.token);
         localStorage.setItem('user_infor', JSON.stringify(data.infor));
+        sessionStorage.setItem('fee', JSON.stringify(data.priceForPayment));
         this.router.navigate(['/']);
       },
       (error) => {
