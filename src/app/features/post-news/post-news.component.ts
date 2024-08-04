@@ -94,7 +94,7 @@ export class PostNewsComponent implements OnInit {
   activeRoute = inject(ActivatedRoute);
   postID: string = this.activeRoute.snapshot.params['id'];
   fee: any = JSON.parse(
-    sessionStorage.getItem('fee') ||
+    localStorage.getItem('fee') ||
       `{
   "createdPrice": 50000,
   "updatedPrice": 25000

@@ -16,7 +16,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 export class PaymentStatusComponent implements OnInit {
   status: any = null;
   dataPost: any = JSON.parse(sessionStorage.getItem('dataPost') || '{}');
-  fee: any = JSON.parse(sessionStorage.getItem('fee') || '{}');
+  fee: any = JSON.parse(localStorage.getItem('fee') || '{}');
   userInfor: any = JSON.parse(localStorage.getItem('user_infor') || '{}');
   isLoading: boolean = false;
   constructor(
