@@ -115,7 +115,9 @@
     "commentFalse": "Comment False",
     "notSupportDragDrop": "The website does not support drag and drop",
     "oldPasswordSameNewPassword": "The new password must not match the old password",
-    "accountHasBeenBlock": "Your account has been blocked"
+    "accountHasBeenBlock": "Your account has been blocked",
+    "dowloadFail": "Dowload failed",
+    "dowloadSuccess": "Dowload succeeded"
   },
 
   "item": {

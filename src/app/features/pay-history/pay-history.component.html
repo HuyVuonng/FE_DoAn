@@ -26,8 +26,12 @@
     </form>
 
 
-    <div class="flex  mt-5">
+    <div class="flex  my-5 justify-between items-center">
         <p class="text-primary text-xl font-medium ">{{"payHistoryPage.payHistory"|translate}}</p>
+        <button nz-button nzType="primary" class="mr-3" (click)="exportFile()">
+            <i class="fa-solid fa-download pr-[6px]"></i>
+            <span>Xuất file report</span>
+        </button>
     </div>
 
     <app-share-table [pageIndex]="1" [loaded]="!isLoading" [data]="data" [total]="totalCount" [pageSize]="30"

@@ -115,7 +115,9 @@
     "areUSureDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản ",
     "confirmChangeStatus": "Xác nhận thay đổi trạng thái tài khoản",
     "confirmDeleteAccount": "Xác nhận xóa tài khoản",
-    "accountHasBeenBlock": "Tài khoản của bạn đã bị khóa"
+    "accountHasBeenBlock": "Tài khoản của bạn đã bị khóa",
+    "dowloadFail": "Tải xuống không thành công",
+    "dowloadSuccess": "Tải xuống thành công"
   },
   "item": {
     "yourTask": "Công việc của bạn",

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 import { payhistoryModel } from '../models/post';
 
 @Injectable({
@@ -26,5 +26,15 @@ export class PayHistoryService {
     return this.http.get(
       this.apiUrl + `/pay-history/getLastPayOfPost?id=${id}`,
     );
+  }
+  exportPayHistory(): Observable<any> {
+    const body = {
+      accountId: JSON.parse(localStorage.getItem('user_infor')!)?.id,
+    };
+    return this.http
+      .post(this.apiUrl + `/pay-history/ExportListPayHistory`, body, {
+        responseType: 'blob',
+      })
+      .pipe(map((response: Blob) => response));
   }
 }
