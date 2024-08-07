@@ -220,10 +220,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.addressService.getWards(value).subscribe((data) => {
         this.listWard = data;
         this.listWard.unshift({ label: this.labelAll, value: 0 });
-        this.form.patchValue({ ward: 0 });
-        this.ward?.subscribe((param) => {
-          if (param) {
-            this.form.patchValue({ ward: param });
+
+        this.district?.subscribe((param) => {
+          if (param === this.form.get('district')?.value) {
+            this.ward?.subscribe((param) => {
+              if (param) {
+                this.form.patchValue({ ward: param });
+              }
+            });
+          } else {
+            this.form.patchValue({ ward: 0 });
           }
         });
       });
