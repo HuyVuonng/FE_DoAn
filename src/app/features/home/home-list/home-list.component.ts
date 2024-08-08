@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
@@ -18,29 +19,29 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home-list.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeListComponent implements OnInit {
+export class HomeListComponent implements OnInit, AfterViewChecked {
   @ViewChild('swiper') swiper!: ElementRef<any>;
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     const swiper = {
       // Default parameters
-      slidesPerView: 1,
-      spaceBetween: 10,
+      slidesPerView: 4,
+      spaceBetween: 12,
       // Responsive breakpoints
       breakpoints: {
         // when window width is >= 320px
         320: {
           slidesPerView: 1,
-          spaceBetween: 20,
+          spaceBetween: 12,
         },
         // when window width is >= 480px
         480: {
-          slidesPerView: 3,
-          spaceBetween: 30,
+          slidesPerView: 2,
+          spaceBetween: 12,
         },
         // when window width is >= 640px
         640: {
-          slidesPerView: 4,
-          spaceBetween: 40,
+          slidesPerView: 3,
+          spaceBetween: 12,
         },
       },
     };
