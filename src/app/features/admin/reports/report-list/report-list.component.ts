@@ -12,6 +12,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ReportService } from '../../../../core/api/report.service';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { PayAndSendMailService } from '../../../../core/api/PayAndSendMailServices';
 
 @Component({
   selector: 'app-report-list',
@@ -54,6 +55,7 @@ export class ReportListComponent implements OnInit {
     private translate: TranslateService,
     private reportService: ReportService,
     private snackbar: SnackbarService,
+    private sendEmail: PayAndSendMailService,
   ) {
     this.translate
       .get('Toast.updateSuccess')
@@ -190,7 +192,8 @@ export class ReportListComponent implements OnInit {
       if (searchValue[key] === null || searchValue[key] === '') {
         delete searchValue[key];
       } else {
-        searchValue[key] = searchValue[key]?.trim();
+        searchValue[key] =
+          key === 'postTitle' ? searchValue[key]?.trim() : searchValue[key];
       }
     });
     this.isLoading = true;
@@ -203,11 +206,7 @@ export class ReportListComponent implements OnInit {
     this.getReport();
   }
   searchByEnter(e: any) {
-    console.log('a');
-
     if (e.keyCode === 13) {
-      console.log('an');
-
       this.handelSearch();
     }
   }
@@ -241,9 +240,18 @@ export class ReportListComponent implements OnInit {
       reportStatus: status,
       id: data.id,
     };
+
     this.reportService.updateReport(body).subscribe(
-      (data) => {
+      () => {
         this.snackbar.success(this.updateSuccess);
+        if (status === 1) {
+          const bodySenMail = {
+            email: data.emailOfPost,
+            postLink: `${window.location.protocol}//${window.location.host}/detail/manager/${data.postId}`,
+            contentReport: data.detail,
+          };
+          this.sendEmail.sendMailReport(bodySenMail).subscribe((data) => {});
+        }
         this.getReport();
       },
       () => {

@@ -37,4 +37,10 @@ export class PayAndSendMailService {
   sendMailForgotPass(body: any): Observable<any> {
     return this.http.post(this.apiUrl + '/sendMailForgotPass', body);
   }
+
+  sendMailReport(body: any): Observable<any> {
+    console.log(body);
+
+    return this.http.post(this.apiUrl + '/sendMailReport', body);
+  }
 }
